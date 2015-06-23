@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!--http://stephenwalther.com/archive/2010/11/30/an-introduction-to-jquery-templates-->
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css" />
+    <script src="Scripts/DataBase.js"></script>
+    <script src="Scripts/ServerProxy.js"></script>
+    <script src="Scripts/Sudents.js"></script>
+    <script src="Scripts/Teachers.js"></script>
+
+
+
+</head>
+
+<body>
+
+     <!--Head-->
+    <script id="HeadTemplate" type="text/x-jquery-tmpl">
+        <div data-role="header">
+            <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-left">
+                <a data-role="button" data-rel="back" data-icon="back">Back</a>
+                <a href="#MainMenu" data-role="button" data-icon="home">Home</a>
+            </div>
+            <h1>MainMenu</h1>
+        </div>
+        <!-- /header -->
+    </script>
+
+    <script id="FooterTemplate" type="text/x-jquery-tmpl">
+        <div data-role="footer">
+            <h4>Page Footer</h4>
+        </div>
+    </script>
+    <!-- /footer -->
+
+    <!--pick up studends-->
+    <!--add if to set the distinct a\b\c-->
+    <!--if (current.firstletter !=last.firstletter)
+        <li data-role="list-divider">${current.firstletter}</li>
+        -->
+    <script id="StudentListPickUpTemplate" type="text/x-jquery-tmpl">
+        {{if isPickedUp=='false' }}
+        <li>{{else}}
+        <li data-theme="e">{{/if}}
+
+            <a href="#SudentInfo" onclick="Student.SetCurrentStudent($(this).tmplItem().data);"
+                rel="external" data-sclass="${sClass}" data-grade="${grade}">
+                <p><b>${firstName} ${lastName}</b> <span> ${grade}${sClass}</span></p>
+            </a>
+        </li>
+    </script>
+
+     <script id="StudentDetailsTemplate" type="text/x-jquery-tmpl">
+        <div data-role="content">
+            <img src="${img}" height="70px" />
+            <h1>${firstName} ${lastName}</h1>
+            <h2>Class: ${grade}${sClass}</h2>
+            <h2>Checked In By: ${checkedIn.byWhom}</h2>
+            <h2>Checked In At: ${checkedIn.when}</h2>
+            <h2>Checked Out? ${isPickedUp}</h2>
+
+
+            <h2>Moms name: ${checkedIn.when}</h2>
+            <h2>Moms phone: ${checkedIn.when}</h2>
+            <h2>Dads name: ${checkedIn.when}</h2>
+            <h2>Dads phone: ${checkedIn.when}</h2>
+
+
+
+
+            <fieldset data-role="controlgroup">
+                <legend>Picked up by:</legend>
+
+                {{each pickUpOptions}}
+                <input type="radio" name="radio-picked-by" id="radio-picked-by-${$index+1}" value="${$value.byWhom}" />
+                <label for="radio-picked-by-${$index+1}">${$value.byWhom}</label>
+                {{/each}}
+
+                <input type="radio" name="radio-picked-by" id="radio-picked-by-20" value="otherPicker" />
+                <input type="text" id="PickedUpOther" placeholder="Insert Name..." />
+            </fieldset>
+            <button data-role="button" onclick="
+                Student.StudentPickedUpApproval($(this).tmplItem().data,$('input:radio[name=radio-picked-by]:checked').val(), $('#PickedUpOther').val());">
+                Approve
+            </button>
+
+        </div>
+
+    </script>
+
+    <!--pick up studends end -->
+  
+   
+    <!--Student Health -->
+
+    <script id="StudentHealthListTemplate" type="text/x-jquery-tmpl">
+
+        <li>
+            <a href="#SudentInfo" onclick="Student.SetCurrentStudent($(this).tmplItem().data);" rel="external">
+                <p><b>${firstName} ${lastName}</b> <span> ${grade}${sClass}</span> ${healthIssues}</p>
+            </a>
+        </li>
+    </script>
+
+    <!--Student Health end -->
+
+
+   
+    <!--${$value.byWhom}-->
+    <!--end Templates-->
+    <!-- Start of Main Menu -->
+    <!--Thumbnail list-->
+    <div data-role="page" id="MainMenu">
+        <div class="HeaderMM"></div>
+
+        <div class="content-primary">
+            <ul data-role="listview">
+                <li>
+                    <a href="#PickUp">
+                        <img src="http://demos.jquerymobile.com/1.2.1/docs/lists/images/album-bb.jpg" />
+                        <h3>PickUp Students</h3>
+                        <p>PickUp Students</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#MyInfo">
+                        <img src="http://demos.jquerymobile.com/1.2.1/docs/lists/images/album-af.jpg" />
+                        <h3>My Counsler Info</h3>
+                        <p>My Info</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#StudentsHealthList">
+                        <img src="http://www.sovereignhealthcare.co.uk/wp/wp-content/uploads/2014/02/healthy-heart.jpg" />
+                        <h3>HealthIssues</h3>
+                        <p>HealthIssues</p>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <!--/content-primary -->
+
+        <div class="FooterMM"></div>
+
+    </div>
+    <!-- /page -->
+    <!-- End of Main Menu -->
+
+    <!-- Start of MyInfo-->
+    <div data-role="page" id="MyInfo">
+
+        <div class="HeaderMM"></div>
+
+        <div data-role="content">
+            <p>My Info</p>
+            <p><a href="#MainMenu">Back to MainMenu</a></p>
+        </div>
+
+        <div class="FooterMM"></div>
+
+    </div>
+
+
+
+
+
+    <!-- /page -->
+    <!-- End of MyInfo-->
+    <!-- Start of Pick Up-->
+    <!--Divided, filterable list-->
+    <div data-role="page" id="PickUp">
+        <div class="HeaderMM"></div>
+        <!--code here to remove the default filter only for my class-->
+        <button data-role="button" id="btnPickUpShowAllStudents">Show All Students</button>
+
+        <fieldset data-role="controlgroup" data-type="horizontal">
+            <div class="ui-controlgroup-controls pickUpFilterGrade">
+                <div class="ui-checkbox">
+                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeGan" value="gan" checked/>
+                    <label for="checkboxGradeGan">Gan</label>
+                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeA" value="a" checked="checked" />
+                    <label for="checkboxGradeA">A</label>
+                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeB" value="b" checked/>
+                    <label for="checkboxGradeB">B</label>
+                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeC" value="c" checked/>
+                    <label for="checkboxGradeC">C</label>
+                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeD" value="d" checked/>
+                    <label for="checkboxGradeD">D</label>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset data-role="controlgroup" data-type="horizontal">
+            <div class="ui-controlgroup-controls pickUpFilterClass">
+                <div class="ui-checkbox">
+                    <input type="checkbox" name="cbClassesSelected" id="checkbox-1" checked value="1" />
+                    <label for="checkbox-1">1</label>                               
+                    <input type="checkbox" name="cbClassesSelected" id="checkbox-2" checked value="2"/>
+                    <label for="checkbox-2">2</label>                               
+                    <input type="checkbox" name="cbClassesSelected" id="checkbox-3" checked value="3"/>
+                    <label for="checkbox-3">3</label>                               
+                    <input type="checkbox" name="cbClassesSelected" id="checkbox-4" checked value="4"/>
+                    <label for="checkbox-4">4</label>                               
+                    <input type="checkbox" name="cbClassesSelected" id="checkbox-5" checked value="5"/>
+                    <label for="checkbox-5">5</label>
+                </div>
+            </div>
+        </fieldset>
+        <div data-role="content">
+            <div class="content-primary">
+                <ul class="studentsList" data-role="listview" data-filter="true" data-filter-placeholder="Search student..." data-filter-theme="d" data-theme="d"
+                    data-autodividers="true"
+                    data-divider-theme="d">
+                  
+                </ul>
+            </div>
+        </div>
+        <script>
+            $("#StudentListPickUpTemplate").tmpl(Student.Students).appendTo(".studentsList");
+            //$("#StudentListAvaiableClassesTemplate").tmpl(Student.AvaiableGrades).appendTo(".AvaiableClassesNavBar");
+        </script>
+        <div class="FooterMM"></div>
+    </div>
+
+
+    <!-- /page -->
+    <!-- End of Pick Up-->
+    <!-- Start of Pick Up-->
+    <!--Divided, filterable list-->
+
+    <div data-role="page" id="StudentsHealthList">
+        <div class="HeaderMM"></div>
+        <!--code here to remove the default filter only for my class-->
+        <button data-role="button">Show All Students</button>
+        <div data-role="content">
+            <div class="content-primary">
+                <ul class="studentsHealthList"
+                    data-autodividers="true"
+                    data-role="listview" data-filter="true" data-filter-placeholder="Search student..." data-filter-theme="d" data-theme="d" data-divider-theme="d">
+                </ul>
+            </div>
+        </div>
+        <!-- /content -->
+        <script>
+            $("#StudentHealthListTemplate").tmpl(Student.Students).appendTo(".studentsHealthList");
+            //$("#StudentListAvaiableClassesTemplate").tmpl(Student.AvaiableGrades).appendTo(".AvaiableClassesNavBar");
+        </script>
+        <div class="FooterMM"></div>
+    </div>
+
+
+    <div data-role="page" id="SudentInfo">
+
+        <div class="HeaderMM"></div>
+
+        <div class="StudentFullInfo"></div>
+
+        <div class="FooterMM"></div>
+
+    </div>
+    <!-- /page -->
+    <!-- End of Pick Up-->
+    <!--execute templates-->
+    <script>
+        $("#HeadTemplate").tmpl().appendTo(".HeaderMM");
+        $("#FooterTemplate").tmpl().appendTo(".FooterMM");
+
+
+    </script>
+    <script src="Scripts/Tests.js"></script>
+
+    <style>
+        .ui-hidden-component {
+            display: none !important;
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,11 @@
+D:\CarambolaDevProjects\Mobile\Mobile\Mobile\bin\Mobile.dll.config
+D:\CarambolaDevProjects\Mobile\Mobile\Mobile\bin\Mobile.dll
+D:\CarambolaDevProjects\Mobile\Mobile\Mobile\bin\Mobile.pdb
+D:\CarambolaDevProjects\Mobile\Mobile\Mobile\obj\Debug\Mobile.csprojResolveAssemblyReference.cache
+D:\CarambolaDevProjects\Mobile\Mobile\Mobile\obj\Debug\Mobile.dll
+D:\CarambolaDevProjects\Mobile\Mobile\Mobile\obj\Debug\Mobile.pdb
+D:\apps\Mobile\Mobile\Mobile\Mobile\bin\Mobile.dll
+D:\apps\Mobile\Mobile\Mobile\Mobile\bin\Mobile.pdb
+D:\apps\Mobile\Mobile\Mobile\Mobile\obj\Debug\Mobile.csprojResolveAssemblyReference.cache
+D:\apps\Mobile\Mobile\Mobile\Mobile\obj\Debug\Mobile.dll
+D:\apps\Mobile\Mobile\Mobile\Mobile\obj\Debug\Mobile.pdb
