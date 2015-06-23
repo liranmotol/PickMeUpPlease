@@ -83,7 +83,7 @@
                 {{/each}}
 
                 <input type="radio" name="radio-picked-by" id="radio-picked-by-20" value="otherPicker" />
-                <input type="text" id="PickedUpOther" placeholder="Insert Name..." />
+                <input for="radio-picked-by-20" type="text" id="PickedUpOther" placeholder="Insert Name..." />
             </fieldset>
             <button data-role="button" onclick="
                 Student.StudentPickedUpApproval($(this).tmplItem().data,$('input:radio[name=radio-picked-by]:checked').val(), $('#PickedUpOther').val());">

@@ -17,8 +17,8 @@ Student.StudentPickedUpApproval = function (thisStudent, by, other) {
         thisStudent.pickUp.byWhom = by;
 
     thisStudent.isPickedUp = 'true';
-    Student.MoveToStudentListPickUpTemplate();
     Proxy.StudentPickedUp(thisStudent);
+    Student.MoveToStudentListPickUpTemplate();
     console.log(thisStudent);
     //thisStudent.pickUp.byWhom = 
 }
@@ -32,7 +32,6 @@ Student.MoveToStudentListPickUpTemplate = function () {
 }
 
 Student.SetCurrentStudent = function (thisStudent) {
-
     Student.CurrentStudent = thisStudent;
     console.log(Student.CurrentStudent);
     $(".StudentFullInfo").html("");
@@ -42,13 +41,6 @@ Student.SetCurrentStudent = function (thisStudent) {
 }
 
 Student.UpdateStudentsLists = function () {
-    //if ($('.studentsList').hasClass('ui-listview'))
-    //    $(".studentsList").listview("refresh");
-    //if ($('#PickUp').hasClass('ui-listview'))
-    //    $("#PickUp").listview('refresh');
-    //$(".studentsList")
-    //.empty()
-    //.append($("#StudentListPickUpTemplate").tmpl(Student.Students()));
     $(".studentsList").empty();
     $("#StudentListPickUpTemplate").tmpl(Student.Students).appendTo(".studentsList");
     $(".studentsList").listview("refresh");
