@@ -20,7 +20,7 @@
 
 <body>
 
-     <!--Head-->
+    <!--Head-->
     <script id="HeadTemplate" type="text/x-jquery-tmpl">
         <div data-role="header">
             <div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-left">
@@ -51,12 +51,12 @@
 
             <a href="#SudentInfo" onclick="Student.SetCurrentStudent($(this).tmplItem().data);"
                 rel="external" data-sclass="${sClass}" data-grade="${grade}">
-                <p><b>${firstName} ${lastName}</b> <span> ${grade}${sClass}</span></p>
+                <p><b>${firstName} ${lastName}</b> <span>${grade}${sClass}</span></p>
             </a>
         </li>
     </script>
 
-     <script id="StudentDetailsTemplate" type="text/x-jquery-tmpl">
+    <script id="StudentDetailsTemplate" type="text/x-jquery-tmpl">
         <div data-role="content">
             <img src="${img}" height="70px" />
             <h1>${firstName} ${lastName}</h1>
@@ -95,15 +95,15 @@
     </script>
 
     <!--pick up studends end -->
-  
-   
+
+
     <!--Student Health -->
 
     <script id="StudentHealthListTemplate" type="text/x-jquery-tmpl">
 
         <li>
             <a href="#SudentInfo" onclick="Student.SetCurrentStudent($(this).tmplItem().data);" rel="external">
-                <p><b>${firstName} ${lastName}</b> <span> ${grade}${sClass}</span> ${healthIssues}</p>
+                <p><b>${firstName} ${lastName}</b> <span>${grade}${sClass}</span> ${healthIssues}</p>
             </a>
         </li>
     </script>
@@ -111,7 +111,7 @@
     <!--Student Health end -->
 
 
-   
+
     <!--${$value.byWhom}-->
     <!--end Templates-->
     <!-- Start of Main Menu -->
@@ -171,6 +171,20 @@
 
 
 
+    <!--grades and class filters-->
+    <script id="GradesFilterTemplate" type="text/x-jquery-tmpl">            
+    
+          {{html this.IsChecked=Student.UpdateGradesByLocalStorage(this,false) }} 
+        {{html console.log(this)}} 
+        {{html console.log(this.IsChecked)}} 
+            <div class="ui-checkbox">
+                <input type="checkbox" name="cbGradeSelected" id="checkbox1" value="gan" checked="${this.IsChecked}" />
+                <label for="checkboxGradeGan">${this}</label>
+            </div>
+
+      
+    </script>
+    <!--grades and class filters end-->
 
     <!-- /page -->
     <!-- End of MyInfo-->
@@ -180,19 +194,20 @@
         <div class="HeaderMM"></div>
         <!--code here to remove the default filter only for my class-->
         <button data-role="button" id="btnPickUpShowAllStudents">Show All Students</button>
-
+    
         <fieldset data-role="controlgroup" data-type="horizontal">
+            <!--when moving to templ take the data from local storage if exists)and mark check\not check according to it-->
             <div class="ui-controlgroup-controls pickUpFilterGrade">
                 <div class="ui-checkbox">
-                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeGan" value="gan" checked/>
+                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeGan" value="GAN" checked />
                     <label for="checkboxGradeGan">Gan</label>
-                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeA" value="a" checked="checked" />
+                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeA" value="A" checked="checked" />
                     <label for="checkboxGradeA">A</label>
-                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeB" value="b" checked/>
+                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeB" value="B" checked />
                     <label for="checkboxGradeB">B</label>
-                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeC" value="c" checked/>
+                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeC" value="C" checked />
                     <label for="checkboxGradeC">C</label>
-                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeD" value="d" checked/>
+                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeD" value="D" checked />
                     <label for="checkboxGradeD">D</label>
                 </div>
             </div>
@@ -202,14 +217,14 @@
             <div class="ui-controlgroup-controls pickUpFilterClass">
                 <div class="ui-checkbox">
                     <input type="checkbox" name="cbClassesSelected" id="checkbox-1" checked value="1" />
-                    <label for="checkbox-1">1</label>                               
-                    <input type="checkbox" name="cbClassesSelected" id="checkbox-2" checked value="2"/>
-                    <label for="checkbox-2">2</label>                               
-                    <input type="checkbox" name="cbClassesSelected" id="checkbox-3" checked value="3"/>
-                    <label for="checkbox-3">3</label>                               
-                    <input type="checkbox" name="cbClassesSelected" id="checkbox-4" checked value="4"/>
-                    <label for="checkbox-4">4</label>                               
-                    <input type="checkbox" name="cbClassesSelected" id="checkbox-5" checked value="5"/>
+                    <label for="checkbox-1">1</label>
+                    <input type="checkbox" name="cbClassesSelected" id="checkbox-2" checked value="2" />
+                    <label for="checkbox-2">2</label>
+                    <input type="checkbox" name="cbClassesSelected" id="checkbox-3" checked value="3" />
+                    <label for="checkbox-3">3</label>
+                    <input type="checkbox" name="cbClassesSelected" id="checkbox-4" checked value="4" />
+                    <label for="checkbox-4">4</label>
+                    <input type="checkbox" name="cbClassesSelected" id="checkbox-5" checked value="5" />
                     <label for="checkbox-5">5</label>
                 </div>
             </div>
@@ -219,12 +234,12 @@
                 <ul class="studentsList" data-role="listview" data-filter="true" data-filter-placeholder="Search student..." data-filter-theme="d" data-theme="d"
                     data-autodividers="true"
                     data-divider-theme="d">
-                  
                 </ul>
             </div>
         </div>
         <script>
             $("#StudentListPickUpTemplate").tmpl(Student.Students).appendTo(".studentsList");
+            $("#GradesFilterTemplate").tmpl(Student.GradesList).appendTo(".pickUpFilterGrade");
             //$("#StudentListAvaiableClassesTemplate").tmpl(Student.AvaiableGrades).appendTo(".AvaiableClassesNavBar");
         </script>
         <div class="FooterMM"></div>
@@ -284,3 +299,9 @@
     </style>
 </body>
 </html>
+
+
+<!--
+    sending param in template
+    <script id="Script1" type="text/x-jquery-tmpl">            
+        {{html htmlDetail(this) }} -->

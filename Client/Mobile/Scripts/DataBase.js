@@ -20,6 +20,7 @@ DataBase.Students = [
                lastName: "Ziegler",
                grade: "A", sClass: "1",
                pickUpFrom: "Yard", healthIssues: "",
+               pickUp: { byWhom: "", when: "" },
                checkedIn: [{ byWhom: "", when: "" }],
                pickUpOptions: [{ byWhom: "" }, { byWhom: "" }, { byWhom: "" }],
                isPickedUp: 'false'
