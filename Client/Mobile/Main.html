@@ -66,10 +66,10 @@
             <h2>Checked Out? ${isPickedUp}</h2>
 
 
-            <h2>Moms name: ${checkedIn.when}</h2>
-            <h2>Moms phone: ${checkedIn.when}</h2>
-            <h2>Dads name: ${checkedIn.when}</h2>
-            <h2>Dads phone: ${checkedIn.when}</h2>
+         <h2>Parent1 name: ${parent1Name}</h2>
+            <h2>Parent1 phone: ${parent1Num}</h2>
+            <h2>Parent2 name: ${parent2Name}</h2>
+            <h2>Parent2 phone: ${parent2Num}</h2>
 
 
 
@@ -98,15 +98,42 @@
 
 
     <!--Student Health -->
+    <script id="StudentHealthDetailsTemplate" type="text/x-jquery-tmpl">
+        <div data-role="content">
+            <img src="${img}" height="70px" />
+            <h1>${firstName} ${lastName}</h1>
+            <h2>Class: ${grade}${sClass}</h2>
+
+            <h2>healthIssues: ${healthIssues}</h2>
+
+            <h2>Parent1 name: ${parent1Name}</h2>
+            <h2>Parent1 phone: ${parent1Num}</h2>
+            <h2>Parent2 name: ${parent2Name}</h2>
+            <h2>Parent2 phone: ${parent2Num}</h2>
+
+
+        </div>
+
+    </script>
 
     <script id="StudentHealthListTemplate" type="text/x-jquery-tmpl">
 
         <li>
-            <a href="#SudentInfo" onclick="Student.SetCurrentStudent($(this).tmplItem().data);" rel="external">
+            <a href="#SudentInfoHealth" onclick="Student.SetCurrentStudentHealth($(this).tmplItem().data);" rel="external">
                 <p><b>${firstName} ${lastName}</b> <span>${grade}${sClass}</span> ${healthIssues}</p>
             </a>
         </li>
     </script>
+
+      <div data-role="page" id="SudentInfoHealth">
+
+        <div class="HeaderMM"></div>
+
+        <div class="StudentFullInfoHealth"></div>
+
+        <div class="FooterMM"></div>
+
+    </div>
 
     <!--Student Health end -->
 
@@ -305,3 +332,5 @@
     sending param in template
     <script id="Script1" type="text/x-jquery-tmpl">            
         {{html htmlDetail(this) }} -->
+
+<!--lily, what about sensitivity and medical care other than food -->

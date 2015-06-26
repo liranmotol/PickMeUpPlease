@@ -1,0 +1,12 @@
+﻿schedualer
+student scheduale
+
+
+
+1. Models
+	a. create student model
+	b. create teacher model
+2. load csv and export valid Studends json
+3. phone number as clickable phone
+4. add branch a. combo box
+			  b. connect data to that branch.

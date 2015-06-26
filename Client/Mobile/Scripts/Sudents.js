@@ -26,9 +26,20 @@ Student.MoveToStudentListPickUpTemplate = function () {
     window.location.replace('#PickUp');
 }
 
-Student.SetCurrentStudent = function (thisStudent) {
+Student.SetCurrentStudentGeneric = function (thisStudent) {
     Student.CurrentStudent = thisStudent;
     console.log(Student.CurrentStudent);
+}
+
+Student.SetCurrentStudentHealth = function (thisStudent) {
+    Student.SetCurrentStudentGeneric(thisStudent);
+    $(".StudentFullInfoHealth").html("");
+    $("#StudentHealthDetailsTemplate").tmpl(Student.CurrentStudent).appendTo(".StudentFullInfoHealth");
+    $("#SudentInfoHealth").trigger("create");
+    return false;
+}
+Student.SetCurrentStudent = function (thisStudent) {
+    Student.SetCurrentStudentGeneric(thisStudent);
     $(".StudentFullInfo").html("");
     $("#StudentDetailsTemplate").tmpl(Student.CurrentStudent).appendTo(".StudentFullInfo");
     $("#SudentInfo").trigger("create");

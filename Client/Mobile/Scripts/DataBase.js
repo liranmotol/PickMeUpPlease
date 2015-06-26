@@ -11,6 +11,8 @@ DataBase.Students = [
              pickUp: { byWhom: "", when: "" },
              pickUpOptions: [{ byWhom: "a2" }, { byWhom: "a4" }, { byWhom: "a5" }],
              isPickedUp: 'false',
+             parent1Name: 'parent 1', parent1Num: '050-5555555',
+             parent2Name: 'parent 1', parent2Num: '050-5555555',
 
          },
            {
@@ -23,7 +25,9 @@ DataBase.Students = [
                pickUp: { byWhom: "", when: "" },
                checkedIn: [{ byWhom: "", when: "" }],
                pickUpOptions: [{ byWhom: "" }, { byWhom: "" }, { byWhom: "" }],
-               isPickedUp: 'false'
+               isPickedUp: 'false',
+               parent1Name: 'parent 1', parent1Num: '050-5555555',
+               parent2Name: 'parent 1', parent2Num: '050-5555555',
            },
            ,
 {
@@ -36,7 +40,9 @@ DataBase.Students = [
     checkedIn: [{ byWhom: "", when: "" }],
     pickUp: { byWhom: "", when: "" },
     pickUpOptions: [{ byWhom: "" }, { byWhom: "" }, { byWhom: "" }],
-    isPickedUp: 'false'
+    isPickedUp: 'false',
+    parent1Name: 'parent 1', parent1Num: '050-5555555',
+    parent2Name: 'parent 1', parent2Num: '050-5555555',
 },
            ,
 {
@@ -49,7 +55,9 @@ DataBase.Students = [
     checkedIn: [{ byWhom: "", when: "" }],
     pickUp: { byWhom: "", when: "" },
     pickUpOptions: [{ byWhom: "" }, { byWhom: "" }, { byWhom: "" }],
-    isPickedUp: 'false'
+    isPickedUp: 'false',
+    parent1Name: 'parent 1', parent1Num: '050-5555555',
+    parent2Name: 'parent 1', parent2Num: '050-5555555',
 },
            ,
 {
@@ -63,7 +71,9 @@ DataBase.Students = [
     checkedIn: [{ byWhom: "", when: "" }],
     pickUp: { byWhom: "", when: "" },
     pickUpOptions: [{ byWhom: "" }, { byWhom: "" }, { byWhom: "" }],
-    isPickedUp: 'false'
+    isPickedUp: 'false',
+    parent1Name: 'parent 1', parent1Num: '050-5555555',
+    parent2Name: 'parent 1', parent2Num: '050-5555555',
 },
            ,
 {
@@ -77,7 +87,9 @@ DataBase.Students = [
     checkedIn: [{ byWhom: "", when: "" }],
     pickUp: { byWhom: "", when: "" },
     pickUpOptions: [{ byWhom: "" }, { byWhom: "" }, { byWhom: "" }],
-    isPickedUp: 'true'
+    isPickedUp: 'true',
+    parent1Name: 'parent 1', parent1Num: '050-5555555',
+    parent2Name: 'parent 1', parent2Num: '050-5555555',
 },
 ];
 

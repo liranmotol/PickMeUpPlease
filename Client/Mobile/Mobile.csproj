@@ -66,6 +66,7 @@
     <Content Include="Scripts\Teachers.js" />
     <Content Include="Scripts\Tests.js" />
     <Content Include="Style\Main.css" />
+    <Content Include="TODOs.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
