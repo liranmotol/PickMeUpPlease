@@ -6,32 +6,32 @@ using System.Threading.Tasks;
 
 namespace Utils
 {
-   public class StudentsModel
+    public class StudentsModel
     {
-public string       studentID;
-public string             img;
-public string             firstName;
-public string             lastName;
-public string        grade; 
-public string       sClass;
-public string       pickUpFrom;
-public string       healthIssues;
-public CeckedInOutModel  checkedIn;
-public CeckedInOutModel pickUp;
-public List<string>  pickUpOptions;
-public bool        isPickedUp;
-public  string      parent1Name;
-public  string      parent1Num;
-public  string      parent2Name;
-public  string      parent2Num;
+        public string StudentID { get; set; }
+        public string Img{ get; set; }
+        public string FirstName{ get; set; }
+        public string LastName{ get; set; }
+        public string Grade{ get; set; }
+        public string SClass{ get; set; }
+        public string PickUpFrom{ get; set; }
+        public string HealthIssues{ get; set; }
+        public CeckedInOutModel CheckedIn{ get; set; }
+        public CeckedInOutModel PickUp{ get; set; }
+        public List<string> PickUpOptions{ get; set; }
+        public bool IsPickedUp{ get; set; }
+        public string Parent1Name{ get; set; }
+        public string Parent1Num{ get; set; }
+        public string Parent2Name{ get; set; }
+        public string Parent2Num{ get; set; }
 
     }
 
-public class CeckedInOutModel
-{
- public  string   byWhom;
- public string when;
-}
+    public class CeckedInOutModel
+    {
+        public string ByWhom{ get; set; }
+        public string When{ get; set; }
+    }
 
 
 
