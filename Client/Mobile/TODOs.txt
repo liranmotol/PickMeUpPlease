@@ -1,6 +1,6 @@
 ﻿schedualer
 student scheduale
-
+check in screen
 
 
 1. Models
@@ -10,3 +10,4 @@ student scheduale
 3. phone number as clickable phone
 4. add branch a. combo box
 			  b. connect data to that branch.
+

@@ -7,14 +7,15 @@ Student.StudentPickedUpApproval = function (thisStudent, by, other) {
     console.log("student PickedUp");
     console.log(other);
     console.log(by);
-    thisStudent.pickUp.when = new Date().toLocaleTimeString().toString();
+    thisStudent.PickUp;
+    thisStudent.PickUp.When = new Date().toLocaleTimeString().toString();
     if (by == 'otherPicker') {
-        thisStudent.pickUp.byWhom = other;
+        thisStudent.PickUp.ByWhom = other;
     }
     else
-        thisStudent.pickUp.byWhom = by;
+        thisStudent.PickUp.ByWhom = by;
 
-    thisStudent.isPickedUp = 'true';
+    thisStudent.IsPickedUp = 'true';
     Proxy.StudentPickedUp(thisStudent);
     Student.MoveToStudentListPickUpTemplate();
     console.log(thisStudent);
@@ -108,8 +109,6 @@ Student.FilterChanged = function () {
     var classes = localStorage.getItem("SelectedClass").split(',');
     var grades = localStorage.getItem("SelectedGrades").split(',');
 
-    console.log(classes[1]);
-    console.log(grades[0]);
 
 };
 Student.UpdateGradesByLocalStorage = function (filterItem,takeClass)
@@ -138,8 +137,13 @@ Student.UpdateGradesByLocalStorage = function (filterItem,takeClass)
 
 };
 
+Student.ApprovedClicked = function (selector)
+{
+    $(selector).prop('checked', true);
+}
 
-function htmlDetail(data) { data.bla = "true"; console.log(data); }
+
+function htmlDetail(data) { data.bla = "true"; console.log("****"); console.log(data); }
 
 //comment out code
 
@@ -166,7 +170,7 @@ function htmlDetail(data) { data.bla = "true"; console.log(data); }
 //                    if (SelectedGrades.indexOf($this.grade) > -1
 //                        && SelectedClass.indexOf($this.sClass) > -1)
 
-//                    $listview.children().addClass("ui-hidden-component");
+//                  gshhi");
 //                }
 //            });
 //          //if ($('input[data-type="search"]').val() == '') {

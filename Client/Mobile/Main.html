@@ -45,45 +45,54 @@
         <li data-role="list-divider">${current.firstletter}</li>
         -->
     <script id="StudentListPickUpTemplate" type="text/x-jquery-tmpl">
-        {{if isPickedUp=='false' }}
+        {{if IsPickedUp==false }}
         <li>{{else}}
         <li data-theme="e">{{/if}}
 
             <a href="#SudentInfo" onclick="Student.SetCurrentStudent($(this).tmplItem().data);"
-                rel="external" data-sclass="${sClass}" data-grade="${grade}">
-                <p><b>${firstName} ${lastName}</b> <span>${grade}${sClass}</span></p>
+                rel="external" data-sclass="${SClass}" data-grade="${Grade}">
+                <p><b>${FirstName} ${LastName}</b> <span>${Grade}${SClass}</span></p>
             </a>
         </li>
     </script>
 
     <script id="StudentDetailsTemplate" type="text/x-jquery-tmpl">
         <div data-role="content">
-            <img src="${img}" height="70px" />
-            <h1>${firstName} ${lastName}</h1>
-            <h2>Class: ${grade}${sClass}</h2>
-            <h2>Checked In By: ${checkedIn.byWhom}</h2>
-            <h2>Checked In At: ${checkedIn.when}</h2>
-            <h2>Checked Out? ${isPickedUp}</h2>
+         
+            <img src="${Img}" height="70px" />
+            <h1>${this.data.FirstName} ${LastName}</h1>
+            <h2>Class: ${Grade}${SClass}</h2>
+         
+            {{if CheckedIn.When==null}}
+            <h2>Checked In By: XXXXX</h2>
+            <h2>Checked In At: XXXXX</h2>
+            {{else}}
+            <h2>Checked In By: ${CheckedIn.ByWhom}</h2>
+            <h2>Checked In At: ${CheckedIn.When}</h2>
+            {{/if}}
 
+            {{if PickUp.When!=null}}
+            <h2>Checked Out At: ${PickUp.When}</h2>
+            <h2>Checked Out By: ${PickUp.ByWhom}</h2>
+            {{/if}}
 
-         <h2>Parent1 name: ${parent1Name}</h2>
-            <h2>Parent1 phone: ${parent1Num}</h2>
-            <h2>Parent2 name: ${parent2Name}</h2>
-            <h2>Parent2 phone: ${parent2Num}</h2>
-
-
-
+            <h2>Parent1 name: ${Parent1Name}</h2>
+            <h2>Parent1 phone: ${Parent1Num}</h2>
+            <h2>Parent1 email: ${Parent1Email}</h2>
+            <h2>Parent2 name: ${Parent2Name}</h2>
+            <h2>Parent2 phone: ${Parent2Num}</h2>
 
             <fieldset data-role="controlgroup">
                 <legend>Picked up by:</legend>
 
-                {{each pickUpOptions}}
-                <input type="radio" name="radio-picked-by" id="radio-picked-by-${$index+1}" value="${$value.byWhom}" />
-                <label for="radio-picked-by-${$index+1}">${$value.byWhom}</label>
+                {{each PickUpOptions}}
+                 
+                <input type="radio" name="radio-picked-by" id="radio-picked-by-${$index+1}" value="${$value}" />
+                <label for="radio-picked-by-${$index+1}">${$value}</label>
                 {{/each}}
 
                 <input type="radio" name="radio-picked-by" id="radio-picked-by-20" value="otherPicker" />
-                <input for="radio-picked-by-20" type="text" id="PickedUpOther" placeholder="Insert Name..." />
+                <input type="text" id="PickedUpOther" placeholder="Insert Name..." onkeyup="Student.ApprovedClicked('#radio-picked-by-20')"/>
             </fieldset>
             <button data-role="button" onclick="
                 Student.StudentPickedUpApproval($(this).tmplItem().data,$('input:radio[name=radio-picked-by]:checked').val(), $('#PickedUpOther').val());">
@@ -100,16 +109,17 @@
     <!--Student Health -->
     <script id="StudentHealthDetailsTemplate" type="text/x-jquery-tmpl">
         <div data-role="content">
+          
             <img src="${img}" height="70px" />
-            <h1>${firstName} ${lastName}</h1>
-            <h2>Class: ${grade}${sClass}</h2>
+            <h1>${FirstName} ${LastName}</h1>
+            <h2>Class: ${Grade}${SClass}</h2>
 
-            <h2>healthIssues: ${healthIssues}</h2>
+            <h2>healthIssues: ${HealthIssuesString}</h2>
 
-            <h2>Parent1 name: ${parent1Name}</h2>
-            <h2>Parent1 phone: ${parent1Num}</h2>
-            <h2>Parent2 name: ${parent2Name}</h2>
-            <h2>Parent2 phone: ${parent2Num}</h2>
+            <h2>Parent1 name: ${Parent1Name}</h2>
+            <h2>Parent1 phone: ${Parent1Num}</h2>
+            <h2>Parent2 name: ${Parent2Name}</h2>
+            <h2>Parent2 phone: ${Parent2Num}</h2>
 
 
         </div>
@@ -120,12 +130,12 @@
 
         <li>
             <a href="#SudentInfoHealth" onclick="Student.SetCurrentStudentHealth($(this).tmplItem().data);" rel="external">
-                <p><b>${firstName} ${lastName}</b> <span>${grade}${sClass}</span> ${healthIssues}</p>
+                <p><b>${FirstName} ${LastName}</b> <span>${Grade}${SClass}</span> ${HealthIssuesString}</p>
             </a>
         </li>
     </script>
 
-      <div data-role="page" id="SudentInfoHealth">
+    <div data-role="page" id="SudentInfoHealth">
 
         <div class="HeaderMM"></div>
 
@@ -199,9 +209,8 @@
 
 
     <!--grades and class filters-->
-    <script id="GradesFilterTemplate" type="text/x-jquery-tmpl">            
-    
-          {{html this.IsChecked=Student.UpdateGradesByLocalStorage(this,false) }} 
+    <script id="GradesFilterTemplate" type="text/x-jquery-tmpl">
+        {{html this.IsChecked=Student.UpdateGradesByLocalStorage(this,false) }} 
         {{html console.log(this)}} 
         {{html console.log(this.IsChecked)}} 
             <div class="ui-checkbox">
@@ -209,7 +218,7 @@
                 <label for="checkboxGradeGan">${this}</label>
             </div>
 
-      
+
     </script>
     <!--grades and class filters end-->
 
@@ -221,7 +230,7 @@
         <div class="HeaderMM"></div>
         <!--code here to remove the default filter only for my class-->
         <button data-role="button" id="btnPickUpShowAllStudents">Show All Students</button>
-    
+
         <fieldset data-role="controlgroup" data-type="horizontal">
             <!--when moving to templ take the data from local storage if exists)and mark check\not check according to it-->
             <div class="ui-controlgroup-controls pickUpFilterGrade">
