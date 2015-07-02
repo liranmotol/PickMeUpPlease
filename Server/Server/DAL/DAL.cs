@@ -29,6 +29,10 @@ namespace Server.DAL
             b.StudentsList = BuildList(b.BranchId);
             b2.StudentsList = BuildList(b2.BranchId);
             b5.StudentsList = BuildList(b5.BranchId);
+            
+            b.UpdateBranch();
+            b2.UpdateBranch();
+            b5.UpdateBranch();
 
             var list = new List<BranchModel>() { b, b2, b5 };
             return list;
