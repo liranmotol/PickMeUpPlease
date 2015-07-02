@@ -15,7 +15,9 @@ namespace Server.DAL
             List<CounslerModel> list = new List<CounslerModel>();
             CounslerModel c = new CounslerModel() { AllowedBranchedIds = new List<int>() { 1, 2, 3, 4 }, UserName = "liran", FirstName = "Liran", LastName = "Moto", CounslerID = 1, };
             CounslerModel c1 = new CounslerModel() { AllowedBranchedIds = new List<int>() { 1, 2, 3, 4 }, UserName = "lily", FirstName = "Lily", LastName = "Motola", CounslerID = 2, };
-            list.Add(c); list.Add(c1);
+            CounslerModel c2 = new CounslerModel() { AllowedBranchedIds = new List<int>() { 1, 2, 3, 4 }, UserName = "1", FirstName = "Lily", LastName = "Motola", CounslerID = 3, };
+
+            list.Add(c); list.Add(c1);list.Add(c2);
             return list;
         }
 
@@ -41,9 +43,11 @@ namespace Server.DAL
         private static List<StudentModel> BuildList(int p)
         {
             List<StudentModel> li = new List<StudentModel>();
+            
             for (int i = 0; i < 100; i++)
             {
-                int rand = new Random().Next(0, Boys.Count() - 1);
+                
+                int rand = new Random(i).Next(0, Boys.Count() - 1);
                 string grade = getGrade(rand);
                 int Sclass = getSclass(rand);
                 var health = getHealth(rand);
@@ -75,7 +79,6 @@ namespace Server.DAL
                     PickUpOptions = pickUpOptions2
                 };
                 li.Add(s);
-
             }
             return li;
         }
@@ -87,6 +90,7 @@ namespace Server.DAL
             {
                 l.Add(Boys[rand]);
                 l.Add(Girls[rand]);
+                return l;
             }
             if (rand < 30)
             {
@@ -94,11 +98,13 @@ namespace Server.DAL
                 l.Add(Girls[rand]);
                 l.Add(Boys[rand - 1]);
                 l.Add(Girls[rand - 1]);
+                return l;
             }
             if (rand < 40)
             {
                 l.Add(Boys[rand]);
                 l.Add(Girls[rand]);
+                return l;
             }
             return l;
         }
@@ -108,9 +114,9 @@ namespace Server.DAL
             List<string> l = new List<string>();
             if (rand < 10)
                 l.Add("GLUTEN");
-            if (rand < 20)
+            else if (rand < 20)
                 l.Add("SUGAR");
-            if (rand < 40)
+            else if (rand < 40)
             {
                 l.Add("GLUTEN");
                 l.Add("SUGAR");
