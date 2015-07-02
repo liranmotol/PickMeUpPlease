@@ -1,0 +1,206 @@
+
+<html>
+<head>
+    <meta charset="utf-8" />
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+	<link rel="shortcut icon" type="image/png" href="http://www.favicon.cc/logo3d/62767.png"/>
+    <title>API Test Home Page</title>
+
+    <style type="text/css">
+        /*body {
+            font: 11pt arial;
+        }*/    
+    </style>
+   
+    <script type="text/javascript">
+
+	function updateValues()
+	{
+		Token=$('#txtToken').val();
+		LastSyncTime=$('#txtLastSyncTime').val();
+		PickerName=$('#txtPickerName').val();
+		StudentId=$('#txtStudentId').val();
+		BranchId=$('#txtBranchId').val();
+		Password=$('#txtPassword').val();
+		UserName=$('#txtUserName').val();
+		serverUrl="http://localhost:47588";
+	}
+	
+    function LoginRequest() {
+           updateValues();
+		var Request =
+            {
+                UserName:UserName,
+                Password: Password,                
+            };
+        var json = JSON.stringify(Request);
+		SendRequest(serverUrl+"/LoginRequest",json);       
+    }
+	
+	  function GetBranchInfo() {
+           updateValues();
+		var Request =
+            {
+                LastSyncTime:LastSyncTime,
+                Token: Token,                
+            };
+        var json = JSON.stringify(Request);
+		SendRequest(serverUrl+"/GetBranchInfo",json);       
+    }
+	
+	 function SetStudentPickedUp() {
+           updateValues();
+		var Request =
+            {
+                BranchId:BranchId,
+				StudentId:StudentId,
+				PickerName:PickerName,
+                Token: Token,                
+            };
+        var json = JSON.stringify(Request);
+		SendRequest(serverUrl+"/SetStudentPickedUp",json);       
+    }
+	
+	
+	
+	
+	function SendRequest(url,json)
+	{
+		 $.ajax({
+            type: "POST",
+            url: url,
+            data: json,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+               console.log(data);
+            },
+            error: function (data) {
+                console.log('server FAILED refreshed');
+                console.log(data);
+            }
+        });
+	}
+	
+	
+
+    </script>
+
+
+
+
+
+
+
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                Environment:
+            </td>
+            <td>
+                <select name="cmbEnvironment" onchange="changeEnvironment(this);">
+                    <option value="http://localhost:39840/">Local</option>
+                    <option value="http://qa.adserver.carambo.la/">QA</option>
+                    <option value="http://i2s.carambo.la/xtr/">Production</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Server:
+            </td>
+            <td>
+                <input type="text" value="http://localhost:39840/" title="Server" size="40" id="txtServer" /> 
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Token:
+            </td>
+            <td>
+                <input type="text" value="" title="" size="100" id="txtToken" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                UserName:
+            </td>
+            <td>
+                <input type="text"  title="PageId" size="100" id="txtUserName" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Password:
+            </td>
+            <td>
+                <input type="text" value="0" title="DomainId" size="100" id="txtPassword" />
+            </td>
+        </tr>
+		  <tr>
+            <td>
+				BranchId:
+            </td>
+            <td>
+                <input type="text" value="0" title="Country Id" size="10" id="txtBranchId" />
+            </td>
+        </tr>
+		<tr>
+            <td>
+				StudentId:
+            </td>
+            <td>
+                <input type="text" value="0" title="Country Id" size="10" id="txtStudentId" />
+            </td>
+        </tr>
+      <tr>
+            <td>
+				PickerName:
+            </td>
+            <td>
+                <input type="text" value="0" title="Country Id" size="10" id="txtPickerName" />
+            </td>
+        </tr>
+		 <tr>
+            <td>
+				LastSyncTime:
+            </td>
+            <td>
+                <input type="text" value="0" title="Country Id" size="10" id="txtLastSyncTime" />
+            </td>
+        </tr>
+</table>
+    <br/>
+
+<br/>
+   
+	<table>
+        <tr>
+            <td valign="top">
+                <input type="button" value="SetStudentPickedUp"  onclick="SetStudentPickedUp()" />
+            </td>
+		</tr>
+		 <tr>
+            <td valign="top">
+                <input type="button" value="GetBranchInfo"  onclick="GetBranchInfo()" />
+            </td>
+		</tr>
+		  <tr>
+            <td valign="top">
+                <input type="button" value="LoginRequest"  onclick="LoginRequest()" />
+            </td>
+		</tr>
+    </table>
+		
+   
+    <br />
+   
+
+
+    </body>
+
+
+</html>
