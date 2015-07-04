@@ -4,7 +4,8 @@
     <!--http://stephenwalther.com/archive/2010/11/30/an-introduction-to-jquery-templates-->
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <script src="Scripts/ObjDefinitions.js"></script>
+    <script src="Scripts/Config.js"></script>
     <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
@@ -38,7 +39,6 @@
         </div>
     </script>
     <!-- /footer -->
-
     <!--pick up studends-->
     <!--add if to set the distinct a\b\c-->
     <!--if (current.firstletter !=last.firstletter)
@@ -47,10 +47,11 @@
     <script id="StudentListPickUpTemplate" type="text/x-jquery-tmpl">
         {{if IsPickedUp==false }}
         <li>{{else}}
-        <li data-theme="e">{{/if}}
+        <li data-theme="e">
+            {{/if}}
 
             <a href="#SudentInfo" onclick="Student.SetCurrentStudent($(this).tmplItem().data);"
-                rel="external" data-sclass="${SClass}" data-grade="${Grade}">
+               rel="external" data-sclass="${SClass}" data-grade="${Grade}">
                 <p><b>${FirstName} ${LastName}</b> <span>${Grade}${SClass}</span></p>
             </a>
         </li>
@@ -58,11 +59,11 @@
 
     <script id="StudentDetailsTemplate" type="text/x-jquery-tmpl">
         <div data-role="content">
-         
+
             <img src="${Img}" height="70px" />
             <h1>${this.data.FirstName} ${LastName}</h1>
             <h2>Class: ${Grade}${SClass}</h2>
-         
+
             {{if CheckedIn.When==null}}
             <h2>Checked In By: XXXXX</h2>
             <h2>Checked In At: XXXXX</h2>
@@ -86,13 +87,13 @@
                 <legend>Picked up by:</legend>
 
                 {{each PickUpOptions}}
-                 
+
                 <input type="radio" name="radio-picked-by" id="radio-picked-by-${$index+1}" value="${$value}" />
                 <label for="radio-picked-by-${$index+1}">${$value}</label>
                 {{/each}}
 
                 <input type="radio" name="radio-picked-by" id="radio-picked-by-20" value="otherPicker" />
-                <input type="text" id="PickedUpOther" placeholder="Insert Name..." onkeyup="Student.ApprovedClicked('#radio-picked-by-20')"/>
+                <input type="text" id="PickedUpOther" placeholder="Insert Name..." onkeyup="Student.ApprovedClicked('#radio-picked-by-20')" />
             </fieldset>
             <button data-role="button" onclick="
                 Student.StudentPickedUpApproval($(this).tmplItem().data,$('input:radio[name=radio-picked-by]:checked').val(), $('#PickedUpOther').val());">
@@ -104,12 +105,10 @@
     </script>
 
     <!--pick up studends end -->
-
-
     <!--Student Health -->
     <script id="StudentHealthDetailsTemplate" type="text/x-jquery-tmpl">
         <div data-role="content">
-          
+
             <img src="${img}" height="70px" />
             <h1>${FirstName} ${LastName}</h1>
             <h2>Class: ${Grade}${SClass}</h2>
@@ -146,9 +145,6 @@
     </div>
 
     <!--Student Health end -->
-
-
-
     <!--${$value.byWhom}-->
     <!--end Templates-->
     <!-- Start of Main Menu -->
@@ -190,7 +186,6 @@
     </div>
     <!-- /page -->
     <!-- End of Main Menu -->
-
     <!-- Start of MyInfo-->
     <div data-role="page" id="MyInfo">
 
@@ -210,18 +205,24 @@
 
     <!--grades and class filters-->
     <script id="GradesFilterTemplate" type="text/x-jquery-tmpl">
-        {{html this.IsChecked=Student.UpdateGradesByLocalStorage(this,false) }} 
-        {{html console.log(this)}} 
-        {{html console.log(this.IsChecked)}} 
-            <div class="ui-checkbox">
-                <input type="checkbox" name="cbGradeSelected" id="checkbox1" value="gan" checked="${this.IsChecked}" />
-                <label for="checkboxGradeGan">${this}</label>
-            </div>
-
-
+        <input type="checkbox" name="cbGradeSelected" id="checkboxGrade-${this.data.Name}" value="${this.data.Name}"
+               {{if (this.data.IsSelected) }}
+               checked
+               {{/if}} />
+        <label for="checkboxGrade-${this.data.Name}" >${this.data.Name}</label>
     </script>
-    <!--grades and class filters end-->
 
+    <script id="ClassesFilterTemplate" type="text/x-jquery-tmpl">
+        <input type="checkbox" name="cbClassesSelected" id="checkboxClass-${this.data.Name}" value="${this.data.Name}"
+               {{if (this.data.IsSelected) }}
+               checked
+               {{/if}} />
+        <label for="checkboxClass-${this.data.Name}">${this.data.Name}</label>
+    </script>
+
+
+
+    <!--grades and class filters end-->
     <!-- /page -->
     <!-- End of MyInfo-->
     <!-- Start of Pick Up-->
@@ -233,35 +234,15 @@
 
         <fieldset data-role="controlgroup" data-type="horizontal">
             <!--when moving to templ take the data from local storage if exists)and mark check\not check according to it-->
-            <div class="ui-controlgroup-controls pickUpFilterGrade">
-                <div class="ui-checkbox">
-                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeGan" value="GAN" checked />
-                    <label for="checkboxGradeGan">Gan</label>
-                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeA" value="A" checked="checked" />
-                    <label for="checkboxGradeA">A</label>
-                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeB" value="B" checked />
-                    <label for="checkboxGradeB">B</label>
-                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeC" value="C" checked />
-                    <label for="checkboxGradeC">C</label>
-                    <input type="checkbox" name="cbGradeSelected" id="checkboxGradeD" value="D" checked />
-                    <label for="checkboxGradeD">D</label>
+            <div class="ui-controlgroup-controls ">
+                <div class="ui-checkbox pickUpFilterGrade">
                 </div>
             </div>
         </fieldset>
 
         <fieldset data-role="controlgroup" data-type="horizontal">
-            <div class="ui-controlgroup-controls pickUpFilterClass">
-                <div class="ui-checkbox">
-                    <input type="checkbox" name="cbClassesSelected" id="checkbox-1" checked value="1" />
-                    <label for="checkbox-1">1</label>
-                    <input type="checkbox" name="cbClassesSelected" id="checkbox-2" checked value="2" />
-                    <label for="checkbox-2">2</label>
-                    <input type="checkbox" name="cbClassesSelected" id="checkbox-3" checked value="3" />
-                    <label for="checkbox-3">3</label>
-                    <input type="checkbox" name="cbClassesSelected" id="checkbox-4" checked value="4" />
-                    <label for="checkbox-4">4</label>
-                    <input type="checkbox" name="cbClassesSelected" id="checkbox-5" checked value="5" />
-                    <label for="checkbox-5">5</label>
+            <div class="ui-controlgroup-controls ">
+                <div class="ui-checkbox pickUpFilterClass">
                 </div>
             </div>
         </fieldset>
@@ -269,13 +250,14 @@
             <div class="content-primary">
                 <ul class="studentsList" data-role="listview" data-filter="true" data-filter-placeholder="Search student..." data-filter-theme="d" data-theme="d"
                     data-autodividers="true"
-                    data-divider-theme="d">
-                </ul>
+                    data-divider-theme="d"></ul>
             </div>
         </div>
         <script>
             $("#StudentListPickUpTemplate").tmpl(Student.Students).appendTo(".studentsList");
             $("#GradesFilterTemplate").tmpl(Student.GradesList).appendTo(".pickUpFilterGrade");
+            $("#ClassesFilterTemplate").tmpl(Student.ClassesList).appendTo(".pickUpFilterClass");
+            Student.FilterChanged();
             //$("#StudentListAvaiableClassesTemplate").tmpl(Student.AvaiableGrades).appendTo(".AvaiableClassesNavBar");
         </script>
         <div class="FooterMM"></div>
@@ -295,8 +277,7 @@
             <div class="content-primary">
                 <ul class="studentsHealthList"
                     data-autodividers="true"
-                    data-role="listview" data-filter="true" data-filter-placeholder="Search student..." data-filter-theme="d" data-theme="d" data-divider-theme="d">
-                </ul>
+                    data-role="listview" data-filter="true" data-filter-placeholder="Search student..." data-filter-theme="d" data-theme="d" data-divider-theme="d"></ul>
             </div>
         </div>
         <!-- /content -->
@@ -339,7 +320,6 @@
 
 <!--
     sending param in template
-    <script id="Script1" type="text/x-jquery-tmpl">            
+    <script id="Script1" type="text/x-jquery-tmpl">
         {{html htmlDetail(this) }} -->
-
 <!--lily, what about sensitivity and medical care other than food -->

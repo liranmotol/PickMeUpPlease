@@ -53,8 +53,42 @@ Student.UpdateStudentsLists = function () {
     $(".studentsList").listview("refresh");
 }
 
-Student.GradesList = Proxy.GetGradeDivision();
-Student.ClassesList = Proxy.GetClassesDivision();
+Student.GetGradesList = function ()
+{
+    var grades = Proxy.GetGradeDivision();
+    var tempGradesList = [];
+    var gradesHistory = localStorage.getItem(Config.SelectedGrades).split(',');
+
+    for (i = 0; i < grades.length; i++)
+    {
+        if (gradesHistory.indexOf(grades[i])>-1)
+            tempGradesList.push(new OptionalGrades(grades[i], true))
+        else 
+            tempGradesList.push(new OptionalGrades(grades[i], false))
+    }
+
+    return tempGradesList;
+
+}
+
+Student.GetClassesList = function () {
+    var classes = Proxy.GetClassesDivision();
+    var tempClassesList = [];
+    var classesHistory = localStorage.getItem(Config.SelectedClass).split(',');
+
+    for (i = 0; i < classes.length; i++) {
+        if (classesHistory.indexOf(classes[i]) > -1)
+            tempClassesList.push(new OptionalClasses(classes[i], true))
+        else
+            tempClassesList.push(new OptionalClasses(classes[i], false))
+    }
+
+    return tempClassesList;
+
+}
+
+Student.GradesList = Student.GetGradesList();
+Student.ClassesList = Student.GetClassesList();
 Student.HealthIssues = Proxy.GetHealthIssues();
 Student.Students = Proxy.GetStudentsList();
 
@@ -102,12 +136,12 @@ Student.FilterChanged = function () {
         }
 
     });
-    localStorage.setItem("SelectedGrades", SelectedGrades);
-    localStorage.setItem("SelectedClass", SelectedClass);
+    localStorage.setItem(Config.SelectedGrades, SelectedGrades);
+    localStorage.setItem(Config.SelectedClass, SelectedClass);
 
     
-    var classes = localStorage.getItem("SelectedClass").split(',');
-    var grades = localStorage.getItem("SelectedGrades").split(',');
+    var classes = localStorage.getItem(Config.SelectedClass).split(',');
+    var grades = localStorage.getItem(Config.SelectedGrades).split(',');
 
 
 };
@@ -141,6 +175,8 @@ Student.ApprovedClicked = function (selector)
 {
     $(selector).prop('checked', true);
 }
+
+
 
 
 function htmlDetail(data) { data.bla = "true"; console.log("****"); console.log(data); }
@@ -177,4 +213,3 @@ function htmlDetail(data) { data.bla = "true"; console.log("****"); console.log(
 //              //$listview.children().addClass("ui-hidden-component");
 //          //}
 //      });
-
