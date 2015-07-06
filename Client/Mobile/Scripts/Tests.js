@@ -6,7 +6,4 @@ $(function() {
 });
 
 
-if (Authentication.IsUserLoggedIn()) {
-    if (window.location.pathname.indexOf("Main.html") < 0)
-        window.location.replace("/Main.html#MainMenu");
-}
+

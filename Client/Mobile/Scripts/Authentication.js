@@ -1,10 +1,12 @@
 ﻿var Authentication = {};
 Authentication.UserLoggedIn = false;
+Authentication.Token = null;
 Authentication.IsUserLoggedIn = function () {
-    if (Authentication.UserLoggedIn)
+    if (Authentication.UserLoggedIn && typeof Authentication.Token != 'undefined'
+        && Authentication.Token != null)
         return true;
 
-    var pass= localStorage.getItem(Config.Password);
+    var pass = localStorage.getItem(Config.Password);
     var uName = localStorage.getItem(Config.UserName);
     var token = localStorage.getItem(Config.Token);
     var LoginTime = localStorage.getItem(Config.LoginTime);
@@ -14,46 +16,63 @@ Authentication.IsUserLoggedIn = function () {
         Authentication.UserLoggedIn = true;
         return true;
     }
-    else
-    {
+    else {
         //window.location.replace("/Login.html");
         return false;
     }
 };
 
+Authentication.SetUserToken = function (token) {
+    console.log(token);
+    if (token != null) {
+        Authentication.UserLoggedIn = true;
+        //Authentication.SetUserPassToken(userName, pass, token)
+        // window.location.replace("http://localhost:37985/Main.html");
+        Authentication.Token = token.Token;
+        //localStorage.setItem(Config.Token, token);
+    }
 
+}
 
-Authentication.IsUserAuthenticated = function (userName, pass)
-{
-    var token = Proxy.IsUserAuthenticated(userName, pass);
+Authentication.IsUserAuthenticated = function (userName, pass) {
+    var token = Proxy.IsUserAuthenticated(userName, pass, Authentication.SetUserToken);
     if (token != null) {
         Authentication.UserLoggedIn = true;
         Authentication.SetUserPassToken(userName, pass, token)
-       // window.location.replace("http://localhost:37985/Main.html");
+        // window.location.replace("http://localhost:37985/Main.html");
         return true;
     }
     return false;
 }
 
-Authentication.GetUserName= function ()
-{
+Authentication.GetUserName = function () {
     var uName = localStorage.getItem(Config.UserName);
     return uName;
 }
-Authentication.GetPassword = function ()
-{
+
+Authentication.GetToken = function () {
+    if (Authentication.Token == null)
+        Authentication.Token = localStorage.getItem(Config.Token);
+    return Authentication.Token;
+}
+
+
+Authentication.GetPassword = function () {
     var pass = localStorage.getItem(Config.Password);
     return pass;
 
 }
 
-Authentication.SetUserPassToken = function (user,pass,token)
-{
+Authentication.SetUserPassToken = function (user, pass, token) {
     localStorage.setItem(Config.UserName, user);
     localStorage.setItem(Config.Password, pass);
     localStorage.setItem(Config.Token, token);
     localStorage.setItem(Config.LoginTime, new Date().getDay());
+}
 
-
-
+Authentication.CleanLocalStorage = function () {
+    //localStorage.removeItem(Config.UserName);
+    //localStorage.removeItem(Config.Password);
+    localStorage.removeItem(Config.Token);
+    localStorage.removeItemsetItem(Config.LoginTime);
 }

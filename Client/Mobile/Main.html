@@ -7,7 +7,7 @@
     <script src="Scripts/Config.js"></script>
     <script src="Scripts/Authentication.js"></script>
     <script src="Scripts/ObjDefinitions.js"></script>
-    
+
     <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
@@ -16,18 +16,17 @@
     <script src="Scripts/ServerProxy.js"></script>
     <script src="Scripts/Sudents.js"></script>
     <script src="Scripts/Teachers.js"></script>
-
-    <script src="Scripts/Tests.js"></script>
-
+    <script src="Scripts/Branches.js"></script>
+    <script src="Scripts/FlowEntry.js"></script>
 </head>
 
 <body>
     <script>
-        $(function() {
-            if (!Authentication.IsUserLoggedIn())
-            {
-                window.location.replace("/Login.html");    
-            }});
+        $(function () {
+            if (!Authentication.IsUserLoggedIn()) {
+                window.location.replace("/Login.html");
+            }
+        });
     </script>
 
     <!--Head-->
@@ -162,6 +161,13 @@
         <div class="HeaderMM"></div>
 
         <div class="content-primary">
+
+            <select id="selectBranch">
+                <option>a</option>
+                <option>b</option>
+
+            </select>
+
             <ul data-role="listview">
                 <li>
                     <a href="#PickUp">
@@ -218,7 +224,7 @@
                {{if (this.data.IsSelected) }}
                checked
                {{/if}} />
-        <label for="checkboxGrade-${this.data.Name}" >${this.data.Name}</label>
+        <label for="checkboxGrade-${this.data.Name}">${this.data.Name}</label>
     </script>
 
     <script id="ClassesFilterTemplate" type="text/x-jquery-tmpl">
@@ -262,13 +268,7 @@
                     data-divider-theme="d"></ul>
             </div>
         </div>
-        <script>
-            $("#StudentListPickUpTemplate").tmpl(Student.Students).appendTo(".studentsList");
-            $("#GradesFilterTemplate").tmpl(Student.GradesList).appendTo(".pickUpFilterGrade");
-            $("#ClassesFilterTemplate").tmpl(Student.ClassesList).appendTo(".pickUpFilterClass");
-            Student.FilterChanged();
-            //$("#StudentListAvaiableClassesTemplate").tmpl(Student.AvaiableGrades).appendTo(".AvaiableClassesNavBar");
-        </script>
+
         <div class="FooterMM"></div>
     </div>
 
@@ -290,10 +290,6 @@
             </div>
         </div>
         <!-- /content -->
-        <script>
-            $("#StudentHealthListTemplate").tmpl(Student.Students).appendTo(".studentsHealthList");
-            //$("#StudentListAvaiableClassesTemplate").tmpl(Student.AvaiableGrades).appendTo(".AvaiableClassesNavBar");
-        </script>
         <div class="FooterMM"></div>
     </div>
 
@@ -310,13 +306,51 @@
     <!-- /page -->
     <!-- End of Pick Up-->
     <!--execute templates-->
-    <script>
-        $("#HeadTemplate").tmpl().appendTo(".HeaderMM");
-        $("#FooterTemplate").tmpl().appendTo(".FooterMM");
 
+
+    <script>
+
+        function StartLoadData() {
+            //0. authentication
+            //1. get the token and username
+            //2. fill cbranch data
+            //3. assign all the values for the app - branched, students, grade etc
+            //4. run the LoadingDataCompleted
+            setTimeout(function () {
+                if (!Authentication.IsUserLoggedIn())
+                    window.location.replace("/login.html");
+
+
+
+                Branch.FillBranchData();
+                Student.UpdateStudentsData();
+                LoadingDataCompleted();
+            }, 500);
+        }
+
+        function LoadingDataCompleted() {
+
+            $("#StudentListPickUpTemplate").tmpl(Student.Students).appendTo(".studentsList");
+            $("#GradesFilterTemplate").tmpl(Student.GradesList).appendTo(".pickUpFilterGrade");
+            $("#ClassesFilterTemplate").tmpl(Student.ClassesList).appendTo(".pickUpFilterClass");
+            Student.FilterChanged();
+            //$("#StudentListAvaiableClassesTemplate").tmpl(Student.AvaiableGrades).appendTo(".AvaiableClassesNavBar");
+
+
+            $("#StudentHealthListTemplate").tmpl(Student.Students).appendTo(".studentsHealthList");
+            //$("#StudentListAvaiableClassesTemplate").tmpl(Student.AvaiableGrades).appendTo(".AvaiableClassesNavBar");
+
+            $("#HeadTemplate").tmpl().appendTo(".HeaderMM");
+            $("#FooterTemplate").tmpl().appendTo(".FooterMM");
+
+        }
+        $(function () {
+            StartLoadData();
+        });
 
     </script>
-    <script src="Scripts/Tests.js"></script>
+
+
 
     <style>
         .ui-hidden-component {

@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css" />
     <script src="Scripts/ServerProxy.js"></script>
     <script src="Scripts/Authentication.js"></script>
-    <script src="Scripts/Tests.js"></script>
+
+    <script src="Scripts/FlowEntry.js"></script>
 </head>
 <body>
     <label >UserName:</label>
@@ -27,6 +28,8 @@
             $('#tbUserName').val(user);
         if (pass != null && typeof pass != 'undefined')
             $('#tbPassword').val(pass);
+        if (Authentication.IsUserLoggedIn())
+            window.location.replace("/main.html");
 
         function LoginRequest()
         {

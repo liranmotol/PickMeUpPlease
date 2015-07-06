@@ -27,10 +27,50 @@ Proxy.GetClassesDivision = function () {
 
 Proxy.IsTokenValid = function (uName, token)
 {
-    return uName == 1 && token == "true";
+    var Request =
+       {
+           UserName: uName,
+           Token: token,
+       };
+    var json = JSON.stringify(Request);
+    
+    var UserLoginDetao = Proxy.SendRequest("/IsTokenValid", json, false, function(data){console.log(data)});
+    return false;
+
 }
 
-Proxy.IsUserAuthenticated = function (uName, pass) {
-    return uName == 1 && pass == 1;
+Proxy.IsUserAuthenticated = function (uName, pass,callback) {
+    var Request =
+        {
+            UserName: uName,
+            Password: pass,
+        };
+    var json = JSON.stringify(Request);
+    var UserLoginDetao = Proxy.SendRequest( "/LoginRequest", json, false,callback);
+    return null;
+    //return uName == 1 && pass == 1;
+}
+
+Proxy.SendRequest = function (url, json, isAsync,callBack) {
+    $.ajax({
+        type: "POST",
+        url: Config.ServerUrl + url,
+        data: json,
+        async:isAsync,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            
+            callBack(data)
+            return data;
+        },
+        error: function (data) {
+            console.log(data);
+            return data;
+
+        }
+    });  
+
 }
 

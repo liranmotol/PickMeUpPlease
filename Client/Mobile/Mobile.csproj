@@ -63,6 +63,7 @@
     <Content Include="Scripts\Branches.js" />
     <Content Include="Scripts\Config.js" />
     <Content Include="Scripts\DataBase.js" />
+    <Content Include="Scripts\FlowEntry.js" />
     <Content Include="Scripts\ObjDefinitions.js" />
     <Content Include="Scripts\Scheduale.js" />
     <Content Include="Scripts\ServerProxy.js" />
@@ -77,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\pickmepleaseclient.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

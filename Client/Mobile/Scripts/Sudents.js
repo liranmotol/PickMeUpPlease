@@ -87,10 +87,13 @@ Student.GetClassesList = function () {
 
 }
 
-Student.GradesList = Student.GetGradesList();
-Student.ClassesList = Student.GetClassesList();
-Student.HealthIssues = Proxy.GetHealthIssues();
-Student.Students = Proxy.GetStudentsList();
+Student.UpdateStudentsData = function () {
+    Student.GradesList = Student.GetGradesList();
+    Student.ClassesList = Student.GetClassesList();
+    Student.HealthIssues = Proxy.GetHealthIssues();
+    Student.Students = Proxy.GetStudentsList();
+};
+Student.UpdateStudentsData();
 
 $(function () {
     $("input[name='cbGradeSelected'], input[name='cbClassesSelected']").on('change', Student.FilterChanged);
