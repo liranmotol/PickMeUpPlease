@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="Scripts/Config.js"></script>
+
+    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css" />
+    <script src="Scripts/ServerProxy.js"></script>
+    <script src="Scripts/Authentication.js"></script>
+    <script src="Scripts/Tests.js"></script>
+</head>
+<body>
+    <label >UserName:</label>
+    <input type="text" id="tbUserName"  width="200"/>
+    </br>
+    <label>Password:</label>
+    <input type="text" id="tbPassword" width="200" />
+    </br>
+    <button value="Login" onclick="LoginRequest()"></button>
+    <script>
+        var user = Authentication.GetUserName();
+        var pass = Authentication.GetPassword();
+        if (user != null && typeof user != 'undefined')
+            $('#tbUserName').val(user);
+        if (pass != null && typeof pass != 'undefined')
+            $('#tbPassword').val(pass);
+
+        function LoginRequest()
+        {
+            var user= $('#tbUserName').val();
+            var pass= $('#tbPassword').val();
+            if (!Authentication.IsUserAuthenticated(user, pass)) {
+                window.location.replace("/Login.html");
+            }
+            else
+                window.location.replace("/main.html");
+        }
+    </script>
+</body>
+</html>

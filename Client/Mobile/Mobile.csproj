@@ -57,7 +57,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Login.html" />
     <Content Include="Main.html" />
+    <Content Include="Scripts\Authentication.js" />
     <Content Include="Scripts\Branches.js" />
     <Content Include="Scripts\Config.js" />
     <Content Include="Scripts\DataBase.js" />

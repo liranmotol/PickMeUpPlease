@@ -4,8 +4,10 @@
     <!--http://stephenwalther.com/archive/2010/11/30/an-introduction-to-jquery-templates-->
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="Scripts/ObjDefinitions.js"></script>
     <script src="Scripts/Config.js"></script>
+    <script src="Scripts/Authentication.js"></script>
+    <script src="Scripts/ObjDefinitions.js"></script>
+    
     <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
@@ -15,11 +17,18 @@
     <script src="Scripts/Sudents.js"></script>
     <script src="Scripts/Teachers.js"></script>
 
-
+    <script src="Scripts/Tests.js"></script>
 
 </head>
 
 <body>
+    <script>
+        $(function() {
+            if (!Authentication.IsUserLoggedIn())
+            {
+                window.location.replace("/Login.html");    
+            }});
+    </script>
 
     <!--Head-->
     <script id="HeadTemplate" type="text/x-jquery-tmpl">
@@ -79,7 +88,7 @@
 
             <h2>Parent1 name: ${Parent1Name}</h2>
             <h2>Parent1 phone: ${Parent1Num}</h2>
-            <h2>Parent1 email: ${Parent1Email}</h2>
+            <h2>Parent1 email: <a href="mailto:${Parent1Email}"> ${Parent1Email}</a></h2>
             <h2>Parent2 name: ${Parent2Name}</h2>
             <h2>Parent2 phone: ${Parent2Num}</h2>
 

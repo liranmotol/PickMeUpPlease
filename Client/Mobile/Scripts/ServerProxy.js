@@ -24,3 +24,13 @@ Proxy.GetHealthIssues = function () {
 Proxy.GetClassesDivision = function () {
     return DataBase.Classes;
 }
+
+Proxy.IsTokenValid = function (uName, token)
+{
+    return uName == 1 && token == "true";
+}
+
+Proxy.IsUserAuthenticated = function (uName, pass) {
+    return uName == 1 && pass == 1;
+}
+
