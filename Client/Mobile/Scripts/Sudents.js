@@ -55,7 +55,7 @@ Student.UpdateStudentsLists = function () {
 
 Student.GetGradesList = function ()
 {
-    var grades = Proxy.GetGradeDivision();
+    var grades = Branch.GetGradesList();
     var tempGradesList = [];
     var gradesHistory = localStorage.getItem(Config.SelectedGrades).split(',');
 
@@ -72,7 +72,7 @@ Student.GetGradesList = function ()
 }
 
 Student.GetClassesList = function () {
-    var classes = Proxy.GetClassesDivision();
+    var classes = Branch.GetClassesList();
     var tempClassesList = [];
     var classesHistory = localStorage.getItem(Config.SelectedClass).split(',');
 
@@ -88,12 +88,12 @@ Student.GetClassesList = function () {
 }
 
 Student.UpdateStudentsData = function () {
-    Student.GradesList = Student.GetGradesList();
-    Student.ClassesList = Student.GetClassesList();
-    Student.HealthIssues = Proxy.GetHealthIssues();
-    Student.Students = Proxy.GetStudentsList();
+    Student.GradesList = Branch.GetGradesList();
+    Student.ClassesList = Branch.GetClassesList();
+    Student.HealthIssues = Branch.GetHealthIssues();
+    Student.Students = Branch.GetStudentsList();
 };
-Student.UpdateStudentsData();
+//Student.UpdateStudentsData();
 
 $(function () {
     $("input[name='cbGradeSelected'], input[name='cbClassesSelected']").on('change', Student.FilterChanged);

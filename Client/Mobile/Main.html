@@ -21,13 +21,7 @@
 </head>
 
 <body>
-    <script>
-        $(function () {
-            if (!Authentication.IsUserLoggedIn()) {
-                window.location.replace("/Login.html");
-            }
-        });
-    </script>
+  
 
     <!--Head-->
     <script id="HeadTemplate" type="text/x-jquery-tmpl">
@@ -316,19 +310,21 @@
             //2. fill cbranch data
             //3. assign all the values for the app - branched, students, grade etc
             //4. run the LoadingDataCompleted
-            setTimeout(function () {
-                if (!Authentication.IsUserLoggedIn())
-                    window.location.replace("/login.html");
+            if (!Authentication.IsUserLoggedIn())
+                Authentication.GoToLogin();
+            //this is the else. the user and token values are here for sure
+            var user = Authentication.GetUserName();
+            var token = Authentication.GetToken();
 
-
-
-                Branch.FillBranchData();
-                Student.UpdateStudentsData();
-                LoadingDataCompleted();
-            }, 500);
+            //this is the else
+            Branch.FillBranchData(token, LoadingDataCompleted);
+            //ends here - buzy indicator
+            
+            //LoadingDataCompleted();
         }
 
         function LoadingDataCompleted() {
+            Student.UpdateStudentsData();
 
             $("#StudentListPickUpTemplate").tmpl(Student.Students).appendTo(".studentsList");
             $("#GradesFilterTemplate").tmpl(Student.GradesList).appendTo(".pickUpFilterGrade");
@@ -345,6 +341,7 @@
 
         }
         $(function () {
+           // alert('111');
             StartLoadData();
         });
 

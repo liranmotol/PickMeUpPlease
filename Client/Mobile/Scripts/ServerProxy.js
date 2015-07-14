@@ -39,19 +39,18 @@ Proxy.IsTokenValid = function (uName, token)
 
 }
 
-Proxy.IsUserAuthenticated = function (uName, pass,callback) {
+Proxy.IsUserAuthenticated = function (uName, pass, callback, callbackSucess, callbackFail) {
     var Request =
         {
             UserName: uName,
             Password: pass,
         };
     var json = JSON.stringify(Request);
-    var UserLoginDetao = Proxy.SendRequest( "/LoginRequest", json, false,callback);
-    return null;
+    Proxy.SendRequest("/LoginRequest", json, false, callback, callbackSucess, callbackFail);
     //return uName == 1 && pass == 1;
 }
 
-Proxy.SendRequest = function (url, json, isAsync,callBack) {
+Proxy.SendRequest = function (url, json, isAsync, callBack, callbackSucess, callbackFail) {
     $.ajax({
         type: "POST",
         url: Config.ServerUrl + url,
@@ -61,14 +60,20 @@ Proxy.SendRequest = function (url, json, isAsync,callBack) {
         dataType: "json",
         success: function (data) {
             console.log(data);
-            
-            callBack(data)
-            return data;
+            //means request failed
+            if (data == null) {
+                callbackFail();
+            }
+                //sucess
+            else {
+                callBack(data)
+                if (typeof callbackSucess != 'undefined' && callbackSucess != null)
+                    callbackSucess();
+            }
         },
         error: function (data) {
             console.log(data);
-            return data;
-
+            alert("error in request");
         }
     });  
 

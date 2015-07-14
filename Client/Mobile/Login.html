@@ -14,33 +14,40 @@
     <script src="Scripts/FlowEntry.js"></script>
 </head>
 <body>
-    <label >UserName:</label>
-    <input type="text" id="tbUserName"  width="200"/>
+    <label>UserName:</label>
+    <input type="text" id="tbUserName" width="200" />
     </br>
     <label>Password:</label>
     <input type="text" id="tbPassword" width="200" />
     </br>
     <button value="Login" onclick="LoginRequest()"></button>
     <script>
-        var user = Authentication.GetUserName();
-        var pass = Authentication.GetPassword();
-        if (user != null && typeof user != 'undefined')
-            $('#tbUserName').val(user);
-        if (pass != null && typeof pass != 'undefined')
-            $('#tbPassword').val(pass);
-        if (Authentication.IsUserLoggedIn())
-            window.location.replace("/main.html");
-
-        function LoginRequest()
-        {
-            var user= $('#tbUserName').val();
-            var pass= $('#tbPassword').val();
-            if (!Authentication.IsUserAuthenticated(user, pass)) {
-                window.location.replace("/Login.html");
-            }
-            else
+        $(function () {
+            var user = Authentication.GetUserName();
+            var pass = Authentication.GetPassword();
+            if (typeof user != 'undefined' && user != null )
+                $('#tbUserName').val(user);
+            if (typeof pass != 'undefined' && pass != null)
+                $('#tbPassword').val(pass);
+            if (Authentication.IsUserLoggedIn())
                 window.location.replace("/main.html");
+        });
+
+        function LoginRequest() {
+            var user = $('#tbUserName').val();
+            var pass = $('#tbPassword').val();
+
+            Authentication.IsUserPassAuthenticated(user, pass, LoginSucess, LoginFailure);
+        
         }
+        function LoginSucess()
+        {
+            Authentication.GoToApp();
+        }
+        function LoginFailure() {
+            alert('User Or Password is wrong');
+        }
+
     </script>
 </body>
 </html>
