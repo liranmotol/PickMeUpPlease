@@ -61,14 +61,14 @@ Proxy.SendRequest = function (url, json, isAsync, callBack, callbackSucess, call
         success: function (data) {
             console.log(data);
             //means request failed
-            if (data == null) {
+            if (data == null && typeof callbackFail != 'undefined') {
                 callbackFail();
             }
                 //sucess
-            else {
+            else if(data !=null) {
                 callBack(data)
                 if (typeof callbackSucess != 'undefined' && callbackSucess != null)
-                    callbackSucess();
+                    callbackSucess(data);
             }
         },
         error: function (data) {

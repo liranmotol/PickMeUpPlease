@@ -10,7 +10,7 @@ Branch.FillBranchData = function (token, callBackContinueLoading)
             Token: token,
         };
     var json = JSON.stringify(Request);
-    Proxy.SendRequest("/GetBranchInfo", json, false,Branch.CallCompleted, callBackContinueLoading);
+    Proxy.SendRequest("/GetBranchInfo", json, false, Branch.CallCompleted, callBackContinueLoading, Authentication.GoToLoginOveride);
     
 }
 

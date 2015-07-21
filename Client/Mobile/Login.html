@@ -22,7 +22,13 @@
     </br>
     <button value="Login" onclick="LoginRequest()"></button>
     <script>
-        $(function () {
+        $(function () 
+        {
+            //alert();
+            var overideLogin = Authentication.getParameterByName("overide");
+            if (typeof overideLogin != 'undefined' && overideLogin == 1)
+                return;
+
             var user = Authentication.GetUserName();
             var pass = Authentication.GetPassword();
             if (typeof user != 'undefined' && user != null )
@@ -37,12 +43,12 @@
             var user = $('#tbUserName').val();
             var pass = $('#tbPassword').val();
 
-            Authentication.IsUserPassAuthenticated(user, pass, LoginSucess, LoginFailure);
+            Authentication.IsUserPassAuthenticated(user, pass, LoginSucess,null, LoginFailure);
         
         }
-        function LoginSucess()
+        function LoginSucess(loginResponse)
         {
-            Authentication.GoToApp();
+            Authentication.GoToApp(loginResponse.UserName, loginResponse.Token);
         }
         function LoginFailure() {
             alert('User Or Password is wrong');

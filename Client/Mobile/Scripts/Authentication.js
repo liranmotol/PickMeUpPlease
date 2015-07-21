@@ -1,6 +1,29 @@
 ﻿var Authentication = {};
 
 Authentication.Token = null;
+Authentication.UserName = null;
+
+Authentication.CheckTokenInQueryString = function ()
+{
+    //search in the query string
+    var token = Authentication.getParameterByName('token');
+    var uName = Authentication.getParameterByName('user');
+    if (typeof uName != 'undefined' && uName != null
+                && typeof token != 'undefined' && token != null)
+    {
+
+        //return Authentication.IsUserTokenAuthenticated(uName, token)
+        //no need to authenticate. it will fall in the server calls in worst case
+        Authentication.Token = token;
+        Authentication.UserName = uName;
+        return true;
+
+    }
+
+    return false;
+
+      
+}
 
 Authentication.IsUserLoggedIn = function () {
     var uName = localStorage.getItem(Config.UserName);
@@ -16,6 +39,8 @@ Authentication.IsUserLoggedIn = function () {
 
         return ((new Date() - Date.parse(logedTime)) / 1000 / 60 / 60 < 12);
     }
+
+ 
 
     return false;
 };
@@ -48,8 +73,9 @@ Authentication.IsUserPassAuthenticated = function (userName, pass, callbackSuces
 }
 
 Authentication.GetUserName = function () {
-    var uName = localStorage.getItem(Config.UserName);
-    return uName;
+    if (Authentication.UserName == null) 
+        Authentication.UserName = localStorage.getItem(Config.UserName);
+    return Authentication.UserName;
 }
 
 Authentication.GetToken = function () {
@@ -78,10 +104,19 @@ Authentication.CleanLocalStorage = function () {
     //localStorage.removeItem(Config.Password);
     localStorage.removeItem(Config.Token);
 }
-
+Authentication.GoToLoginOveride = function () {
+    window.location.replace("/login.html?overide=1");
+}
 Authentication.GoToLogin = function () {
     window.location.replace("/login.html");
 }
-Authentication.GoToApp = function () {
+Authentication.GoToApp = function (userName,token) {
+    //window.location.replace("/main.html#MainMenu?user="+userName+"&token="+token);
     window.location.replace("/main.html#MainMenu");
 }
+Authentication.getParameterByName = function(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+

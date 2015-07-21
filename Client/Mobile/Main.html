@@ -310,7 +310,7 @@
             //2. fill cbranch data
             //3. assign all the values for the app - branched, students, grade etc
             //4. run the LoadingDataCompleted
-            if (!Authentication.IsUserLoggedIn())
+            if (!Authentication.CheckTokenInQueryString() && !Authentication.IsUserLoggedIn())
                 Authentication.GoToLogin();
             //this is the else. the user and token values are here for sure
             var user = Authentication.GetUserName();
