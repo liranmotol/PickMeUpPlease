@@ -21,7 +21,7 @@
 </head>
 
 <body>
-  
+
 
     <!--Head-->
     <script id="HeadTemplate" type="text/x-jquery-tmpl">
@@ -211,22 +211,23 @@
 
 
 
-
     <!--grades and class filters-->
     <script id="GradesFilterTemplate" type="text/x-jquery-tmpl">
-        <input type="checkbox" name="cbGradeSelected" id="checkboxGrade-${this.data.Name}" value="${this.data.Name}"
-               {{if (this.data.IsSelected) }}
-               checked
-               {{/if}} />
-        <label for="checkboxGrade-${this.data.Name}">${this.data.Name}</label>
+     
+
+        <div class="ui-checkbox">
+            <label for="my-checkbox-${this.data}" class="ui-btn ui-btn-inherit ui-btn-icon-left ui-checkbox-off">${this.data}</label>
+            <input type="checkbox" id="my-checkbox-${this.data}" data-corners="false" data-enhanced="true"></input>
+        </div>
+
     </script>
 
     <script id="ClassesFilterTemplate" type="text/x-jquery-tmpl">
-        <input type="checkbox" name="cbClassesSelected" id="checkboxClass-${this.data.Name}" value="${this.data.Name}"
-               {{if (this.data.IsSelected) }}
-               checked
-               {{/if}} />
-        <label for="checkboxClass-${this.data.Name}">${this.data.Name}</label>
+        <div class="ui-radio">
+            <label for="checkboxClass-${this.data}">${this.data}</label>
+            <input type="checkbox" name="cbClassesSelected" id="checkboxClass-${this.data}" value="${this.data}" />
+        </div>
+
     </script>
 
 
@@ -241,30 +242,30 @@
         <!--code here to remove the default filter only for my class-->
         <button data-role="button" id="btnPickUpShowAllStudents">Show All Students</button>
 
-        <fieldset data-role="controlgroup" data-type="horizontal">
-            <!--when moving to templ take the data from local storage if exists)and mark check\not check according to it-->
-            <div class="ui-controlgroup-controls ">
-                <div class="ui-checkbox pickUpFilterGrade">
-                </div>
+        <fieldset data-role="controlgroup" data-type="horizontal" class="">
+            <div class="ui-controlgroup-controls pickUpFilterGrade">
+
             </div>
         </fieldset>
 
-        <fieldset data-role="controlgroup" data-type="horizontal">
-            <div class="ui-controlgroup-controls ">
-                <div class="ui-checkbox pickUpFilterClass">
+
+         
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <div class="ui-controlgroup-controls ">
+                    <div class="ui-checkbox pickUpFilterClass">
+                    </div>
+                </div>
+            </fieldset>
+            <div data-role="content">
+                <div class="content-primary">
+                    <ul class="studentsList" data-role="listview" data-filter="true" data-filter-placeholder="Search student..." data-filter-theme="d" data-theme="d"
+                        data-autodividers="true"
+                        data-divider-theme="d"></ul>
                 </div>
             </div>
-        </fieldset>
-        <div data-role="content">
-            <div class="content-primary">
-                <ul class="studentsList" data-role="listview" data-filter="true" data-filter-placeholder="Search student..." data-filter-theme="d" data-theme="d"
-                    data-autodividers="true"
-                    data-divider-theme="d"></ul>
-            </div>
-        </div>
 
-        <div class="FooterMM"></div>
-    </div>
+            <div class="FooterMM"></div>
+</div>
 
 
     <!-- /page -->
@@ -310,16 +311,17 @@
             //2. fill cbranch data
             //3. assign all the values for the app - branched, students, grade etc
             //4. run the LoadingDataCompleted
-            if (!Authentication.CheckTokenInQueryString() && !Authentication.IsUserLoggedIn())
-                Authentication.GoToLogin();
+            //if (!Authentication.CheckTokenInQueryString() && !Authentication.IsUserLoggedIn())
+            //    Authentication.GoToLogin();
             //this is the else. the user and token values are here for sure
+
             var user = Authentication.GetUserName();
             var token = Authentication.GetToken();
 
             //this is the else
             Branch.FillBranchData(token, LoadingDataCompleted);
             //ends here - buzy indicator
-            
+
             //LoadingDataCompleted();
         }
 
@@ -341,7 +343,7 @@
 
         }
         $(function () {
-           // alert('111');
+            // alert('111');
             StartLoadData();
         });
 

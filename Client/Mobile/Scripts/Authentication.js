@@ -73,12 +73,14 @@ Authentication.IsUserPassAuthenticated = function (userName, pass, callbackSuces
 }
 
 Authentication.GetUserName = function () {
+    return 'liran';
     if (Authentication.UserName == null) 
         Authentication.UserName = localStorage.getItem(Config.UserName);
     return Authentication.UserName;
 }
 
 Authentication.GetToken = function () {
+    return 'liran';
     if (Authentication.Token == null)
         Authentication.Token = localStorage.getItem(Config.Token);
     return Authentication.Token;

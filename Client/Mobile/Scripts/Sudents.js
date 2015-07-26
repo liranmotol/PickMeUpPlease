@@ -53,39 +53,39 @@ Student.UpdateStudentsLists = function () {
     $(".studentsList").listview("refresh");
 }
 
-Student.GetGradesList = function ()
-{
-    var grades = Branch.GetGradesList();
-    var tempGradesList = [];
-    var gradesHistory = localStorage.getItem(Config.SelectedGrades).split(',');
-
-    for (i = 0; i < grades.length; i++)
-    {
-        if (gradesHistory.indexOf(grades[i])>-1)
-            tempGradesList.push(new OptionalGrades(grades[i], true))
-        else 
-            tempGradesList.push(new OptionalGrades(grades[i], false))
-    }
-
-    return tempGradesList;
-
-}
-
-Student.GetClassesList = function () {
-    var classes = Branch.GetClassesList();
-    var tempClassesList = [];
-    var classesHistory = localStorage.getItem(Config.SelectedClass).split(',');
-
-    for (i = 0; i < classes.length; i++) {
-        if (classesHistory.indexOf(classes[i]) > -1)
-            tempClassesList.push(new OptionalClasses(classes[i], true))
-        else
-            tempClassesList.push(new OptionalClasses(classes[i], false))
-    }
-
-    return tempClassesList;
-
-}
+//Student.GetGradesList = function ()
+//{
+//    var grades = Branch.GetGradesList();
+//    var tempGradesList = [];
+//    var gradesHistory = localStorage.getItem(Config.SelectedGrades).split(',');
+//
+//    for (i = 0; i < grades.length; i++)
+//    {
+//        if (gradesHistory.indexOf(grades[i])>-1)
+//            tempGradesList.push(new OptionalGrades(grades[i], true))
+//        else 
+//            tempGradesList.push(new OptionalGrades(grades[i], false))
+//    }
+//
+//    return tempGradesList;
+//
+//}
+//
+//Student.GetClassesList = function () {
+//    var classes = Branch.GetClassesList();
+//    var tempClassesList = [];
+//    var classesHistory = localStorage.getItem(Config.SelectedClass).split(',');
+//
+//    for (i = 0; i < classes.length; i++) {
+//        if (classesHistory.indexOf(classes[i]) > -1)
+//            tempClassesList.push(new OptionalClasses(classes[i], true))
+//        else
+//            tempClassesList.push(new OptionalClasses(classes[i], false))
+//    }
+//
+//    return tempClassesList;
+//
+//}
 
 Student.UpdateStudentsData = function () {
     Student.GradesList = Branch.GetGradesList();
@@ -182,7 +182,7 @@ Student.ApprovedClicked = function (selector)
 
 
 
-function htmlDetail(data) { data.bla = "true"; console.log("****"); console.log(data); }
+function htmlDetail(data) { data.bla = "true"; console.log("****"); console.log(data); console.log(data.IsSelected); }
 
 //comment out code
 

@@ -122,8 +122,14 @@ namespace Server.Hndlers
                         BranchModel branch = branchAllowed.First();
 
                         List<StudentModel> tempList = branch.GetUpdateStundetsInfo(LastSyncTime);
-                        BranchModel temp = new BranchModel() { BranchId = branch.BranchId, BranchName = branch.BranchName, StudentsList = tempList
-                        , OptionalClasses = branch.OptionalClasses, OptionalGrades=branch.OptionalGrades, OptionalHealthIssues=branch.OptionalHealthIssues, PrincipalName=branch.PrincipalName, PrincipalNUmber=branch.PrincipalNUmber};
+                        BranchModel temp = new BranchModel() { BranchId = branch.BranchId, BranchName = branch.BranchName, StudentsList = tempList.OrderBy(s=>s.LastName).ToList()
+                        ,
+                                                               OptionalClasses = branch.OptionalClasses.OrderBy(c => c).ToList(),
+                                                               OptionalGrades = branch.OptionalGrades.OrderBy(c => c).ToList(),
+                                                               OptionalHealthIssues = branch.OptionalHealthIssues.OrderBy(c => c).ToList(),
+                                                               PrincipalName = branch.PrincipalName,
+                                                               PrincipalNUmber = branch.PrincipalNUmber
+                        };
                         response.Branches.Add(temp);
                     }
                 });

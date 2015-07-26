@@ -9,4 +9,4 @@ Config.LoginTime = "LoginDay";
 
 Config.DefualtBranchId = "DefualtBranchId";
 
-Config.ServerUrl = "http://localhost:47588";//"http://pickmeplease.azurewebsites.net";//
+Config.ServerUrl = "http://pickmeplease.azurewebsites.net";//"http://localhost:47588";//

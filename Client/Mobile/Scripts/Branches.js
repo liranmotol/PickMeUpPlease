@@ -60,13 +60,15 @@ Branch.GetHealthIssues = function ()
 }
 Branch.GetClassesList = function ()
 {
-    if (Branch.CurrentBranch != null)
+    if (Branch.CurrentBranch != null) {
         return Branch.CurrentBranch.OptionalClasses;
+    }
     return null;
 }
 Branch.GetGradesList = function ()
 {
-    if (Branch.CurrentBranch != null)
+    if (Branch.CurrentBranch != null) {
         return Branch.CurrentBranch.OptionalGrades;
+    }
     return null;
 }
