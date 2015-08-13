@@ -97,7 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="DAL\DAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -108,7 +110,6 @@
     <Compile Include="Models\ClientRequests.cs" />
     <Compile Include="Models\CounslerModel.cs" />
     <Compile Include="Models\RequestLoginModel.cs" />
-    <Compile Include="Models\RequestGetBranchInfo.cs" />
     <Compile Include="Models\ResponseGetBranchInfo.cs" />
     <Compile Include="Models\StudentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

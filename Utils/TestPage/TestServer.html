@@ -1,0 +1,123 @@
+<html>
+<head>
+    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="http://www.jsoneditoronline.org/asset/jsoneditor/jsoneditor.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://www.jsoneditoronline.org/asset/jsoneditor/jsoneditor.min.css">
+    
+
+</head>
+<body>
+    <style type="text/css">
+    /*body {
+            font: 11pt arial;
+        }*/
+
+    #jsoneditor {
+        width: 500px;
+    }
+</style>
+
+    Students Controller:<br />
+    <button onclick="GetUpdatedStudents()" >GetUpdatedStudents</button><br />
+    <button onclick="PickedUp()" >PickedUp</button><br />
+    <button onclick="CheckedIn()" >CheckedIn</button><br />
+    <br /><br />
+    Branches Controller:<br />
+    <button onclick="GetBranches()" >GetBranches</button><br />
+
+    <br /><br />
+    Login Controller:
+    <br /><br />
+
+    <div id="jsoneditor"></div>
+
+
+
+    <script type="text/javascript">
+        var ServerUrl = "http://localhost:47588/";//"http://pickmeplease.azurewebsites.net";
+        function SendRequest(method, json) {
+            var jsonAsString = JSON.stringify(json);
+            $.ajax({
+                type: "POST",
+                url: ServerUrl + method,
+                data: jsonAsString,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    displayJson(data);
+
+                },
+                error: function (data) {
+                    console.log(data);
+                    displayJson(data);
+
+                }
+            });
+
+        }
+        //students
+        function GetUpdatedStudents()
+        {
+            var request =
+                {
+                    BranchId: 1,
+                    LastSyncTime: (new Date()).toISOString(),
+                    Token: "liran"
+                };
+            SendRequest("Students/Update", request);
+        }
+
+        function CheckedIn()
+        {
+            var request =
+                {
+                    BranchId: 1,
+                    StudentId:"3",
+                    Token: "liran"
+                };
+            SendRequest("Students/CheckedIn", request);
+        }
+
+        function PickedUp() {
+            var request =
+                {
+                    BranchId: 1,
+                    StudentId: "3",
+                    Token: "liran",
+                    PickerName :"Erans dad"
+                };
+            SendRequest("Students/PickedUp", request);
+        }
+
+        //branches
+        function GetBranches() {
+            var request =
+                {
+                    LastSyncTime: (new Date()).toISOString(),
+                    Token: "liran"
+                };
+            SendRequest("Branches/Get", request);
+        }
+
+
+
+
+    </script>
+    <script type="text/javascript">
+        function displayJson(json) {
+            var container = document.getElementById('jsoneditor');
+
+            var options = {
+                mode: 'view'
+            };
+
+            container.innerHTML = "";
+            var editor = new JSONEditor(container, options, json);
+        }
+
+    displayJson();
+    </script>
+
+</body>
+</html>
