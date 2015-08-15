@@ -13,6 +13,7 @@ namespace Server.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class BranchesController : ApiController
     {
+        [Authorize]
         [HttpGet, HttpPost]
         [Route("Branches/Get")]
         public ResponseGetBranchInfo Get(RequestGetBranchInfo requestBranchInfo)

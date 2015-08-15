@@ -29,6 +29,8 @@
     Login Controller:
     <br />
     <button onclick="LoginRegister()">Register</button><br />
+    <button onclick="GetToken()">GetToken</button><br />
+
     <br />
 
 
@@ -114,7 +116,33 @@
             SendRequest("account/register", request);
 
         }
+        function GetToken() {
+            var request = {
+                "grant_type": "password",
+                "username": "liran1",
+                "password": "liran1"
+            }
+            var jsonAsString = JSON.stringify(request);
+            $.ajax({
+                type: "POST",
+                url: ServerUrl + "token",
+                data: jsonAsString,
+                contentType: "application/x-www-form-urlencoded",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    displayJson(data);
 
+                },
+                error: function (data) {
+                    console.log(data);
+                    displayJson(data);
+
+                }
+            });
+
+
+        }
 
 
     </script>
