@@ -27,14 +27,17 @@
 
     <br /><br />
     Login Controller:
-    <br /><br />
+    <br />
+    <button onclick="LoginRegister()">Register</button><br />
+    <br />
+
 
     <div id="jsoneditor"></div>
 
 
 
     <script type="text/javascript">
-        var ServerUrl = "http://pickmeplease.azurewebsites.net/";//"http://localhost:47588/";
+        var ServerUrl = "http://localhost:47588/"; //"http://pickmeplease.azurewebsites.net/";//
         function SendRequest(method, json) {
             var jsonAsString = JSON.stringify(json);
             $.ajax({
@@ -100,6 +103,17 @@
             SendRequest("Branches/Get", request);
         }
 
+        //Auth
+        function LoginRegister()
+        {
+            var request = {
+                "userName": "liran1",
+                "password": "liran1",
+                "confirmPassword": "liran1"
+            }
+            SendRequest("account/register", request);
+
+        }
 
 
 
