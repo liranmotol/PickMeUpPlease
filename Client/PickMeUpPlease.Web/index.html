@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="utf-8" />
+        <title>Ionic Tab Template</title>
+
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <style>
+            .angular-google-map-container {
+                width: 100%;
+                height: 504px;
+            }
+        </style>
+
+        <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+        <link href="/lib/ionic.css" rel="stylesheet">
+
+        <script src="scripts/jquery-2.1.4.min.js"></script>
+        <!-- ionic/angularjs js -->
+        <script src="/lib/ionic.bundle.js"></script>
+        <script src="scripts/angular-local-storage.min.js"></script>
+        <script src="cordova.js"></script>
+        <script src="scripts/platformOverrides.js"></script>
+
+
+        <script src="app/app.js"></script>
+
+        <!-- your project references -->
+        <link href="css/index.css" rel="stylesheet" />
+
+    </head>
+
+
+    <body ng-app="app">
+        
+        <ion-nav-view></ion-nav-view>
+
+
+        <!-- common -->
+        <script src="app/common/common.js"></script>
+        <script src="app/common/logger.js"></script>
+
+        <!-- app -->
+        <script src="app/student/student.js"></script>
+        <script src="app/menu/menuController.js"></script>
+        <script src="app/home/homeController.js"></script>
+        <script src="app/login/loginController.js"></script>
+        <script src="app/branch/branchController.js"></script>
+        <script src="app/branch/branchDetailsController.js"></script>
+        <script src="app/student/studentDetailsController.js"></script>
+
+
+        <!-- app Services -->
+        <script src="app/services/branchRepository.js"></script>
+        <script src="app/services/studentRepository.js"></script>
+        <script src="app/services/authService.js"></script>
+        <script src="app/services/authInterceptorService.js"></script>
+
+    </body>
+
+</html>

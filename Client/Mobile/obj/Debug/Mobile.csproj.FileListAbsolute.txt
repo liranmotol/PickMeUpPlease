@@ -21,3 +21,9 @@ D:\CarambolaDevProjects\Mobile\PmupApp\Client\Mobile\bin\Mobile.pdb
 D:\CarambolaDevProjects\Mobile\PmupApp\Client\Mobile\obj\Debug\Mobile.csprojResolveAssemblyReference.cache
 D:\CarambolaDevProjects\Mobile\PmupApp\Client\Mobile\obj\Debug\Mobile.dll
 D:\CarambolaDevProjects\Mobile\PmupApp\Client\Mobile\obj\Debug\Mobile.pdb
+C:\Users\Eran Rosenberg\Source\Repos\PickMeUpPlease\Client\Mobile\bin\Mobile.dll.config
+C:\Users\Eran Rosenberg\Source\Repos\PickMeUpPlease\Client\Mobile\bin\Mobile.dll
+C:\Users\Eran Rosenberg\Source\Repos\PickMeUpPlease\Client\Mobile\bin\Mobile.pdb
+C:\Users\Eran Rosenberg\Source\Repos\PickMeUpPlease\Client\Mobile\obj\Debug\Mobile.csprojResolveAssemblyReference.cache
+C:\Users\Eran Rosenberg\Source\Repos\PickMeUpPlease\Client\Mobile\obj\Debug\Mobile.dll
+C:\Users\Eran Rosenberg\Source\Repos\PickMeUpPlease\Client\Mobile\obj\Debug\Mobile.pdb
