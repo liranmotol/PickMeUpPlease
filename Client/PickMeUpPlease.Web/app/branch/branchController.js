@@ -11,7 +11,9 @@
         var log = getLogFn(controllerId);
 
         var vm = this;
-        vm.branches = branchRepository.get();
+        branchRepository.get().then(function (response) {
+            vm.branches = response;
+        });
  
 
         return vm;

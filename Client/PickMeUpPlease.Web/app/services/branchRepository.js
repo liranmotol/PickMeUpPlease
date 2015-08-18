@@ -4,10 +4,10 @@
     var serviceId = 'branchRepository';
 
 
-    angular.module('app').factory(serviceId, ['common', branchRepository]);
+    angular.module('app').factory(serviceId, ['$q', 'common', 'repositoryAbstract', branchRepository]);
 
 
-    function branchRepository(common) {
+    function branchRepository($q, common, repositoryAbstract) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(serviceId);
 
@@ -15,42 +15,34 @@
 
         function getAll() {
             log("Get all")
-            return [
-                {
-                    "BranchId": 1,
-                    "BranchName": "First",
-                    "StudentsList": [],
-                    "OptionalGrades": ["B", "GAN", "C", "A"],
-                    "OptionalClasses": ["3", "1", "4", "2"],
-                    "OptionalHealthIssues": ["GLUTEN", "SUGAR"],
-                    "PrincipalName": "eran",
-                    "PrincipalNUmber": "0523245505"
-                }, {
-                    "BranchId": 2,
-                    "BranchName": "Second",
-                    "StudentsList": [],
-                    "OptionalGrades": ["B", "GAN", "C", "A"],
-                    "OptionalClasses": ["3", "1", "4", "2"],
-                    "OptionalHealthIssues": ["GLUTEN", "SUGAR"],
-                    "PrincipalName": null,
-                    "PrincipalNUmber": null
-                }
-            ]
+
+            var deferred = $q.defer();
+
+            repositoryAbstract.getData().then(function (data) {
+                deferred.resolve(data)
+            });
+
+            return deferred.promise;
+
         }
 
         function getBranchById(Id) {
             log("Get branch by id: " + Id);
 
-            return {
-                "BranchId": 1,
-                "BranchName": "First",
-                "StudentsList": [],
-                "OptionalGrades": ["B", "GAN", "C", "A"],
-                "OptionalClasses": ["3", "1", "4", "2"],
-                "OptionalHealthIssues": ["GLUTEN", "SUGAR"],
-                "PrincipalName": "eran",
-                "PrincipalNUmber": "0523245505"
-            };
+            var deferred = $q.defer();
+
+            repositoryAbstract.getData().then(function (data) {
+                var branch = null;
+                $.each(data, function (index, item) {
+                    if (item.BranchId == Id) {
+                        branch = item;
+                    }
+                })
+
+                deferred.resolve(branch)
+            });
+
+            return deferred.promise;
         }
 
         return {

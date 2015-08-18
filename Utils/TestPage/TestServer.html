@@ -39,6 +39,7 @@
 
 
     <script type="text/javascript">
+		var token = "";
         var ServerUrl = "http://pickmeplease.azurewebsites.net/";//"http://localhost:47588/"; //
         function SendRequest(method, json) {
             var jsonAsString = JSON.stringify(json);
@@ -68,7 +69,7 @@
                 {
                     BranchId: 1,
                     LastSyncTime: (new Date()).toISOString(),
-                    Token: "liran"
+                    Token: token
                 };
             SendRequest("Students/Update", request);
         }
@@ -79,7 +80,7 @@
                 {
                     BranchId: 1,
                     StudentId:"3",
-                    Token: "liran"
+                    Token: token
                 };
             SendRequest("Students/CheckedIn", request);
         }
@@ -89,7 +90,7 @@
                 {
                     BranchId: 1,
                     StudentId: "3",
-                    Token: "liran",
+                    Token: token,
                     PickerName :"Erans dad"
                 };
             SendRequest("Students/PickedUp", request);
@@ -100,7 +101,7 @@
             var request =
                 {
                     LastSyncTime: (new Date()).toISOString(),
-                    Token: "liran"
+                    Token: token
                 };
             SendRequest("Branches/Get", request);
         }
@@ -135,7 +136,7 @@
                 success: function (data) {
                     console.log(data);
                     displayJson(data);
-
+					token = data.access_token;
                 },
                 error: function (data) {
                     console.log(data);

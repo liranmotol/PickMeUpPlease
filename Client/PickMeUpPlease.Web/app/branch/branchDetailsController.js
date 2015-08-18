@@ -14,7 +14,9 @@
         var vm = this;
         var branchId = $stateParams.Id;
 
-        vm.selectedBranch = branchRepository.getById(branchId);
+        branchRepository.getById(branchId).then(function (branch) {
+            vm.selectedBranch = branch;
+        });
 
         return vm;
     }
