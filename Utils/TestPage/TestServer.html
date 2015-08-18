@@ -39,7 +39,7 @@
 
 
     <script type="text/javascript">
-        var ServerUrl = "http://pickmeplease.azurewebsites.net/";
+        var ServerUrl = "http://pickmeplease.azurewebsites.net/";//"http://localhost:47588/"; //
         function SendRequest(method, json) {
             var jsonAsString = JSON.stringify(json);
             $.ajax({
@@ -109,28 +109,29 @@
         function LoginRegister()
         {
             var request = {
-                "userName": "1",
-                "password": "1",
-                "confirmPassword": "1"
+                "userName": "liran1",
+                "password": "liran1",
+                "confirmPassword": "liran1"
             }
             SendRequest("account/register", request);
 
         }
         function GetToken() {
             var request = {
-                "grant_type": "password",
-                "username": "1",
-                "password": "1"
+                grant_type: "password",
+                username: "liran1",
+                password: "liran1"
             }
-			
-			var data = "grant_type=password&username=liran1&password=liran1";
-			
             var jsonAsString = JSON.stringify(request);
+			jsonAsString="grant_type=password&username=liran1&password=liran1";
+			//var urlEnc = encodeURIComponent(temp);
             $.ajax({
                 type: "POST",
                 url: ServerUrl + "account/token",
-                data: data,
+                data: jsonAsString,
+				Accept: "application/json",
                 contentType: "application/x-www-form-urlencoded",
+                dataType: "json",
                 success: function (data) {
                     console.log(data);
                     displayJson(data);
@@ -158,10 +159,12 @@
 
             container.innerHTML = "";
             var editor = new JSONEditor(container, options, json);
-        }
+        }
+
 
     displayJson();
     </script>
 
 </body>
 </html>
+<!-- We are using Hadar’s account: hadar-shchori, htsol123 -->
