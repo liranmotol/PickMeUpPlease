@@ -117,6 +117,8 @@
     <Content Include="app\branch\branches.html" />
     <Content Include="app\checkIn\checkIn.html" />
     <Content Include="app\checkIn\checkInController.js" />
+    <Content Include="app\checkOut\checkOut.html" />
+    <Content Include="app\checkOut\checkOutController.js" />
     <Content Include="app\common\common.js" />
     <Content Include="app\common\logger.js" />
     <Content Include="app\home\home.html" />
@@ -124,6 +126,8 @@
     <Content Include="app\home\layout.html" />
     <Content Include="app\login\login.html" />
     <Content Include="app\login\loginController.js" />
+    <Content Include="app\meals\meals.html" />
+    <Content Include="app\meals\mealsController.js" />
     <Content Include="app\menu\menu.html" />
     <Content Include="app\menu\menuController.js" />
     <Content Include="app\services\authInterceptorService.js" />

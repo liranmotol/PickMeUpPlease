@@ -1,4 +1,9 @@
-﻿<ion-view view-title="Menu" ng-controller="loginController as vm">
+﻿<ion-view view-title="Menu" ng-controller="menuController as vm">
+    <ion-nav-buttons side="right">
+        <button class="button icon ion-log-out" ng-click="vm.logOut()"></button>
+    </ion-nav-buttons>
+
+
     <ion-content padding="true" scroll="false" class="has-header">
 
         <div class="row">
@@ -26,7 +31,7 @@
         </div>
 
 
-        <div class="row">
+        <!--<div class="row">
             <div class="col col90">
                 <a class="button button-balanced col col90" ng-href="#/home/counselor">Counselor info</a>
             </div>
@@ -36,7 +41,7 @@
             <div class="col col90">
                 <a class="button button-balanced col col90" ng-href="#/home/schedule">Schedule</a>
             </div>
-        </div>
+        </div>-->
 
     </ion-content>
 </ion-view>

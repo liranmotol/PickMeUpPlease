@@ -13,6 +13,7 @@ namespace Server.AuthHelpers
     {
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
             context.Validated();
         }
 

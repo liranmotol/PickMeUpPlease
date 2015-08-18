@@ -1,12 +1,12 @@
 ﻿(function () {
     'use strict';
-    var controllerId = "checkInController";
+    var controllerId = "checkOutController";
 
     var app = angular.module("app");
 
-    app.controller(controllerId, ['common', checkInController]);
+    app.controller(controllerId, ['common', checkOutController]);
 
-    function checkInController(common) {
+    function checkOutController(common) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
 

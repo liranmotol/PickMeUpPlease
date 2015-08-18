@@ -60,6 +60,33 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('home.checkIn', {
+            url: "/checkIn",
+            views: {
+                "mainContent": {
+                    templateUrl: "app/checkIn/checkIn.html"
+                }
+            }
+        })
+
+        .state('home.checkOut', {
+            url: "/checkOut",
+            views: {
+                "mainContent": {
+                    templateUrl: "app/checkOut/checkOut.html"
+                }
+            }
+        })
+
+        .state('home.meals', {
+            url: "/meals",
+            views: {
+                "mainContent": {
+                    templateUrl: "app/meals/meals.html"
+                }
+            }
+        })
+
         .state('app', {
             abstract: true,
             url: "/app",
@@ -77,11 +104,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
     //// if none of the above states are matched, use this as the fallback
 
-    $urlRouterProvider.otherwise('/home/menu');
+    $urlRouterProvider.otherwise('/app/login');
 
 });
 
-var serviceBase = "http://pickmeplease.azurewebsites.net"
+var serviceBase = "http://pickmeplease.azurewebsites.net/"
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'ngAuthApp'

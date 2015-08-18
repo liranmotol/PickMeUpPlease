@@ -12,16 +12,6 @@
 
         var vm = this;
 
-        vm.logOut = function () {
-            authService.logOut();
-            $location.path('/home');
-        }
-
-        if (!authService.authentication.isAuth) {
-            log("user is not authenticated, redirect to login page");
-            $state.go('app.login');
-        } 
-
         return vm;
     }
 })();

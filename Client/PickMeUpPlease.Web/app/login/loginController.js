@@ -17,17 +17,34 @@
             userName: "",
             password: "",
         };
+
+        if (authService.authentication.isAuth) {
+            log("user already authenticated, redirect to menu page");
+            $state.go('home.menu');
+        }
+
+
         $scope.message = "";
 
         $scope.login = function (loginType) {
             
             log($scope.loginData.userName + " " + $scope.loginData.password);
 
-            $state.go('home.menu');
-
             authService.login($scope.loginData).then(function (response) {
 
-                $state.go('home');
+                $state.go('home.menu');
+
+            },
+         function (err) {
+             $scope.message = err.error_description;
+         });
+        }
+
+        $scope.register = function () {
+
+            authService.saveRegistration().then(function (response) {
+
+                $state.go('home.menu');
 
             },
          function (err) {
@@ -61,13 +78,13 @@
                         userName: fragment.external_user_name,
                         externalAccessToken: fragment.external_access_token
                     };
-                    $state.go('home');
+                    $state.go('home.menu');
                 }
                 else {
                     //Obtain access token and redirect to orders
                     var externalData = { provider: fragment.provider, externalAccessToken: fragment.external_access_token };
                     authService.obtainAccessToken(externalData).then(function (response) {
-                        $state.go('home'); 
+                        $state.go('home.menu');
                     },
                  function (err) {
                      $scope.message = err.error_description;

@@ -39,7 +39,7 @@
 
 
     <script type="text/javascript">
-        var ServerUrl = "http://localhost:47588/"; //"http://pickmeplease.azurewebsites.net/";//
+        var ServerUrl = "http://pickmeplease.azurewebsites.net/";
         function SendRequest(method, json) {
             var jsonAsString = JSON.stringify(json);
             $.ajax({
@@ -109,9 +109,9 @@
         function LoginRegister()
         {
             var request = {
-                "userName": "liran1",
-                "password": "liran1",
-                "confirmPassword": "liran1"
+                "userName": "1",
+                "password": "1",
+                "confirmPassword": "1"
             }
             SendRequest("account/register", request);
 
@@ -119,16 +119,18 @@
         function GetToken() {
             var request = {
                 "grant_type": "password",
-                "username": "liran1",
-                "password": "liran1"
+                "username": "1",
+                "password": "1"
             }
+			
+			var data = "grant_type=password&username=liran1&password=liran1";
+			
             var jsonAsString = JSON.stringify(request);
             $.ajax({
                 type: "POST",
-                url: ServerUrl + "token",
-                data: jsonAsString,
+                url: ServerUrl + "account/token",
+                data: data,
                 contentType: "application/x-www-form-urlencoded",
-                dataType: "json",
                 success: function (data) {
                     console.log(data);
                     displayJson(data);
