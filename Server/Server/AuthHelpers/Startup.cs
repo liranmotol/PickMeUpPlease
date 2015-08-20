@@ -15,6 +15,7 @@ namespace Server.AuthHelpers
     {
         public void Configuration(IAppBuilder app)
         {
+            System.Diagnostics.Trace.TraceInformation("Application started");
             HttpConfiguration config = new HttpConfiguration();
 
             ConfigureOAuth(app);

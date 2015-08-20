@@ -40,13 +40,25 @@
 
     <script type="text/javascript">
 		var token = "";
-        var ServerUrl = "http://pickmeplease.azurewebsites.net/";//"http://localhost:47588/"; //
+        var ServerUrl = "http://localhost:47588/"; //"http://pickmeplease.azurewebsites.net/";//
         function SendRequest(method, json) {
             var jsonAsString = JSON.stringify(json);
+
+           // var LastSyncTime = (new Date()).toISOString();
+            //var Request =
+              //  {
+               //     LastSyncTime: LastSyncTime,
+                //    Token: token,
+                //};
+            //jsonAsString= JSON.stringify(Request);
+			
+
+
             $.ajax({
                 type: "POST",
                 url: ServerUrl + method,
                 data: jsonAsString,
+				headers: {'Authorization':'Bearer '+token},
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {

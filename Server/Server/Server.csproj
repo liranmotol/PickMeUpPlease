@@ -150,7 +150,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hndlers\InMemoryHandler.cs" />
-    <Compile Include="Hndlers\SecurityMemHandler.cs" />
     <Compile Include="Models\BranchModel.cs" />
     <Compile Include="Models\ClientRequests.cs" />
     <Compile Include="Models\CounslerModel.cs" />

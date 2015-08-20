@@ -19,13 +19,15 @@ namespace Server.Controllers
         [Route("Students/PickedUp")]
         public string PickedUp(RequestStudentPickedUp StudentPickedUpRequest)
         {
-            if (InMemoryHandler.IsTokenValid(StudentPickedUpRequest.Token))
-            {
+            System.Diagnostics.Trace.TraceInformation("PickedUp Request");
+
+            //if (InMemoryHandler.IsTokenValid(StudentPickedUpRequest.Token))
+            //{
                 InMemoryHandler.StudentPickedUp(StudentPickedUpRequest.StudentId, StudentPickedUpRequest.PickerName, StudentPickedUpRequest.BranchId);
                 return "Cool. bye bye";
-            }
-            else
-                return "Illegal Token";
+            //}
+            //else
+                //return "Illegal Token";
 
         }
 
@@ -33,6 +35,8 @@ namespace Server.Controllers
         [Route("Students/CheckedIn")]
         public string CheckedIn(RequestStudentCheckedIn StudentCheckedInRequest)
         {
+            System.Diagnostics.Trace.TraceWarning("CheckedIn Request");
+
             //if (InMemoryHandler.IsTokenValid(StudentPickedUpRequest.Token))
             //{
             //    InMemoryHandler.StudentPickedUp(StudentPickedUpRequest.StudentId, StudentPickedUpRequest.PickerName, StudentPickedUpRequest.BranchId);
@@ -47,7 +51,9 @@ namespace Server.Controllers
         [Route("Students/Update")]
         public List<StudentModel> Update(RequestStudentUpdateList StudentUpdateRequest)
         {
-            CounslerModel counsler = InMemoryHandler.GetCounslerByToken(StudentUpdateRequest.Token);
+            System.Diagnostics.Trace.TraceError("Update Request");
+
+            CounslerModel counsler = InMemoryHandler.GetCounslerByUserName("liran");
             if (counsler == null)
                 return null;
             ResponseGetBranchInfo branch = InMemoryHandler.GetBranchesInfo(counsler, StudentUpdateRequest.LastSyncTime);
