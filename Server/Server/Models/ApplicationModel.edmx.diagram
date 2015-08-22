@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7f894c08baad4a849fb27afdbfc09e21" Name="Diagram1">
+        <EntityTypeShape EntityType="pickmepleasedbModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetRoles" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetUserClaims" Width="1.5" PointX="10.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetUserLogins" Width="1.5" PointX="10.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetUsers" Width="1.5" PointX="8" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.contacts" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <AssociationConnector Association="pickmepleasedbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="pickmepleasedbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="pickmepleasedbModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.students" Width="1.5" PointX="3" PointY="4.875" />
+        <AssociationConnector Association="pickmepleasedbModel.FK__students__studen__10566F31" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.myFirstTable" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.branches" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="pickmepleasedbModel.contact_a_contacts_id_fk" />
+        <AssociationConnector Association="pickmepleasedbModel.contact_b_contacts_id_fk" />
+        <AssociationConnector Association="pickmepleasedbModel.principle_contacts_id_fk" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

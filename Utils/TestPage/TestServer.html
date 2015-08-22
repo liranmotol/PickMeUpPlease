@@ -32,6 +32,11 @@
     <button onclick="GetToken()">GetToken</button><br />
 
     <br />
+	<br /><br />
+    Test Method:
+    <br />
+    <button onclick="TestMethod()">Test Method</button><br />
+
 
 
     <div id="jsoneditor"></div>
@@ -159,6 +164,11 @@
 
 
         }
+		
+		function TestMethod()
+		{
+			SendRequest("main/testMethod",null);
+		}
 
 
     </script>

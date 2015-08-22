@@ -15,8 +15,21 @@ namespace Server.Controllers
     public class MainController : ApiController
     {
 
-        //[HttpGet, HttpPost]
-        //[Route("LoginRequest")]
+        [HttpGet, HttpPost]
+        [Route("Main/testMethod")]
+        public string testMethod()
+        { 
+            //ApplicationContext a = new ApplicationContext();
+            //students s = a.Students.First();
+
+            using (var db = new ApplicationContext())
+            {
+                students s1 = db.Students.First();
+
+            }
+                return null;
+        }
+
         //public CounslerModel LoginRequest(RequestLoginModel loginRequest)
         //{
         //    CounslerModel counsler= null;
@@ -34,6 +47,8 @@ namespace Server.Controllers
         [Route("GetBranchInfo")]
         public ResponseGetBranchInfo GetBranchInfo(RequestGetBranchInfo requestBranchInfo)
         {
+            
+
             CounslerModel counsler = InMemoryHandler.GetCounslerByUserName("liran");
             if (counsler == null)
                 return null;
