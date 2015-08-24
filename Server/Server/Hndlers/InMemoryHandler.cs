@@ -79,10 +79,10 @@ namespace Server.Hndlers
 
 
 
-        public static void UpdateCounslerToken(string token, CounslerModel counsler)
-        {
-            SecurityMemHandler.UpdateCounslerToken(token, counsler);
-        }
+        //public static void UpdateCounslerToken(string token, CounslerModel counsler)
+        //{
+        //    SecurityMemHandler.UpdateCounslerToken(token, counsler);
+        //}
 
         internal static CounslerModel GetCounslerByUserName(string userName)
         {
@@ -91,22 +91,22 @@ namespace Server.Hndlers
                 return tempCoun.First();
             return null;
         }
-        internal static bool IsTokenValid(string token)
-        {
-            return SecurityMemHandler.IsTokenValid(token) > 0;
-        }
+        //internal static bool IsTokenValid(string token)
+        //{
+        //    return SecurityMemHandler.IsTokenValid(token) > 0;
+        //}
 
 
 
-        internal static CounslerModel GetCounslerByToken(string token)
-        {
-            int CounslerId = SecurityMemHandler.IsTokenValid(token);
-            if (CounslerId > 0)
-            {
-                return Counslers.Where(c => c.CounslerID == CounslerId).First();
-            }
-            return null;
-        }
+        //internal static CounslerModel GetCounslerByToken(string token)
+        //{
+        //    int CounslerId = SecurityMemHandler.IsTokenValid(token);
+        //    if (CounslerId > 0)
+        //    {
+        //        return Counslers.Where(c => c.CounslerID == CounslerId).First();
+        //    }
+        //    return null;
+        //}
 
         internal static ResponseGetBranchInfo GetBranchesInfo(CounslerModel counsler, DateTime LastSyncTime)
         {

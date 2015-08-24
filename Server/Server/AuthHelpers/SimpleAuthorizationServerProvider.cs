@@ -41,6 +41,12 @@ namespace Server.AuthHelpers
             context.Validated(identity);
 
         }
+
+        public static string GetUserNameFromContext(Microsoft.Owin.IOwinContext owinContext)
+        {
+            return owinContext.Authentication.User.Identities.First().Claims.Last().Value;
+        }
+
     }
 
 }

@@ -20,8 +20,17 @@ namespace Server.AuthHelpers
 
         public AuthRepository()
         {
-            _ctx = new AuthContext();
-            _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_ctx));
+            try
+            {
+                _ctx = new AuthContext();
+                _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_ctx));
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError("AuthRepository Exception.",ex.Message);
+
+                //throw;
+            }
         }
 
         public async Task<IdentityResult> RegisterUser(UserModel userModel)

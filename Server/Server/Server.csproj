@@ -84,6 +84,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Cors">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -120,6 +122,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <EntityDeploy Include="Models\ApplicationModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ApplicationModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ApplicationModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ApplicationModel.edmx</DependentUpon>
+      <LastGenOutput>ApplicationModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ApplicationModel.edmx.diagram">
+      <DependentUpon>ApplicationModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\ApplicationModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ApplicationModel.edmx</DependentUpon>
+      <LastGenOutput>ApplicationModel.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\pickmeplease %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\pickmeplease %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\pickmeplease.pubxml" />
@@ -145,22 +164,67 @@
     <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="DAL\ApplicationContext.cs" />
     <Compile Include="DAL\DAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hndlers\InMemoryHandler.cs" />
-    <Compile Include="Hndlers\SecurityMemHandler.cs" />
+    <Compile Include="Models\ApplicationModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApplicationModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApplicationModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApplicationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApplicationModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApplicationModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetRoles.cs">
+      <DependentUpon>ApplicationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaims.cs">
+      <DependentUpon>ApplicationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogins.cs">
+      <DependentUpon>ApplicationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUsers.cs">
+      <DependentUpon>ApplicationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\branches.cs">
+      <DependentUpon>ApplicationModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BranchModel.cs" />
     <Compile Include="Models\ClientRequests.cs" />
+    <Compile Include="Models\contacts.cs">
+      <DependentUpon>ApplicationModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CounslerModel.cs" />
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>ApplicationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\myFirstTable.cs">
+      <DependentUpon>ApplicationModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RequestLoginModel.cs" />
     <Compile Include="Models\ResponseGetBranchInfo.cs" />
     <Compile Include="Models\StudentModel.cs" />
+    <Compile Include="Models\students.cs">
+      <DependentUpon>ApplicationModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

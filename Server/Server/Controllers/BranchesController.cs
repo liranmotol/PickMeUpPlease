@@ -1,4 +1,5 @@
-﻿using Server.Hndlers;
+﻿using Server.AuthHelpers;
+using Server.Hndlers;
 using Server.Models;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,10 @@ namespace Server.Controllers
         [Route("Branches/Get")]
         public ResponseGetBranchInfo Get(RequestGetBranchInfo requestBranchInfo)
         {
-            CounslerModel counsler = InMemoryHandler.GetCounslerByToken(requestBranchInfo.Token);
+            //Request.GetOwinContext().
+            System.Diagnostics.Trace.TraceInformation("GetBranched Request");
+            string userName = SimpleAuthorizationServerProvider.GetUserNameFromContext(Request.GetOwinContext());
+            CounslerModel counsler = InMemoryHandler.GetCounslerByUserName("liran");
             if (counsler == null)
                 return null;
             ResponseGetBranchInfo branch = InMemoryHandler.GetBranchesInfo(counsler, requestBranchInfo.LastSyncTime);
