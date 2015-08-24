@@ -17,8 +17,8 @@
             var deferred = $q.defer();
 
             if (service.data == null) {
-                $http.post(ngAuthSettings.apiServiceBaseUri + '/Branches/Get', _getServerToken()).
-                  success(function (response) {
+                $http.post(ngAuthSettings.apiServiceBaseUri + '/Branches/Get', _getServerToken())
+                    .success(function (response) {
                       log('getting all data from server')
                       //service.data = response;
 
@@ -45,7 +45,8 @@
                       ];
 
                       deferred.resolve(service.data)
-                  }).error(function (response) {
+                  })
+                    .error(function (response) {
                       logErr(response)
                       deferred.reject(err);
                   });
@@ -55,7 +56,6 @@
 
             return deferred.promise;
         }
-
 
         function _getServerToken() {
             var LastSyncTime = (new Date()).toISOString()
