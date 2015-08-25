@@ -14,6 +14,8 @@ namespace Server.Hndlers
 
         private static List<CounslerModel> Counslers;
         private static List<BranchModel> Branches;
+        private static List<StudentModel> Students;
+
 
 
         private static Timer staticDataRefreshTimer;
@@ -75,6 +77,7 @@ namespace Server.Hndlers
         {
             Counslers = DataAccess.GetCounslersData();
             Branches = DataAccess.GetBranchesData();
+            Students = DataAccess.GetStudentsData();
         }
 
 

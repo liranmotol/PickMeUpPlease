@@ -15,6 +15,19 @@ namespace Server.Models
     
     public partial class pickmepleasedbEntities : DbContext
     {
+
+        public static pickmepleasedbEntities Instnace
+        {
+            get
+            {
+                if (_instnace == null)
+                    _instnace = new pickmepleasedbEntities();
+                return _instnace;
+            }
+        }
+
+        private static pickmepleasedbEntities _instnace;
+
         public pickmepleasedbEntities()
             : base("name=pickmepleasedbEntities")
         {
@@ -25,14 +38,13 @@ namespace Server.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<branches> branches { get; set; }
         public virtual DbSet<contacts> contacts { get; set; }
         public virtual DbSet<students> students { get; set; }
-        public virtual DbSet<myFirstTable> myFirstTable { get; set; }
-        public virtual DbSet<branches> branches { get; set; }
+        public virtual DbSet<counslers> counslers { get; set; }
     }
 }

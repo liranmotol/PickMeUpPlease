@@ -14,14 +14,6 @@ namespace Server.Models
     
     public partial class contacts
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public contacts()
-        {
-            this.branches = new HashSet<branches>();
-            this.branches1 = new HashSet<branches>();
-            this.branches2 = new HashSet<branches>();
-        }
-    
         public int id { get; set; }
         public string user_id { get; set; }
         public string first_name { get; set; }
@@ -31,14 +23,6 @@ namespace Server.Models
         public string email_1 { get; set; }
         public string email_2 { get; set; }
         public string address { get; set; }
-        public string iamge { get; set; }
-    
-        public virtual students students { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<branches> branches { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<branches> branches1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<branches> branches2 { get; set; }
+        public string image { get; set; }
     }
 }

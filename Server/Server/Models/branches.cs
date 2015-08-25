@@ -20,9 +20,5 @@ namespace Server.Models
         public Nullable<int> principle_contacts_id { get; set; }
         public Nullable<int> contact_a_contacts_id { get; set; }
         public Nullable<int> contact_b_contacts_id { get; set; }
-    
-        public virtual contacts contacts { get; set; }
-        public virtual contacts contacts1 { get; set; }
-        public virtual contacts contacts2 { get; set; }
     }
 }

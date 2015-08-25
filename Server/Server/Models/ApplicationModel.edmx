@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="pickmepleasedbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -90,14 +80,18 @@
           <Property Name="email_1" Type="nvarchar" MaxLength="100" />
           <Property Name="email_2" Type="nvarchar" MaxLength="100" />
           <Property Name="address" Type="nvarchar" MaxLength="100" />
-          <Property Name="iamge" Type="varchar" MaxLength="2560" />
+          <Property Name="image" Type="varchar" MaxLength="2560" />
         </EntityType>
-        <EntityType Name="myFirstTable">
+        <EntityType Name="counslers">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="counsler_concacts_id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SomeName" Type="nchar" MaxLength="10" />
+          <Property Name="counsler_concacts_id" Type="int" Nullable="false" />
+          <Property Name="gender" Type="bit" Nullable="false" />
+          <Property Name="birthday" Type="date" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="allowed_branches" Type="varchar" MaxLength="100" />
+          <Property Name="usernmae" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="students">
           <Key>
@@ -110,43 +104,8 @@
           <Property Name="pick_up_options" Type="nvarchar" MaxLength="2560" />
           <Property Name="gender" Type="bit" Nullable="false" />
           <Property Name="birthday" Type="date" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="contact_a_contacts_id_fk">
-          <End Role="contacts" Type="Self.contacts" Multiplicity="0..1" />
-          <End Role="branches" Type="Self.branches" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="contacts">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="branches">
-              <PropertyRef Name="contact_a_contacts_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="contact_b_contacts_id_fk">
-          <End Role="contacts" Type="Self.contacts" Multiplicity="0..1" />
-          <End Role="branches" Type="Self.branches" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="contacts">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="branches">
-              <PropertyRef Name="contact_b_contacts_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__students__studen__1CBC4616">
-          <End Role="contacts" Type="Self.contacts" Multiplicity="1" />
-          <End Role="students" Type="Self.students" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="contacts">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="students">
-              <PropertyRef Name="student_concacts_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -203,20 +162,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="principle_contacts_id_fk">
-          <End Role="contacts" Type="Self.contacts" Multiplicity="0..1" />
-          <End Role="branches" Type="Self.branches" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="contacts">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="branches">
-              <PropertyRef Name="principle_contacts_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="pickmepleasedbModelStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -224,20 +170,8 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="branches" EntityType="Self.branches" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="contacts" EntityType="Self.contacts" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="myFirstTable" EntityType="Self.myFirstTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="counslers" EntityType="Self.counslers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="students" EntityType="Self.students" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="contact_a_contacts_id_fk" Association="Self.contact_a_contacts_id_fk">
-            <End Role="contacts" EntitySet="contacts" />
-            <End Role="branches" EntitySet="branches" />
-          </AssociationSet>
-          <AssociationSet Name="contact_b_contacts_id_fk" Association="Self.contact_b_contacts_id_fk">
-            <End Role="contacts" EntitySet="contacts" />
-            <End Role="branches" EntitySet="branches" />
-          </AssociationSet>
-          <AssociationSet Name="FK__students__studen__1CBC4616" Association="Self.FK__students__studen__1CBC4616">
-            <End Role="contacts" EntitySet="contacts" />
-            <End Role="students" EntitySet="students" />
-          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -254,42 +188,50 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
-          <AssociationSet Name="principle_contacts_id_fk" Association="Self.principle_contacts_id_fk">
-            <End Role="contacts" EntitySet="contacts" />
-            <End Role="branches" EntitySet="branches" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="pickmepleasedbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
+        <EntityContainer Name="pickmepleasedbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="pickmepleasedbModel.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="pickmepleasedbModel.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="pickmepleasedbModel.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="pickmepleasedbModel.AspNetUsers" />
+          <EntitySet Name="branches" EntityType="pickmepleasedbModel.branches" />
+          <EntitySet Name="contacts" EntityType="pickmepleasedbModel.contacts" />
+          <EntitySet Name="students" EntityType="pickmepleasedbModel.students" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="pickmepleasedbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="pickmepleasedbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="pickmepleasedbModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="counslers" EntityType="pickmepleasedbModel.counslers" />
+        </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="pickmepleasedbModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUserClaims">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers" Relationship="pickmepleasedbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUserLogins">
           <Key>
@@ -297,16 +239,16 @@
             <PropertyRef Name="ProviderKey" />
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="pickmepleasedbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -317,132 +259,10 @@
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-        </EntityType>
-        <EntityType Name="contacts">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="phone_mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="phone_home" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="email_1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="email_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="iamge" Type="String" MaxLength="2560" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="students" Relationship="pickmepleasedbModel.FK__students__studen__10566F31" FromRole="contacts" ToRole="students" />
-          <NavigationProperty Name="branches" Relationship="pickmepleasedbModel.contact_a_contacts_id_fk" FromRole="contacts" ToRole="branches" />
-          <NavigationProperty Name="branches1" Relationship="pickmepleasedbModel.contact_b_contacts_id_fk" FromRole="contacts" ToRole="branches" />
-          <NavigationProperty Name="branches2" Relationship="pickmepleasedbModel.principle_contacts_id_fk" FromRole="contacts" ToRole="branches" />
-        </EntityType>
-        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserClaims">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserLogins">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="AspNetUserRoles">
-          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="pickmepleasedbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
-          <EntitySet Name="contacts" EntityType="Self.contacts" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <EntitySet Name="students" EntityType="pickmepleasedbModel.students" />
-          <AssociationSet Name="FK__students__studen__10566F31" Association="pickmepleasedbModel.FK__students__studen__10566F31">
-            <End Role="contacts" EntitySet="contacts" />
-            <End Role="students" EntitySet="students" />
-          </AssociationSet>
-          <EntitySet Name="myFirstTable" EntityType="pickmepleasedbModel.myFirstTable" />
-          <EntitySet Name="branches" EntityType="pickmepleasedbModel.branches" />
-          <AssociationSet Name="contact_a_contacts_id_fk" Association="pickmepleasedbModel.contact_a_contacts_id_fk">
-            <End Role="contacts" EntitySet="contacts" />
-            <End Role="branches" EntitySet="branches" />
-          </AssociationSet>
-          <AssociationSet Name="contact_b_contacts_id_fk" Association="pickmepleasedbModel.contact_b_contacts_id_fk">
-            <End Role="contacts" EntitySet="contacts" />
-            <End Role="branches" EntitySet="branches" />
-          </AssociationSet>
-          <AssociationSet Name="principle_contacts_id_fk" Association="pickmepleasedbModel.principle_contacts_id_fk">
-            <End Role="contacts" EntitySet="contacts" />
-            <End Role="branches" EntitySet="branches" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="students">
-          <Key>
-            <PropertyRef Name="student_concacts_id" />
-          </Key>
-          <Property Name="student_concacts_id" Type="Int32" Nullable="false" />
-          <Property Name="grade" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="class" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="health_issues" Type="String" MaxLength="2560" FixedLength="false" Unicode="true" />
-          <Property Name="pick_up_options" Type="String" MaxLength="2560" FixedLength="false" Unicode="true" />
-          <Property Name="gender" Type="Boolean" Nullable="false" />
-          <Property Name="birthday" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="contacts" Relationship="pickmepleasedbModel.FK__students__studen__10566F31" FromRole="students" ToRole="contacts" />
-        </EntityType>
-        <Association Name="FK__students__studen__10566F31">
-          <End Type="pickmepleasedbModel.contacts" Role="contacts" Multiplicity="1" />
-          <End Type="pickmepleasedbModel.students" Role="students" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="contacts">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="students">
-              <PropertyRef Name="student_concacts_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="myFirstTable">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SomeName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="pickmepleasedbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="pickmepleasedbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="pickmepleasedbModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
         <EntityType Name="branches">
           <Key>
@@ -454,148 +274,125 @@
           <Property Name="principle_contacts_id" Type="Int32" />
           <Property Name="contact_a_contacts_id" Type="Int32" />
           <Property Name="contact_b_contacts_id" Type="Int32" />
-          <NavigationProperty Name="contacts" Relationship="pickmepleasedbModel.contact_a_contacts_id_fk" FromRole="branches" ToRole="contacts" />
-          <NavigationProperty Name="contacts1" Relationship="pickmepleasedbModel.contact_b_contacts_id_fk" FromRole="branches" ToRole="contacts" />
-          <NavigationProperty Name="contacts2" Relationship="pickmepleasedbModel.principle_contacts_id_fk" FromRole="branches" ToRole="contacts" />
         </EntityType>
-        <Association Name="contact_a_contacts_id_fk">
-          <End Type="pickmepleasedbModel.contacts" Role="contacts" Multiplicity="0..1" />
-          <End Type="pickmepleasedbModel.branches" Role="branches" Multiplicity="*" />
+        <EntityType Name="contacts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="first_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="last_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone_mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="phone_home" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="email_1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="email_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="2560" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="students">
+          <Key>
+            <PropertyRef Name="student_concacts_id" />
+          </Key>
+          <Property Name="student_concacts_id" Type="Int32" Nullable="false" />
+          <Property Name="grade" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="class" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="health_issues" Type="String" MaxLength="2560" FixedLength="false" Unicode="true" />
+          <Property Name="pick_up_options" Type="String" MaxLength="2560" FixedLength="false" Unicode="true" />
+          <Property Name="gender" Type="Boolean" Nullable="false" />
+          <Property Name="birthday" Type="DateTime" Precision="0" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="pickmepleasedbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="pickmepleasedbModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="contacts">
-              <PropertyRef Name="id" />
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="branches">
-              <PropertyRef Name="contact_a_contacts_id" />
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="contact_b_contacts_id_fk">
-          <End Type="pickmepleasedbModel.contacts" Role="contacts" Multiplicity="0..1" />
-          <End Type="pickmepleasedbModel.branches" Role="branches" Multiplicity="*" />
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="pickmepleasedbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="pickmepleasedbModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="contacts">
-              <PropertyRef Name="id" />
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="branches">
-              <PropertyRef Name="contact_b_contacts_id" />
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="principle_contacts_id_fk">
-          <End Type="pickmepleasedbModel.contacts" Role="contacts" Multiplicity="0..1" />
-          <End Type="pickmepleasedbModel.branches" Role="branches" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="contacts">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="branches">
-              <PropertyRef Name="principle_contacts_id" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="AspNetUserRoles">
+          <End Type="pickmepleasedbModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="pickmepleasedbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
-      </Schema>
+        <EntityType Name="counslers">
+          <Key>
+            <PropertyRef Name="counsler_concacts_id" />
+          </Key>
+          <Property Name="counsler_concacts_id" Type="Int32" Nullable="false" />
+          <Property Name="gender" Type="Boolean" Nullable="false" />
+          <Property Name="birthday" Type="DateTime" Precision="0" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="allowed_branches" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="usernmae" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="pickmepleasedbModelStoreContainer" CdmEntityContainer="pickmepleasedbEntities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="pickmepleasedbModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="pickmepleasedbModel.AspNetRoles">
               <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
             <EntityTypeMapping TypeName="pickmepleasedbModel.AspNetUserClaims">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
                 <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
             <EntityTypeMapping TypeName="pickmepleasedbModel.AspNetUserLogins">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="pickmepleasedbModel.AspNetUsers">
               <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="contacts">
-            <EntityTypeMapping TypeName="pickmepleasedbModel.contacts">
-              <MappingFragment StoreEntitySet="contacts">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="first_name" ColumnName="first_name" />
-                <ScalarProperty Name="last_name" ColumnName="last_name" />
-                <ScalarProperty Name="phone_mobile" ColumnName="phone_mobile" />
-                <ScalarProperty Name="phone_home" ColumnName="phone_home" />
-                <ScalarProperty Name="email_1" ColumnName="email_1" />
-                <ScalarProperty Name="email_2" ColumnName="email_2" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="iamge" ColumnName="iamge" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="pickmepleasedbModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetRoles">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-            <EndProperty Name="AspNetUsers">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <EntitySetMapping Name="students">
-            <EntityTypeMapping TypeName="pickmepleasedbModel.students">
-              <MappingFragment StoreEntitySet="students">
-                <ScalarProperty Name="birthday" ColumnName="birthday" />
-                <ScalarProperty Name="gender" ColumnName="gender" />
-                <ScalarProperty Name="pick_up_options" ColumnName="pick_up_options" />
-                <ScalarProperty Name="health_issues" ColumnName="health_issues" />
-                <ScalarProperty Name="class" ColumnName="class" />
-                <ScalarProperty Name="grade" ColumnName="grade" />
-                <ScalarProperty Name="student_concacts_id" ColumnName="student_concacts_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="myFirstTable">
-            <EntityTypeMapping TypeName="pickmepleasedbModel.myFirstTable">
-              <MappingFragment StoreEntitySet="myFirstTable">
-                <ScalarProperty Name="SomeName" ColumnName="SomeName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -609,6 +406,56 @@
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contacts">
+            <EntityTypeMapping TypeName="pickmepleasedbModel.contacts">
+              <MappingFragment StoreEntitySet="contacts">
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="email_2" ColumnName="email_2" />
+                <ScalarProperty Name="email_1" ColumnName="email_1" />
+                <ScalarProperty Name="phone_home" ColumnName="phone_home" />
+                <ScalarProperty Name="phone_mobile" ColumnName="phone_mobile" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="students">
+            <EntityTypeMapping TypeName="pickmepleasedbModel.students">
+              <MappingFragment StoreEntitySet="students">
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="pick_up_options" ColumnName="pick_up_options" />
+                <ScalarProperty Name="health_issues" ColumnName="health_issues" />
+                <ScalarProperty Name="class" ColumnName="class" />
+                <ScalarProperty Name="grade" ColumnName="grade" />
+                <ScalarProperty Name="student_concacts_id" ColumnName="student_concacts_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="pickmepleasedbModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="counslers">
+            <EntityTypeMapping TypeName="pickmepleasedbModel.counslers">
+              <MappingFragment StoreEntitySet="counslers">
+                <ScalarProperty Name="usernmae" ColumnName="usernmae" />
+                <ScalarProperty Name="allowed_branches" ColumnName="allowed_branches" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="counsler_concacts_id" ColumnName="counsler_concacts_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

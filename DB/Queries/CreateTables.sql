@@ -4,6 +4,7 @@
 drop table branches;
 drop table students;
 drop table contacts;
+drop table counslers;
 
 
 CREATE TABLE contacts
@@ -17,7 +18,7 @@ CREATE TABLE contacts
 	email_1 nvarchar(100) null, 
 	email_2 nvarchar(100) null, 
 	[address] nvarchar(100) null,
-	iamge varchar(2560) null
+	image varchar(2560) null
 	)
 
 
@@ -28,12 +29,9 @@ CREATE TABLE branches
 	name nvarchar(50) not null, 
 	[address] nvarchar(50) not null, 
 	principle_contacts_id int null, 
-	contact_a_contacts_id int null default 0, 
-	contact_b_contacts_id int null default 0, 
-    PRIMARY KEY (id),
-    FOREIGN KEY (principle_contacts_id) REFERENCES contacts(id) on delete set null,
-    FOREIGN KEY (contact_a_contacts_id) REFERENCES contacts(id)  ON DELETE no action,
-    FOREIGN KEY (contact_b_contacts_id) REFERENCES contacts(id)  ON DELETE no action
+	contact_a_contacts_id int null , 
+	contact_b_contacts_id int null , 
+    PRIMARY KEY (id)
 )
 GO
 
@@ -41,13 +39,23 @@ GO
 
 CREATE TABLE students
 (
-	student_concacts_id int not null default 0,
+	student_concacts_id int not null default 0 PRIMARY KEY,
 	grade varchar(10) not null,
 	[class] varchar(10) not null,
 	health_issues nvarchar(2560) null,
 	pick_up_options nvarchar(2560) null,
 	gender bit not null,
 	birthday date null,
-    FOREIGN KEY (student_concacts_id) REFERENCES contacts(id) on delete set default,
+	is_active bit default 1 not null
 )
 
+
+CREATE TABLE counslers
+(
+	counsler_concacts_id int not null default 0 PRIMARY KEY,
+	gender bit not null,
+	birthday date null,
+	is_active bit default 1 not null,
+	allowed_branches varchar(100),
+	usernmae nvarchar(256) null
+)

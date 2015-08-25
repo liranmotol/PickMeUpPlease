@@ -20,7 +20,6 @@ namespace Server.Controllers
         public ResponseGetBranchInfo Get(RequestGetBranchInfo requestBranchInfo)
         {
             //Request.GetOwinContext().
-            System.Diagnostics.Trace.TraceInformation("GetBranched Request");
             string userName = SimpleAuthorizationServerProvider.GetUserNameFromContext(Request.GetOwinContext());
             CounslerModel counsler = InMemoryHandler.GetCounslerByUserName("liran");
             if (counsler == null)

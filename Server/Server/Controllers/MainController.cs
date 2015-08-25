@@ -18,57 +18,26 @@ namespace Server.Controllers
         [HttpGet, HttpPost]
         [Route("Main/testMethod")]
         public string testMethod()
-        { 
-            //ApplicationContext a = new ApplicationContext();
-            //students s = a.Students.First();
-
-            using (var db = new ApplicationContext())
-            {
-                students s1 = db.Students.First();
-
-            }
-                return null;
-        }
-
-        //public CounslerModel LoginRequest(RequestLoginModel loginRequest)
-        //{
-        //    CounslerModel counsler= null;
-        //    if (SecurityMemHandler.IsUserAuthenticated(loginRequest))
-        //    {
-        //        string token = Guid.NewGuid().ToString();
-        //        counsler = InMemoryHandler.GetCounslerByUserName(loginRequest.UserName);
-        //        counsler.Token = token;
-        //        InMemoryHandler.UpdateCounslerToken(token, counsler);
-        //    }
-        //    return counsler;
-        //}
-
-        [HttpGet, HttpPost]
-        [Route("GetBranchInfo")]
-        public ResponseGetBranchInfo GetBranchInfo(RequestGetBranchInfo requestBranchInfo)
         {
-            
+            var s =ApplicationContext.Instnace.Students.First();
 
-            CounslerModel counsler = InMemoryHandler.GetCounslerByUserName("liran");
-            if (counsler == null)
-                return null;
-            ResponseGetBranchInfo branch= InMemoryHandler.GetBranchesInfo(counsler, requestBranchInfo.LastSyncTime);
-            return branch;
+                return s.health_issues;
         }
 
         [HttpGet, HttpPost]
-        [Route("SetStudentPickedUp")]
-        public string SetStudentPickedUp(RequestStudentPickedUp StudentPickedUpRequest)
+        [Route("Main/testMethod2")]
+        public string testMethod2()
         {
-           // if (InMemoryHandler.IsTokenValid(StudentPickedUpRequest.Token))
-          //  {
-                InMemoryHandler.StudentPickedUp(StudentPickedUpRequest.StudentId, StudentPickedUpRequest.PickerName,StudentPickedUpRequest.BranchId);
-                return "";
-          //  }
-          //  else
-          //      return "Illegal Token";
+            var s = ApplicationContext.Instnace.Students.First();
+            var m = ApplicationContext.Instnace.Branches.First();
 
+            var s1 = pickmepleasedbEntities.Instnace.students.First();
+            var m2 = pickmepleasedbEntities.Instnace.branches.First();
+
+            return null;
         }
+
+      
 
     }
 
