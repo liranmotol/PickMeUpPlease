@@ -1,4 +1,5 @@
 ﻿using Server.DAL;
+using Server.Hndlers;
 using Server.Models;
 using System;
 using System.Collections.Generic;
@@ -21,25 +22,25 @@ namespace Server.Utils
         //    ApplicationContext.Instnace.Counslers.Join
         //}
 
-        internal static Models.contacts GetContactByUserName(string userName)
-        {
-            var counsler = pickmepleasedbEntities.Instnace.counslers.Where(c => c.usernmae.ToLower().Equals(userName.ToLower())).FirstOrDefault();
-            if (string.IsNullOrEmpty(userName) || counsler == null)
-            {
-                Logger.WriteToLog(LogLevel.warning, "GetContactByUserName IsNullOrEmpty or no counsler exists for user:" +userName);
-                return null;
-            }
-            return pickmepleasedbEntities.Instnace.contacts.Where(contact => contact.id == counsler.counsler_concacts_id).FirstOrDefault();
-        }
+        //internal static Models.contacts GetContactByUserName(string userName)
+        //{
+        //    var counsler = InMemoryHandler.Counslers.Where(c => c.usernmae.ToLower().Equals(userName.ToLower())).FirstOrDefault();
+        //    if (string.IsNullOrEmpty(userName) || counsler == null)
+        //    {
+        //        Logger.WriteToLog(LogLevel.warning, "GetContactByUserName IsNullOrEmpty or no counsler exists for user:" +userName);
+        //        return null;
+        //    }
+        //    return pickmepleasedbEntities.Instnace.contacts.Where(contact => contact.id == counsler.counsler_concacts_id).FirstOrDefault();
+        //}
 
-        internal static contacts GetContactByContactId(int? contactId)
-        {
-            var temp = pickmepleasedbEntities.Instnace.contacts.Where(c => c.id == contactId).FirstOrDefault();
-            if (temp == null)
-            {
-                Logger.WriteToLog(LogLevel.warning, "GetContactByContactId IsNullOrEmpty or no contact exists for contactId:" + contactId);
-            }
-            return temp;
-        }
+        //internal static contacts GetContactByContactId(int? contactId)
+        //{
+        //    var temp = pickmepleasedbEntities.Instnace.contacts.Where(c => c.id == contactId).FirstOrDefault();
+        //    if (temp == null)
+        //    {
+        //        Logger.WriteToLog(LogLevel.warning, "GetContactByContactId IsNullOrEmpty or no contact exists for contactId:" + contactId);
+        //    }
+        //    return temp;
+        //}
     }
 }

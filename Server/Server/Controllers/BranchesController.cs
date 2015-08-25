@@ -24,7 +24,7 @@ namespace Server.Controllers
             CounslerModel counsler = InMemoryHandler.GetCounslerByUserName("liran");
             if (counsler == null)
                 return null;
-            ResponseGetBranchInfo branch = InMemoryHandler.GetBranchesInfo(counsler, requestBranchInfo.LastSyncTime);
+            ResponseGetBranchInfo branch = BranchModel.GetBranchesInfo(counsler, requestBranchInfo.LastSyncTime);
             return branch;
         }
     }

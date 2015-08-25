@@ -17,29 +17,28 @@ namespace Server.Controllers
 
         [HttpGet, HttpPost]
         [Route("Main/testMethod")]
-        public string testMethod()
+        public List<string> testMethod()
         {
-            var s =ApplicationContext.Instnace.Students.First();
-
-                return s.health_issues;
+            var s = InMemoryHandler.Students.First();
+            return s.HealthIssues;
         }
 
         [HttpGet, HttpPost]
         [Route("Main/testMethod2")]
         public string testMethod2()
         {
-            var s = ApplicationContext.Instnace.Students.First();
-            var m = ApplicationContext.Instnace.Branches.First();
+            //var s = ApplicationContext.Instnace.Students.First();
+            //var m = ApplicationContext.Instnace.Branches.First();
 
             var s1 = pickmepleasedbEntities.Instnace.students.First();
             var m2 = pickmepleasedbEntities.Instnace.branches.First();
-
+            InMemoryHandler.GetAllCounslers();
             return null;
         }
 
-      
+
 
     }
 
-   
+
 }

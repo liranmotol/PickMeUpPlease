@@ -16,7 +16,7 @@ namespace Server.DAL
             List<CounslerModel> list = new List<CounslerModel>();
             pickmepleasedbEntities.Instnace.counslers.ToList().ForEach(c =>
                 {
-                    contacts counslerBase = Utils.Utils.GetContactByContactId(c.counsler_concacts_id);
+                    contacts counslerBase = GetContactById(c.counsler_concacts_id);
                     if (c == null)
                     {
                         return;
@@ -43,14 +43,21 @@ namespace Server.DAL
             return list;
         }
 
+        private static contacts GetContactById(int? contactId)
+        {
+            if (contactId != null)
+                return pickmepleasedbEntities.Instnace.contacts.Where(contact => contact.id == contactId).FirstOrDefault();
+            return null;
+        }
+
         internal static List<BranchModel> GetBranchesData()
         {
             List<BranchModel> branches = new List<BranchModel>();
             pickmepleasedbEntities.Instnace.branches.ToList().ForEach(b =>
-                { 
-                    var priniciple = Utils.Utils.GetContactByContactId(b.principle_contacts_id);
-                    var contactA= Utils.Utils.GetContactByContactId (b.contact_a_contacts_id);
-                    var contactB= Utils.Utils.GetContactByContactId (b.contact_b_contacts_id);
+                {
+                    var priniciple = GetContactById(b.principle_contacts_id);
+                    var contactA = GetContactById(b.contact_a_contacts_id);
+                    var contactB = GetContactById(b.contact_b_contacts_id);
                     BranchModel tempBranch = new BranchModel()
                     {
                         BranchId = b.id,

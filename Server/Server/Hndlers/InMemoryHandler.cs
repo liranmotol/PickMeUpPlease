@@ -12,9 +12,9 @@ namespace Server.Hndlers
     public class InMemoryHandler
     {
 
-        private static List<CounslerModel> Counslers;
-        private static List<BranchModel> Branches;
-        private static List<StudentModel> Students;
+        public static List<CounslerModel> Counslers {get; private set;}
+        public static List<BranchModel> Branches { get; private set; }
+        public static List<StudentModel> Students { get; private set; }
 
 
 
@@ -94,50 +94,8 @@ namespace Server.Hndlers
                 return tempCoun.First();
             return null;
         }
-        //internal static bool IsTokenValid(string token)
-        //{
-        //    return SecurityMemHandler.IsTokenValid(token) > 0;
-        //}
 
-
-
-        //internal static CounslerModel GetCounslerByToken(string token)
-        //{
-        //    int CounslerId = SecurityMemHandler.IsTokenValid(token);
-        //    if (CounslerId > 0)
-        //    {
-        //        return Counslers.Where(c => c.CounslerID == CounslerId).First();
-        //    }
-        //    return null;
-        //}
-
-        internal static ResponseGetBranchInfo GetBranchesInfo(CounslerModel counsler, DateTime LastSyncTime)
-        {
-            ResponseGetBranchInfo response = new ResponseGetBranchInfo();
-            response.Branches = new List<BranchModel>();
-
-            List<int> allowedBranches = counsler.AllowedBranchedIds;
-            counsler.AllowedBranchedIds.ForEach(allowed =>
-                {
-                    var branchAllowed = Branches.Where(b => b.BranchId == allowed);
-                    if (branchAllowed != null && branchAllowed.Count() > 0)
-                    {
-                        BranchModel branch = branchAllowed.First();
-
-                        List<StudentModel> tempList = branch.GetUpdateStundetsInfo(LastSyncTime);
-                        BranchModel temp = new BranchModel() { BranchId = branch.BranchId, BranchName = branch.BranchName, StudentsList = tempList.OrderBy(s=>s.LastName).ToList()
-                        ,
-                                                               OptionalClasses = branch.OptionalClasses.OrderBy(c => c).ToList(),
-                                                               OptionalGrades = branch.OptionalGrades.OrderBy(c => c).ToList(),
-                                                               OptionalHealthIssues = branch.OptionalHealthIssues.OrderBy(c => c).ToList(),
-                                                               PrincipalName = branch.PrincipalName,
-                                                               PrincipalNUmber = branch.PrincipalNUmber
-                        };
-                        response.Branches.Add(temp);
-                    }
-                });
-            return response;
-        }
+   
 
         internal static void StudentPickedUp(string StudentId, string PickerName, int BranchId)
         {
@@ -146,6 +104,16 @@ namespace Server.Hndlers
             student.LastUpdateTime = DateTime.Now;
             student.PickUp = new CeckedInOutModel() { ByWhom = PickerName, When = DateTime.Now.ToString() };
             student.IsPickedUp = true;
+
+        }
+
+        internal static void GetAllCounslers()
+        {
+            var a = Counslers;
+            var b= Branches;
+            var s = Students;
+
+
 
         }
     }
