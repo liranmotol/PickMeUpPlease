@@ -1,4 +1,5 @@
 ﻿using Server.Models;
+using Server.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,29 +14,68 @@ namespace Server.DAL
         internal static List<CounslerModel> GetCounslersData()
         {
             List<CounslerModel> list = new List<CounslerModel>();
-            CounslerModel c = new CounslerModel() { AllowedBranchedIds = new List<int>() { 1, 2, 3, 4 }, UserName = "liran", FirstName = "Liran", LastName = "Moto", CounslerID = 1, };
-            CounslerModel c1 = new CounslerModel() { AllowedBranchedIds = new List<int>() { 1, 2, 3, 4 }, UserName = "lily", FirstName = "Lily", LastName = "Motola", CounslerID = 2, };
-            CounslerModel c2 = new CounslerModel() { AllowedBranchedIds = new List<int>() { 1, 2, 3, 4 }, UserName = "1", FirstName = "Lily", LastName = "Motola", CounslerID = 3, };
+            pickmepleasedbEntities.Instnace.counslers.ToList().ForEach(c =>
+                {
+                    contacts counslerBase = GetContactById(c.counsler_concacts_id);
+                    if (c == null)
+                    {
+                        return;
+                    }
+                    CounslerModel tempCounsler = new CounslerModel()
+                    {
+                        Birthday = c.birthday,
+                        CounslerID = counslerBase.id,
+                        FirstName = counslerBase.first_name,
+                        LastName = counslerBase.last_name,
+                        UserName = c.usernmae
+                    };
+                    try
+                    {
+                        tempCounsler.AllowedBranchedIds = c.allowed_branches.Split(',').Select(branch => Convert.ToInt32(branch)).ToList();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.WriteToLog(LogLevel.error, "GetCounslersData converting branch ids", ex);
+                    }
+                    list.Add(tempCounsler);
 
-            list.Add(c); list.Add(c1);list.Add(c2);
+                });
             return list;
+        }
+
+        private static contacts GetContactById(int? contactId)
+        {
+            if (contactId != null)
+                return pickmepleasedbEntities.Instnace.contacts.Where(contact => contact.id == contactId).FirstOrDefault();
+            return null;
         }
 
         internal static List<BranchModel> GetBranchesData()
         {
-            BranchModel b = new BranchModel() { BranchId = 1, BranchName = "First B" };
-            BranchModel b2 = new BranchModel() { BranchId = 2, BranchName = "Second B" };
-            BranchModel b5 = new BranchModel() { BranchId = 5, BranchName = "Fifth B" };
-            b.StudentsList = BuildList(b.BranchId);
-            b2.StudentsList = BuildList(b2.BranchId);
-            b5.StudentsList = BuildList(b5.BranchId);
-            
-            b.UpdateBranch();
-            b2.UpdateBranch();
-            b5.UpdateBranch();
+            List<BranchModel> branches = new List<BranchModel>();
+            pickmepleasedbEntities.Instnace.branches.ToList().ForEach(b =>
+                {
+                    var priniciple = GetContactById(b.principle_contacts_id);
+                    var contactA = GetContactById(b.contact_a_contacts_id);
+                    var contactB = GetContactById(b.contact_b_contacts_id);
+                    BranchModel tempBranch = new BranchModel()
+                    {
+                        BranchId = b.id,
+                        BranchName = b.name,
+                        PrincipalName = priniciple.first_name + " " + priniciple.last_name,
+                        PrincipalNUmber = priniciple.phone_home
+                    };
 
-            var list = new List<BranchModel>() { b, b2, b5 };
-            return list;
+                    branches.Add(tempBranch);
+                });
+            return branches;
+        }
+
+        internal static List<StudentModel> GetStudentsData()
+        {
+            List<StudentModel> students = new List<StudentModel>();
+            //ApplicationContext.Instnace.Students;
+            return null;
         }
 
 
@@ -47,10 +87,10 @@ namespace Server.DAL
         private static List<StudentModel> BuildList(int p)
         {
             List<StudentModel> li = new List<StudentModel>();
-            
+
             for (int i = 0; i < 100; i++)
             {
-                
+
                 int rand = new Random(i).Next(0, Boys.Count() - 1);
                 string grade = getGrade(rand);
                 int Sclass = getSclass(rand);
@@ -243,6 +283,8 @@ namespace Server.DAL
 "Violet	      ",
 "Claire	      ",
 "Alice     "};
+
+
 
     }
 }

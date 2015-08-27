@@ -20,12 +20,11 @@ namespace Server.Controllers
         public ResponseGetBranchInfo Get(RequestGetBranchInfo requestBranchInfo)
         {
             //Request.GetOwinContext().
-            System.Diagnostics.Trace.TraceInformation("GetBranched Request");
             string userName = SimpleAuthorizationServerProvider.GetUserNameFromContext(Request.GetOwinContext());
             CounslerModel counsler = InMemoryHandler.GetCounslerByUserName("liran");
             if (counsler == null)
                 return null;
-            ResponseGetBranchInfo branch = InMemoryHandler.GetBranchesInfo(counsler, requestBranchInfo.LastSyncTime);
+            ResponseGetBranchInfo branch = BranchModel.GetBranchesInfo(counsler, requestBranchInfo.LastSyncTime);
             return branch;
         }
     }

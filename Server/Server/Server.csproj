@@ -139,7 +139,6 @@
       <DependentUpon>ApplicationModel.edmx</DependentUpon>
       <LastGenOutput>ApplicationModel.cs</LastGenOutput>
     </Content>
-    <None Include="Properties\PublishProfiles\pickmeplease %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\pickmeplease %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\pickmeplease.pubxml" />
     <None Include="Web.Debug.config">
@@ -164,7 +163,6 @@
     <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
-    <Compile Include="DAL\ApplicationContext.cs" />
     <Compile Include="DAL\DAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -206,10 +204,7 @@
       <DependentUpon>ApplicationModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CounslerModel.cs" />
-    <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>ApplicationModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\myFirstTable.cs">
+    <Compile Include="Models\counslers.cs">
       <DependentUpon>ApplicationModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RequestLoginModel.cs" />
@@ -219,6 +214,8 @@
       <DependentUpon>ApplicationModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Logger.cs" />
+    <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

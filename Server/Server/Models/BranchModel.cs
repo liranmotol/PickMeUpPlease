@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Server.Hndlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,38 @@ namespace Server.Models
 
             OptionalHealthIssues = tempHealth.Distinct().ToList();
 
+        }
+
+        internal static ResponseGetBranchInfo GetBranchesInfo(CounslerModel counsler, DateTime LastSyncTime)
+        {
+            ResponseGetBranchInfo response = new ResponseGetBranchInfo();
+            response.Branches = new List<BranchModel>();
+
+            List<int> allowedBranches = counsler.AllowedBranchedIds;
+            counsler.AllowedBranchedIds.ForEach(allowed =>
+            {
+                var branchAllowed =InMemoryHandler.Branches.Where(b => b.BranchId == allowed);
+                if (branchAllowed != null && branchAllowed.Count() > 0)
+                {
+                    BranchModel branch = branchAllowed.First();
+
+                    List<StudentModel> tempList = branch.GetUpdateStundetsInfo(LastSyncTime);
+                    BranchModel temp = new BranchModel()
+                    {
+                        BranchId = branch.BranchId,
+                        BranchName = branch.BranchName,
+                        StudentsList = tempList.OrderBy(s => s.LastName).ToList()
+                        ,
+                        OptionalClasses = branch.OptionalClasses.OrderBy(c => c).ToList(),
+                        OptionalGrades = branch.OptionalGrades.OrderBy(c => c).ToList(),
+                        OptionalHealthIssues = branch.OptionalHealthIssues.OrderBy(c => c).ToList(),
+                        PrincipalName = branch.PrincipalName,
+                        PrincipalNUmber = branch.PrincipalNUmber
+                    };
+                    response.Branches.Add(temp);
+                }
+            });
+            return response;
         }
     }
 }

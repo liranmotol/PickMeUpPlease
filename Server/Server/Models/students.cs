@@ -11,12 +11,9 @@ namespace Server.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
     
     public partial class students
     {
-        [Key, ForeignKey("contacts")]
         public int student_concacts_id { get; set; }
         public string grade { get; set; }
         public string @class { get; set; }
@@ -24,7 +21,6 @@ namespace Server.Models
         public string pick_up_options { get; set; }
         public bool gender { get; set; }
         public Nullable<System.DateTime> birthday { get; set; }
-    
-        public virtual contacts contacts { get; set; }
+        public bool is_active { get; set; }
     }
 }

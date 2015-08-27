@@ -12,11 +12,13 @@ namespace Server.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class C__MigrationHistory
+    public partial class counslers
     {
-        public string MigrationId { get; set; }
-        public string ContextKey { get; set; }
-        public byte[] Model { get; set; }
-        public string ProductVersion { get; set; }
+        public int counsler_concacts_id { get; set; }
+        public bool gender { get; set; }
+        public Nullable<System.DateTime> birthday { get; set; }
+        public bool is_active { get; set; }
+        public string allowed_branches { get; set; }
+        public string usernmae { get; set; }
     }
 }

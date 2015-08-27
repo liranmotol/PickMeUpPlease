@@ -5,22 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="7f894c08baad4a849fb27afdbfc09e21" Name="Diagram1">
-        <EntityTypeShape EntityType="pickmepleasedbModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetRoles" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetUserClaims" Width="1.5" PointX="10.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetUserLogins" Width="1.5" PointX="10.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetUsers" Width="1.5" PointX="8" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.contacts" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
-        <AssociationConnector Association="pickmepleasedbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="pickmepleasedbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="pickmepleasedbModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.students" Width="1.5" PointX="3" PointY="4.875" />
-        <AssociationConnector Association="pickmepleasedbModel.FK__students__studen__10566F31" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.myFirstTable" Width="1.5" PointX="0.75" PointY="8.75" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.branches" Width="1.5" PointX="3" PointY="0.75" />
-        <AssociationConnector Association="pickmepleasedbModel.contact_a_contacts_id_fk" />
-        <AssociationConnector Association="pickmepleasedbModel.contact_b_contacts_id_fk" />
-        <AssociationConnector Association="pickmepleasedbModel.principle_contacts_id_fk" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="2.5" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="3.75" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetUsers" Width="1.5" PointX="3" PointY="1.375" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.branches" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.contacts" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.students" Width="1.5" PointX="4.75" PointY="6.75" />
+        <AssociationConnector Association="pickmepleasedbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="pickmepleasedbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="pickmepleasedbModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.counslers" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
