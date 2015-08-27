@@ -15,19 +15,6 @@ namespace Server.Models
     
     public partial class pickmepleasedbEntities : DbContext
     {
-
-        public static pickmepleasedbEntities Instnace
-        {
-            get
-            {
-                if (_instnace == null)
-                    _instnace = new pickmepleasedbEntities();
-                return _instnace;
-            }
-        }
-
-        private static pickmepleasedbEntities _instnace;
-
         public pickmepleasedbEntities()
             : base("name=pickmepleasedbEntities")
         {

@@ -30,8 +30,8 @@ namespace Server.Controllers
             //var s = ApplicationContext.Instnace.Students.First();
             //var m = ApplicationContext.Instnace.Branches.First();
 
-            var s1 = pickmepleasedbEntities.Instnace.students.First();
-            var m2 = pickmepleasedbEntities.Instnace.branches.First();
+            var s1 = ApplicationContext.Instnace.contextInstance.students.First();
+            var m2 = ApplicationContext.Instnace.contextInstance.branches.First();
             InMemoryHandler.GetAllCounslers();
             return null;
         }

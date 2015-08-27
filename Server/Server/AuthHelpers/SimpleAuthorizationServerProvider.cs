@@ -44,7 +44,7 @@ namespace Server.AuthHelpers
 
         public static string GetUserNameFromContext(Microsoft.Owin.IOwinContext owinContext)
         {
-            return owinContext.Authentication.User.Identities.First().Claims.Last().Value;
+            return owinContext.Authentication.User.Identities.First().Claims.First().Value;
         }
 
     }

@@ -25,6 +25,8 @@ namespace Server.Models
         public string Parent1Name { get; set; }
         public string Parent1Num { get; set; }
         public string Parent1Email { get; set; }
+        public string Parent2Email { get; set; }
+
         public string Parent2Name { get; set; }
         public string Parent2Num { get; set; }
 
@@ -42,6 +44,7 @@ namespace Server.Models
         }
 
         public DateTime LastUpdateTime { get; set; }
+        public int BranchId { get; set; }
 
     }
 

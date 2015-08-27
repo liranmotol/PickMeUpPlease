@@ -99,12 +99,15 @@
           </Key>
           <Property Name="student_concacts_id" Type="int" Nullable="false" />
           <Property Name="grade" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="branch_id" Type="int" />
           <Property Name="class" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="health_issues" Type="nvarchar" MaxLength="2560" />
           <Property Name="pick_up_options" Type="nvarchar" MaxLength="2560" />
           <Property Name="gender" Type="bit" Nullable="false" />
           <Property Name="birthday" Type="date" />
           <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="parent_a_contacts_id" Type="int" />
+          <Property Name="parent_b_contacts_id" Type="int" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -302,6 +305,9 @@
           <Property Name="gender" Type="Boolean" Nullable="false" />
           <Property Name="birthday" Type="DateTime" Precision="0" />
           <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="branch_id" Type="Int32" />
+          <Property Name="parent_a_contacts_id" Type="Int32" />
+          <Property Name="parent_b_contacts_id" Type="Int32" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="pickmepleasedbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -428,6 +434,9 @@
           <EntitySetMapping Name="students">
             <EntityTypeMapping TypeName="pickmepleasedbModel.students">
               <MappingFragment StoreEntitySet="students">
+                <ScalarProperty Name="parent_b_contacts_id" ColumnName="parent_b_contacts_id" />
+                <ScalarProperty Name="parent_a_contacts_id" ColumnName="parent_a_contacts_id" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
                 <ScalarProperty Name="is_active" ColumnName="is_active" />
                 <ScalarProperty Name="birthday" ColumnName="birthday" />
                 <ScalarProperty Name="gender" ColumnName="gender" />

@@ -14,7 +14,7 @@ namespace Server.DAL
         internal static List<CounslerModel> GetCounslersData()
         {
             List<CounslerModel> list = new List<CounslerModel>();
-            pickmepleasedbEntities.Instnace.counslers.ToList().ForEach(c =>
+            ApplicationContext.Instnace.contextInstance.counslers.ToList().ForEach(c =>
                 {
                     contacts counslerBase = GetContactById(c.counsler_concacts_id);
                     if (c == null)
@@ -46,14 +46,14 @@ namespace Server.DAL
         private static contacts GetContactById(int? contactId)
         {
             if (contactId != null)
-                return pickmepleasedbEntities.Instnace.contacts.Where(contact => contact.id == contactId).FirstOrDefault();
+                return ApplicationContext.Instnace.contextInstance.contacts.Where(contact => contact.id == contactId).FirstOrDefault();
             return null;
         }
 
         internal static List<BranchModel> GetBranchesData()
         {
             List<BranchModel> branches = new List<BranchModel>();
-            pickmepleasedbEntities.Instnace.branches.ToList().ForEach(b =>
+            ApplicationContext.Instnace.contextInstance.branches.ToList().ForEach(b =>
                 {
                     var priniciple = GetContactById(b.principle_contacts_id);
                     var contactA = GetContactById(b.contact_a_contacts_id);
@@ -74,8 +74,45 @@ namespace Server.DAL
         internal static List<StudentModel> GetStudentsData()
         {
             List<StudentModel> students = new List<StudentModel>();
-            //ApplicationContext.Instnace.Students;
-            return null;
+            ApplicationContext.Instnace.contextInstance.students.ToList().ForEach(s =>
+                {
+                    contacts contact = GetContactById(s.student_concacts_id);
+                    contacts parentA = GetContactById(s.parent_a_contacts_id);
+                    contacts parentB = GetContactById(s.parent_b_contacts_id);
+
+                    if (contact == null)
+                    {
+                        return;
+                    }
+                    StudentModel student = new StudentModel
+                    {
+                        BirthDay = s.birthday ?? DateTime.MinValue,
+                        BranchId = s.branch_id ?? 0,
+                        FirstName = contact.first_name,
+                        LastName = contact.last_name,
+                        SClass = s.@class,
+                        Grade = s.grade,
+                        HomeNum = contact.phone_home,
+                        Img = contact.image,
+                        StudentID = contact.user_id,
+                        PickUpOptions = (s.pick_up_options!=null)? s.pick_up_options.Split(',').ToList():null,
+                        Gender = Utils.Utils.GetGender( s.gender)
+                    };
+                    if (parentA != null)
+                    {
+                        student.Parent1Email = parentA.email_1;
+                        student.Parent1Name = parentA.first_name + " " + parentA.first_name;
+                        student.Parent1Num = parentA.phone_mobile;
+                    }
+                    if (parentB != null)
+                    {
+                        student.Parent2Email = parentB.email_1;
+                        student.Parent2Name = parentB.first_name + " " + parentA.first_name;
+                        student.Parent2Num = parentB.phone_mobile;
+                    }
+                    students.Add(student);
+                });
+            return students ;
         }
 
 

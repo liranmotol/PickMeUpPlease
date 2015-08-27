@@ -26,7 +26,7 @@ namespace Server.Models
 
         internal  List<StudentModel> GetUpdateStundetsInfo(DateTime LastSyncTime)
         {
-            List<StudentModel> temp=StudentsList.Where(s => s.LastUpdateTime>LastSyncTime).ToList();
+            List<StudentModel> temp=InMemoryHandler.Students.Where(s=>s.BranchId==this.BranchId && s.LastUpdateTime>LastSyncTime).ToList();
             return temp;
         }
 

@@ -22,5 +22,8 @@ namespace Server.Models
         public bool gender { get; set; }
         public Nullable<System.DateTime> birthday { get; set; }
         public bool is_active { get; set; }
+        public Nullable<int> branch_id { get; set; }
+        public Nullable<int> parent_a_contacts_id { get; set; }
+        public Nullable<int> parent_b_contacts_id { get; set; }
     }
 }

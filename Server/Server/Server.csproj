@@ -163,6 +163,7 @@
     <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="DAL\ApplicationContext.cs" />
     <Compile Include="DAL\DAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

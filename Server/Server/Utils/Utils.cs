@@ -10,6 +10,14 @@ namespace Server.Utils
 {
     public class Utils
     {
+
+        internal static string GetGender(bool gender)
+        {
+            if (gender)
+                return "Male";
+            return "Female";
+
+        }
         //internal static Models.contacts GetContactByUserName(string userName)
         //{
         //    //var loginUser = ApplicationContext.Instnace.LoggedUsers.Where(u => u.UserName.ToLower().Equals(userName.ToLower())).FirstOrDefault();

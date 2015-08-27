@@ -41,12 +41,15 @@ CREATE TABLE students
 (
 	student_concacts_id int not null default 0 PRIMARY KEY,
 	grade varchar(10) not null,
+	branch_id int NULL  , 
 	[class] varchar(10) not null,
 	health_issues nvarchar(2560) null,
 	pick_up_options nvarchar(2560) null,
 	gender bit not null,
 	birthday date null,
-	is_active bit default 1 not null
+	is_active bit default 1 not null,
+	parent_a_contacts_id int null , 
+	parent_b_contacts_id int null 
 )
 
 
