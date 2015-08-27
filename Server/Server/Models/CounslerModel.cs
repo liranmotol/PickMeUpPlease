@@ -15,5 +15,7 @@ namespace Server.Models
         //public DateTime CheckedOut { get; set; }
         public DateTime? Birthday { get; set; }
         public List<int> AllowedBranchedIds { get; set; }
+
+   
     }
 }

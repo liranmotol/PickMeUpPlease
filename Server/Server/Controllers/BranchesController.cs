@@ -21,7 +21,7 @@ namespace Server.Controllers
         {
             //Request.GetOwinContext().
             string userName = SimpleAuthorizationServerProvider.GetUserNameFromContext(Request.GetOwinContext());
-            CounslerModel counsler = InMemoryHandler.GetCounslerByUserName("liran");
+            CounslerModel counsler = InMemoryHandler.GetUserIdFromCounslerUserName(userName);
             if (counsler == null)
                 return null;
             ResponseGetBranchInfo branch = BranchModel.GetBranchesInfo(counsler, requestBranchInfo.LastSyncTime);

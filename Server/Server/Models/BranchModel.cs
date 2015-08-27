@@ -49,9 +49,9 @@ namespace Server.Models
         internal static ResponseGetBranchInfo GetBranchesInfo(CounslerModel counsler, DateTime LastSyncTime)
         {
             ResponseGetBranchInfo response = new ResponseGetBranchInfo();
-            response.Branches = new List<BranchModel>();
+            response.Branches = new List<BranchModel>(); //InMemoryHandler.Branches.Where(b => allowedBranches.Contains(b.BranchId)).ToList();
 
-            List<int> allowedBranches = counsler.AllowedBranchedIds;
+            //List<int> allowedBranches = counsler.AllowedBranchedIds;
             counsler.AllowedBranchedIds.ForEach(allowed =>
             {
                 var branchAllowed =InMemoryHandler.Branches.Where(b => b.BranchId == allowed);
@@ -64,8 +64,7 @@ namespace Server.Models
                     {
                         BranchId = branch.BranchId,
                         BranchName = branch.BranchName,
-                        StudentsList = tempList.OrderBy(s => s.LastName).ToList()
-                        ,
+                        StudentsList = tempList.OrderBy(s => s.LastName).ToList(),
                         OptionalClasses = branch.OptionalClasses.OrderBy(c => c).ToList(),
                         OptionalGrades = branch.OptionalGrades.OrderBy(c => c).ToList(),
                         OptionalHealthIssues = branch.OptionalHealthIssues.OrderBy(c => c).ToList(),

@@ -16,8 +16,6 @@ namespace Server.Hndlers
         public static List<BranchModel> Branches { get; private set; }
         public static List<StudentModel> Students { get; private set; }
 
-
-
         private static Timer staticDataRefreshTimer;
         private static object _init_locker = new object();
         #region initialization
@@ -114,6 +112,15 @@ namespace Server.Hndlers
             var s = Students;
 
 
+
+        }
+
+        internal static CounslerModel GetUserIdFromCounslerUserName(string userName)
+        {
+            var counsler=Counslers.Where(c => c.UserName.ToLower().Equals(userName)).FirstOrDefault();
+            if (counsler != null)
+                return counsler;
+            return null;
 
         }
     }
