@@ -117,7 +117,13 @@ namespace Server.Hndlers
 
         internal static CounslerModel GetUserIdFromCounslerUserName(string userName)
         {
-            var counsler=Counslers.Where(c => c.UserName.ToLower().Equals(userName)).FirstOrDefault();
+            var counsler=Counslers.Where(c =>
+                {
+                    if (c.UserName!=null)
+                        return c.UserName.ToLower().Equals(userName);
+                    return false;
+                }
+                ).FirstOrDefault();
             if (counsler != null)
                 return counsler;
             return null;

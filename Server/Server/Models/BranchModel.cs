@@ -26,7 +26,7 @@ namespace Server.Models
 
         internal  List<StudentModel> GetUpdateStundetsInfo(DateTime LastSyncTime)
         {
-            List<StudentModel> temp=InMemoryHandler.Students.Where(s=>s.BranchId==this.BranchId && s.LastUpdateTime>LastSyncTime).ToList();
+            List<StudentModel> temp=InMemoryHandler.Students.Where(s=>s.BranchId==this.BranchId && s.LastUpdateTime>=LastSyncTime).ToList();
             return temp;
         }
 
@@ -60,17 +60,25 @@ namespace Server.Models
                     BranchModel branch = branchAllowed.First();
 
                     List<StudentModel> tempList = branch.GetUpdateStundetsInfo(LastSyncTime);
+                    
                     BranchModel temp = new BranchModel()
                     {
                         BranchId = branch.BranchId,
                         BranchName = branch.BranchName,
-                        StudentsList = tempList.OrderBy(s => s.LastName).ToList(),
-                        OptionalClasses = branch.OptionalClasses.OrderBy(c => c).ToList(),
-                        OptionalGrades = branch.OptionalGrades.OrderBy(c => c).ToList(),
-                        OptionalHealthIssues = branch.OptionalHealthIssues.OrderBy(c => c).ToList(),
                         PrincipalName = branch.PrincipalName,
                         PrincipalNUmber = branch.PrincipalNUmber
                     };
+
+                    if (tempList != null)
+                    {
+                        var grades = tempList.Select(s => s.Grade).Distinct();
+                        var classes = tempList.Select(s => s.SClass).Distinct();
+                        temp.StudentsList = tempList.OrderBy(s => s.LastName).ToList();
+                        temp.OptionalClasses = classes.ToList();
+                        temp.OptionalGrades = grades.ToList();
+                        //var Health = tempList.Select(s => s.HealthIssues).Distinct();
+                        temp.OptionalHealthIssues = null;// Health.ToList();
+                    }
                     response.Branches.Add(temp);
                 }
             });

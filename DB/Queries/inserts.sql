@@ -75,20 +75,33 @@ GO
 
 INSERT INTO [dbo].[students]
            ([student_concacts_id]
+		   ,branch_id
            ,[grade]
            ,[class]
            ,[health_issues]
            ,[pick_up_options]
            ,[gender]
-           ,[birthday])
+           ,[birthday],
+		   parent_a_contacts_id,parent_b_contacts_id)
      VALUES
            (5
+		   ,1
            ,'a'
            ,'2'
            ,'GLUTEN,SUGAR'
            ,'saba davia, safta esti'
            ,1
-           ,CAST('2009-05-25' AS DATE))
+           ,CAST('2009-05-25' AS DATE),1,2),
+		  
+		   (4,2           ,'a'
+           ,'2'
+           ,'GLUTEN,SUGAR'
+           ,'saba davia, safta esti'
+           ,1
+           ,CAST('2009-05-25' AS DATE),1,2
+		   )
+		
+		   
 GO
 
 USE [pickmepleasedb]
@@ -99,12 +112,12 @@ INSERT INTO [dbo].[counslers]
            ,[gender]
            ,[birthday]
            ,[is_active]
-           ,[allowed_branches])
+           ,[allowed_branches],usernmae)
      VALUES
            (1
            ,1
            ,CAST('2009-05-25' AS DATE)
            ,1
-           ,'1,2')
+           ,'1,2','liran1')
 GO
 

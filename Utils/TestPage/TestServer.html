@@ -1,8 +1,8 @@
 <html>
 <head>
     <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="http://www.jsoneditoronline.org/asset/jsoneditor/jsoneditor.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="http://www.jsoneditoronline.org/asset/jsoneditor/jsoneditor.min.css">
+    <script type="text/javascript" src="http://www.jsoneditoronline.org/app.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://www.jsoneditoronline.org/app.min.css">
     
 
 </head>
@@ -16,7 +16,12 @@
         width: 500px;
     }
 </style>
-
+<select id="env">
+  <option value="http://localhost:47588/">Localhost</option>
+  <option value="http://pickmeplease.azurewebsites.net/">Server</option>
+  </select>
+  <br /><br />
+  
     Students Controller:<br />
     <button onclick="GetUpdatedStudents()" >GetUpdatedStudents</button><br />
     <button onclick="PickedUp()" >PickedUp</button><br />
@@ -45,7 +50,7 @@
 
     <script type="text/javascript">
 		var token = "";
-        var ServerUrl = "http://localhost:47588/"; //"http://pickmeplease.azurewebsites.net/";//
+        var ServerUrl = $("#env").val();// "http://localhost:47588/"; //"http://pickmeplease.azurewebsites.net/";// 
         function SendRequest(method, json) {
             var jsonAsString = JSON.stringify(json);
 

@@ -196,6 +196,7 @@
     <Compile Include="Models\AspNetUsers.cs">
       <DependentUpon>ApplicationModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BaseResponse.cs" />
     <Compile Include="Models\branches.cs">
       <DependentUpon>ApplicationModel.tt</DependentUpon>
     </Compile>

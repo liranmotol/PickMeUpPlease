@@ -5,8 +5,10 @@ using System.Web;
 
 namespace Server.Models
 {
-    public class ResponseGetBranchInfo : BaseResponse
+    public abstract class BaseResponse
     {
-        public List<BranchModel> Branches{ get; set; }
+        public  string ErrorMsg;
+        public  int Status;
+
     }
 }
