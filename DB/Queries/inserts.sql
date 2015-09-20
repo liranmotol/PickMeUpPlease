@@ -99,6 +99,54 @@ INSERT INTO [dbo].[students]
            ,'saba davia, safta esti'
            ,1
            ,CAST('2009-05-25' AS DATE),1,2
+		   ),    
+		   (5
+		   ,2
+           ,'a'
+           ,'2'
+           ,'GLUTEN,SUGAR'
+           ,'saba davia, safta esti'
+           ,1
+           ,CAST('2009-05-25' AS DATE),1,2),
+		  
+		   (4,2           ,'a'
+           ,'2'
+           ,'GLUTEN,SUGAR'
+           ,'saba davia, safta esti'
+           ,1
+           ,CAST('2009-05-25' AS DATE),1,2
+		   ),
+
+		       (1
+		   ,1
+           ,'a'
+           ,'2'
+           ,'GLUTEN,SUGAR'
+           ,'saba davia, safta esti'
+           ,1
+           ,CAST('2009-05-25' AS DATE),1,2),
+		  
+		   (2,2           ,'a'
+           ,'2'
+           ,'GLUTEN,SUGAR'
+           ,'saba davia, safta esti'
+           ,1
+           ,CAST('2009-05-25' AS DATE),1,2
+		   ),    (5
+		   ,2
+           ,'a'
+           ,'2'
+           ,'GLUTEN,SUGAR'
+           ,'saba davia, safta esti'
+           ,1
+           ,CAST('2009-05-25' AS DATE),1,2),
+		  
+		   (4,2           ,'a'
+           ,'2'
+           ,'GLUTEN,SUGAR'
+           ,'saba davia, safta esti'
+           ,1
+           ,CAST('2009-05-25' AS DATE),1,2
 		   )
 		
 		   
@@ -114,7 +162,7 @@ INSERT INTO [dbo].[counslers]
            ,[is_active]
            ,[allowed_branches],usernmae)
      VALUES
-           (1
+           (2
            ,1
            ,CAST('2009-05-25' AS DATE)
            ,1
