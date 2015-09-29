@@ -17,7 +17,7 @@ namespace Utils
         static void Main(string[] args)
         {
             List<StudentModel> students = LoadStudents();
-            uploadStudentsToDb(students,1);
+            uploadStudentsToDb(students, 1);
             //AddBranches();
             //ReadCSV();
 
@@ -26,61 +26,88 @@ namespace Utils
         private static void uploadStudentsToDb(List<StudentModel> studentsFullList, int branchId)
         {
             pickmepleasedbEntities1 p = new pickmepleasedbEntities1();
-            studentsFullList.ForEach(s =>
-                {
-                    //int id= DbHelpers.CreateContacts();
-                    contacts tmp_parentA = new contacts()
-                    {
-                        address = s.Address,
-                        email_1 = s.Parent1Email,
-                        first_name = s.Parent1Name,
-                        image = "",
-                        last_name = s.LastName,
-                        phone_home = s.HomeNum,
-                         phone_mobile = s.Parent1Num
-                    };
-                    contacts tmp_parentB = new contacts()
-                    {
-                        address = s.Address,
-                        email_1 = s.Parent2Email,
-                        first_name = s.Parent2Name,
-                        image = "",
-                        last_name = s.LastName,
-                        phone_home = s.HomeNum,
-                        phone_mobile = s.Parent2Num
 
-                    };
-                    contacts tmp_student = new contacts()
-                    {
-                        user_id = s.StudentID,
-                        address = s.Address,
-                        //email_1 = s.Parent2Email,
-                        first_name = s.FirstName,
-                        image = "",
-                        last_name = s.LastName,
-                        phone_home = s.HomeNum,
-                        //phone_mobile = s.Parent2Num
-                    };
-                    contacts parentA = p.contacts.Add(tmp_parentA);
-                    contacts parentB = p.contacts.Add(tmp_parentB);
-                    contacts student= p.contacts.Add(tmp_student);
-                    p.SaveChanges();
+            foreach (var s in studentsFullList)
+            //studentsFullList.ForEach(s =>
+            {
+                //int id= DbHelpers.CreateContacts();
+                contacts tmp_parentA = new contacts()
+                {
+                    address = s.Address,
+                    email_1 = s.Parent1Email,
+                    first_name = s.Parent1Name,
+                    image = "",
+                    last_name = s.LastName,
+                    phone_home = s.HomeNum,
+                    phone_mobile = s.Parent1Num
+                };
+                contacts tmp_parentB = new contacts()
+                {
+                    address = s.Address,
+                    email_1 = s.Parent2Email,
+                    first_name = s.Parent2Name,
+                    image = "",
+                    last_name = s.LastName,
+                    phone_home = s.HomeNum,
+                    phone_mobile = s.Parent2Num
+
+                };
+                contacts tmp_student = new contacts()
+                {
+                    user_id = s.StudentID,
+                    address = s.Address,
+                    //email_1 = s.Parent2Email,
+                    first_name = s.FirstName,
+                    image = "",
+                    last_name = s.LastName,
+                    phone_home = s.HomeNum,
+                    //phone_mobile = s.Parent2Num
+                };
+                contacts parentA = null;
+                contacts parentB = null;
+                contacts student = null;
+                if (tmp_parentA.first_name != null && tmp_parentA.last_name != null)
+                {
+                    parentA = p.contacts.Add(tmp_parentA);
+                }
+                if (tmp_parentA.first_name != null && tmp_parentA.last_name != null)
+                {
+                    parentB = p.contacts.Add(tmp_parentB);
+                }
+                if (tmp_parentA.first_name != null && tmp_parentA.last_name != null)
+                {
+                    student = p.contacts.Add(tmp_student);
+                }
+                p.SaveChanges();
+                if (student != null)
+                {
                     students newStudent = new students()
                     {
                         birthday = s.BirthDay,
                         branch_id = branchId,
-                        @class = s.SClass,
+                        @class = s.SClass ?? "0",
                         gender = s.Gender == "Male",
-                        grade = s.Grade,
-                        health_issues = (s.HealthIssues!=null)? string.Join("*", s.HealthIssues):null,
+                        grade = s.Grade ?? "0",
+                        health_issues = (s.HealthIssues != null) ? string.Join("*", s.HealthIssues) : null,
                         is_active = true,
-                        parent_a_contacts_id = parentA.id,
-                        parent_b_contacts_id = parentB.id,
+                        parent_a_contacts_id = (parentA != null) ? parentA.id : (int?)null,
+                        parent_b_contacts_id = (parentB != null) ? parentB.id : (int?)null,
                         student_concacts_id = student.id,
-                        pick_up_options = (s.PickUpOptions!=null)? string.Join("*", s.PickUpOptions):null
+                        pick_up_options = (s.PickUpOptions != null) ? string.Join("*", s.PickUpOptions) : null
                     };
                     p.students.Add(newStudent);
-                });
+                }
+                try
+                {
+                    p.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    //throw;
+                }
+                //});
+            }
             p.SaveChanges();
         }
 

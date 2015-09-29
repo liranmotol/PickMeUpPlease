@@ -76,6 +76,11 @@ namespace Server.Hndlers
             Counslers = DataAccess.GetCounslersData();
             Branches = DataAccess.GetBranchesData();
             Students = DataAccess.GetStudentsData();
+
+            Branches.ForEach(b =>
+                {
+                    b.BuildBranch(Students);
+                });
         }
 
 

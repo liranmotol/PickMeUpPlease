@@ -23,12 +23,13 @@
   <br /><br />
   
     Students Controller:<br />
-    <button onclick="GetUpdatedStudents()" >GetUpdatedStudents</button><br />
+   
     <button onclick="PickedUp()" >PickedUp</button><br />
     <button onclick="CheckedIn()" >CheckedIn</button><br />
     <br /><br />
     Branches Controller:<br />
     <button onclick="GetBranches()" >GetBranches</button><br />
+	 <button onclick="GetUpdatedStudents()" >GetUpdatedStudents</button><br />
 
     <br /><br />
     Login Controller:
@@ -87,13 +88,13 @@
         //students
         function GetUpdatedStudents()
         {
-            var request =
+		     var request =
                 {
-                    BranchId: 1,
                     LastSyncTime: (new Date()).toISOString(),
                     Token: token
                 };
-            SendRequest("Students/Update", request);
+            SendRequest("Branches/Update", request);
+			
         }
 
         function CheckedIn()

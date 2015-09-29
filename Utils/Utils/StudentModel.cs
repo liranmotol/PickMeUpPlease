@@ -217,6 +217,8 @@ namespace Utils
                 isLastRowEmpty = true;
                 try
                 {
+                    if (rCnt > 300)
+                        break;
                     StudentModel s = new StudentModel();
                     for (cCnt = 1; cCnt <= range.Columns.Count; cCnt++)
                     {

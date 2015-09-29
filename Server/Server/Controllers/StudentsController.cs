@@ -1,4 +1,5 @@
-﻿using Server.Hndlers;
+﻿using Server.AuthHelpers;
+using Server.Hndlers;
 using Server.Models;
 using System;
 using System.Collections.Generic;
@@ -47,18 +48,7 @@ namespace Server.Controllers
             return "Students checked in . thank you";
         }
 
-        [HttpGet, HttpPost]
-        [Route("Students/Update")]
-        public List<StudentModel> Update(RequestStudentUpdateList StudentUpdateRequest)
-        {
-            System.Diagnostics.Trace.TraceError("Update Request");
-
-            CounslerModel counsler = InMemoryHandler.GetCounslerByUserName("liran");
-            if (counsler == null)
-                return null;
-            ResponseGetBranchInfo branch = BranchModel.GetBranchesInfo(counsler, StudentUpdateRequest.LastSyncTime);
-            return branch.Branches[0].StudentsList;
-        }
+     
         
     }
 }

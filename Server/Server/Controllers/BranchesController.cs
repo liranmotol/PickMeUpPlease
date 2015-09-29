@@ -22,14 +22,10 @@ namespace Server.Controllers
             ResponseGetBranchInfo branch = new ResponseGetBranchInfo();
             try
             {
-                string a = "a";
-                string b = a ?? "no";
-
                 //Request.GetOwinContext().
                 string userName = SimpleAuthorizationServerProvider.GetUserNameFromContext(Request.GetOwinContext());
                 CounslerModel counsler = InMemoryHandler.GetUserIdFromCounslerUserName(userName);
                 if (counsler == null)
-
                 {
                     branch.Status = 3;
                     branch.ErrorMsg = "couldn't find counsler";
@@ -45,6 +41,23 @@ namespace Server.Controllers
 
             }
             return branch;
+
+        }
+
+
+        [HttpGet, HttpPost]
+        [Route("Branches/Update")]
+        public ResponseGetBranchInfo Update(RequestGetBranchInfo StudentUpdateRequest)
+        {
+            //System.Diagnostics.Trace.TraceError("Update Request");
+            //string userName = SimpleAuthorizationServerProvider.GetUserNameFromContext(Request.GetOwinContext());
+            //CounslerModel counsler = InMemoryHandler.GetCounslerByUserName(userName);
+            //if (counsler == null)
+            //    return null;
+            //ResponseGetBranchInfo branch = BranchModel.GetBranchesInfo(counsler, StudentUpdateRequest.LastSyncTime);
+            //branch = BranchModel.GetBranchesInfo(counsler, DateTime.MinValue);
+            //branch.Status = 1;
+            return Get(StudentUpdateRequest);
 
         }
     }
