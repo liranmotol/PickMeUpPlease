@@ -22,8 +22,8 @@ namespace Server.Controllers
         {
             System.Diagnostics.Trace.TraceInformation("PickedUp Request");
             CounslerModel counsler = Utils.Utils.GetCounslerFromRequest(Request.GetOwinContext());
-            int studentContactId = Utils.Utils.GetContactIdOfStudentId(StudentPickedUpRequest.StudentId);
-            InMemoryHandler.StudentPickedUp(counsler.CounslerID, studentContactId , StudentPickedUpRequest.PickerName, StudentPickedUpRequest.IsByOther);
+            //int studentContactId = Utils.Utils.GetContactIdOfStudentId(StudentPickedUpRequest.StudentId);
+            InMemoryHandler.StudentPickedUp(counsler.CounslerID, StudentPickedUpRequest.ContactStudentId, StudentPickedUpRequest.PickerName, StudentPickedUpRequest.IsByOther);
             return "Cool. bye bye";
 
         }
@@ -34,8 +34,8 @@ namespace Server.Controllers
         {
             System.Diagnostics.Trace.TraceWarning("CheckedIn Request");
             CounslerModel counsler = Utils.Utils.GetCounslerFromRequest(Request.GetOwinContext());
-            int studentContactId = Utils.Utils.GetContactIdOfStudentId(StudentCheckedInRequest.StudentId);
-            InMemoryHandler.StudentCheckIn(counsler.CounslerID, studentContactId);
+            //int studentContactId = Utils.Utils.GetContactIdOfStudentId(StudentCheckedInRequest.ContactStudentId);
+            InMemoryHandler.StudentCheckIn(counsler.CounslerID, StudentCheckedInRequest.ContactStudentId);
            
 
             return "Students checked in . thank you";

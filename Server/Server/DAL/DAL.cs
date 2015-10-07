@@ -1,4 +1,5 @@
-﻿using Server.Models;
+﻿using Server.Hndlers;
+using Server.Models;
 using Server.Utils;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,11 @@ namespace Server.DAL
 {
     public class DataAccess
     {
+        internal static List<contacts> GetContacts()
+        {
+            return ApplicationContext.Instnace.contextInstance.contacts.ToList();
+        }
+
         internal static void StudentCheckedIn(int CounslerId, int StudentId)
         {
             ApplicationContext.Instnace.contextInstance.students_checkin.Add
@@ -40,7 +46,7 @@ namespace Server.DAL
             List<CounslerModel> list = new List<CounslerModel>();
             ApplicationContext.Instnace.contextInstance.counslers.ToList().ForEach(c =>
                 {
-                    contacts counslerBase = GetContactById(c.counsler_concacts_id);
+                    contacts counslerBase = InMemoryHandler.GetContactById(c.counsler_concacts_id);
                     if (c == null)
                     {
                         return;
@@ -67,21 +73,14 @@ namespace Server.DAL
             return list;
         }
 
-        private static contacts GetContactById(int? contactId)
-        {
-            if (contactId != null)
-                return ApplicationContext.Instnace.contextInstance.contacts.Where(contact => contact.id == contactId).FirstOrDefault();
-            return null;
-        }
-
         internal static List<BranchModel> GetBranchesData()
         {
             List<BranchModel> branches = new List<BranchModel>();
             ApplicationContext.Instnace.contextInstance.branches.ToList().ForEach(b =>
                 {
-                    var priniciple = GetContactById(b.principle_contacts_id);
-                    var contactA = GetContactById(b.contact_a_contacts_id);
-                    var contactB = GetContactById(b.contact_b_contacts_id);
+                    var priniciple = InMemoryHandler.GetContactById(b.principle_contacts_id);
+                    var contactA = InMemoryHandler.GetContactById(b.contact_a_contacts_id);
+                    var contactB = InMemoryHandler.GetContactById(b.contact_b_contacts_id);
                     BranchModel tempBranch = new BranchModel()
                     {
                         BranchId = b.id,
@@ -100,16 +99,22 @@ namespace Server.DAL
             List<StudentModel> students = new List<StudentModel>();
             ApplicationContext.Instnace.contextInstance.students.ToList().ForEach(s =>
                 {
-                    contacts contact = GetContactById(s.student_concacts_id);
-                    contacts parentA = GetContactById(s.parent_a_contacts_id);
-                    contacts parentB = GetContactById(s.parent_b_contacts_id);
+                    contacts contact = InMemoryHandler.GetContactById(s.student_concacts_id);
+                    contacts parentA = InMemoryHandler.GetContactById(s.parent_a_contacts_id);
+                    contacts parentB = InMemoryHandler.GetContactById(s.parent_b_contacts_id);
 
                     if (contact == null)
                     {
                         return;
                     }
+
+                    CheckedInOutModel checkedIn = InMemoryHandler.Today_CheckedIn.Where(stud => stud.StuedntContactId == contact.id).FirstOrDefault();
+                    CheckedInOutModel pickedUp= InMemoryHandler.Today_PickedUp.Where(stud => stud.StuedntContactId == contact.id).FirstOrDefault();
+
+
                     StudentModel student = new StudentModel
                     {
+                        StudentContactID = contact.id,
                         BirthDay = s.birthday ?? DateTime.MinValue,
                         BranchId = s.branch_id ?? 0,
                         FirstName = contact.first_name,
@@ -120,7 +125,10 @@ namespace Server.DAL
                         Img = contact.image,
                         StudentID = contact.user_id,
                         PickUpOptions = (s.pick_up_options != null) ? s.pick_up_options.Split(',').ToList() : null,
-                        Gender = Utils.Utils.GetGender(s.gender)
+                        Gender = Utils.Utils.GetGender(s.gender),
+                        CheckedIn = checkedIn,
+                        PickUp = pickedUp,
+                        IsPickedUp = pickedUp!=null
                     };
                     if (parentA != null)
                     {
@@ -134,34 +142,37 @@ namespace Server.DAL
                         student.Parent2Name = parentB.first_name + " " + parentA.first_name;
                         student.Parent2Num = parentB.phone_mobile;
                     }
+                    
                     students.Add(student);
                 });
             return students;
         }
 
-        internal static List<CheckedInOutModel> GetTodayPickedUp()
+        internal static List<StudentsCheckedInOutModel> GetTodayCheckedIn()
         {
-            List<CheckedInOutModel> temp = ApplicationContext.Instnace.contextInstance.students_checkin.
+            List<StudentsCheckedInOutModel> temp = ApplicationContext.Instnace.contextInstance.students_checkin.
                 Where(s => s.hour_date > DateTime.Today).
-                Select(s => new CheckedInOutModel()
+                Select(s => new StudentsCheckedInOutModel()
                 {
                     CounslerContactId = s.set_coundler_id,
-                    When = s.hour_date.ToString()
+                    When = s.hour_date.ToString(),
+                     StuedntContactId = s.student_concacts_id
                 }
                 ).ToList();
             return temp;
         }
 
-        internal static List<CheckedInOutModel> GetTodayCheckedIn()
+        internal static List<StudentsCheckedInOutModel> GetTodayPickedUp()
         {
-            List<CheckedInOutModel> temp = ApplicationContext.Instnace.contextInstance.students_pickup.
+            List<StudentsCheckedInOutModel> temp = ApplicationContext.Instnace.contextInstance.students_pickup.
               Where(s => s.hour_date > DateTime.Today).
-              Select(s => new CheckedInOutModel()
+              Select(s => new StudentsCheckedInOutModel()
               {
                   ByWhom = s.picker_name,
                   IsByOther = s.is_by_other,
                   CounslerContactId = s.set_coundler_id,
-                  When = s.hour_date.ToString()
+                  When = s.hour_date.ToString(),
+                  StuedntContactId = s.student_concacts_id
               }
               ).ToList();
             return temp;
@@ -374,6 +385,8 @@ namespace Server.DAL
 
 
         #endregion tests
+
+
 
 
     }

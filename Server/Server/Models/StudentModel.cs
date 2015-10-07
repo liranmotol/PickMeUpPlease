@@ -57,4 +57,8 @@ namespace Server.Models
         public bool IsByOther { get; set; }
     }
 
+    public class StudentsCheckedInOutModel : CheckedInOutModel
+    {
+        public int StuedntContactId { get; set; }
+    }
 }

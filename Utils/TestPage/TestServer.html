@@ -100,10 +100,8 @@
         function CheckedIn()
         {
             var request =
-                {
-                    BranchId: 1,
-                    StudentId:"3",
-                    Token: token
+                {                    
+                    ContactStudentId:"638",                    
                 };
             SendRequest("Students/CheckedIn", request);
         }
@@ -111,10 +109,9 @@
         function PickedUp() {
             var request =
                 {
-                    BranchId: 1,
-                    StudentId: "3",
-                    Token: token,
-                    PickerName :"Erans dad"
+                    ContactStudentId: "638",                    
+                    PickerName :"Erans dad",
+					IsByOther:true
                 };
             SendRequest("Students/PickedUp", request);
         }

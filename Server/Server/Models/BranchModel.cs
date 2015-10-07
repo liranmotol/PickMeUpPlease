@@ -50,37 +50,10 @@ namespace Server.Models
         {
             ResponseGetBranchInfo response = new ResponseGetBranchInfo();
             response.Branches = new List<BranchModel>(); //InMemoryHandler.Branches.Where(b => allowedBranches.Contains(b.BranchId)).ToList();
-
-            //List<int> allowedBranches = counsler.AllowedBranchedIds;
+            //TODO refresh the students here
             counsler.AllowedBranchedIds.ForEach(allowed =>
             {
-                var branchAllowed = InMemoryHandler.Branches.Where(b => b.BranchId == allowed);
-                if (branchAllowed != null && branchAllowed.Count() > 0)
-                {
-                    BranchModel branch = branchAllowed.First();
-
-                    List<StudentModel> tempList = branch.GetUpdateStundetsInfo(LastSyncTime);
-
-                    BranchModel temp = new BranchModel()
-                    {
-                        BranchId = branch.BranchId,
-                        BranchName = branch.BranchName,
-                        PrincipalName = branch.PrincipalName,
-                        PrincipalNUmber = branch.PrincipalNUmber
-                    };
-
-                    //if (tempList != null)
-                    //{
-                    //    var grades = tempList.Select(s => s.Grade).Distinct();
-                    //    var classes = tempList.Select(s => s.SClass).Distinct();
-                    //    temp.StudentsList = tempList.OrderBy(s => s.LastName).ToList();
-                    //    temp.OptionalClasses = classes.ToList();
-                    //    temp.OptionalGrades = grades.ToList();
-                    //    //var Health = tempList.Select(s => s.HealthIssues).Distinct();
-                    //    temp.OptionalHealthIssues = null;// Health.ToList();
-                    //}
-                    response.Branches.Add(temp);
-                }
+                response.Branches.AddRange(InMemoryHandler.Branches.Where(b => b.BranchId == allowed).ToList());
             });
             return response;
         }

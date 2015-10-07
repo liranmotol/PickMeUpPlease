@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security.OAuth;
+using Server.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,17 @@ namespace Server.AuthHelpers
 
         public static string GetUserNameFromContext(Microsoft.Owin.IOwinContext owinContext)
         {
-            return owinContext.Authentication.User.Identities.First().Claims.First().Value;
+            try
+            {
+                return owinContext.Authentication.User.Identities.First().Claims.First().Value;
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteToLog(LogLevel.error, "IOwinContext error with user:" + owinContext.Authentication.User.Identity.Name, ex);
+                //TODO handle this
+                return "liran1";
+            }
+            
         }
 
     }

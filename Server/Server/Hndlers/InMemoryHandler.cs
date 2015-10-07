@@ -1,5 +1,6 @@
 ﻿using Server.DAL;
 using Server.Models;
+using Server.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,10 @@ namespace Server.Hndlers
 {
     public class InMemoryHandler
     {
-        public static List<CheckedInOutModel> Today_CheckedIn { get; private set; }
-        public static List<CheckedInOutModel> Today_PickedUp { get; private set; }
+        public static List<StudentsCheckedInOutModel> Today_CheckedIn { get; private set; }
+        public static List<StudentsCheckedInOutModel> Today_PickedUp { get; private set; }
+
+        public static List<contacts> Contacts { get; private set; }
 
 
         public static List<CounslerModel> Counslers {get; private set;}
@@ -76,6 +79,8 @@ namespace Server.Hndlers
 
         private static void Initialize()
         {
+            Contacts = DataAccess.GetContacts();
+
             Today_PickedUp = DataAccess.GetTodayPickedUp();
             Today_CheckedIn = DataAccess.GetTodayCheckedIn();
 
@@ -89,13 +94,6 @@ namespace Server.Hndlers
                 });
         }
 
-
-
-        //public static void UpdateCounslerToken(string token, CounslerModel counsler)
-        //{
-        //    SecurityMemHandler.UpdateCounslerToken(token, counsler);
-        //}
-
         internal static CounslerModel GetCounslerByUserName(string userName)
         {
             var tempCoun = Counslers.Where(c => c.UserName == userName);
@@ -104,24 +102,34 @@ namespace Server.Hndlers
             return null;
         }
 
-
-
         internal static void StudentPickedUp(int CounslerId, int StudentContactId, string PickerName, bool IsByOther)
         {
+            DataAccess.StudentPickedUp(CounslerId, StudentContactId, PickerName, IsByOther);
             //BranchModel branch = Branches.Where(b => b.BranchId == BranchId).First();
-            StudentModel student = Students.Where(s => s.StudentContactID == StudentContactId).First();
+            StudentModel student = Students.Where(s => s.StudentContactID == StudentContactId).FirstOrDefault();
+            if (student == null)
+            {
+                Logger.WriteToLog(LogLevel.error, "StudentPickedUp: Could not find student:" + StudentContactId);
+                //TODO handle
+                return;
+            }
             student.LastUpdateTime = DateTime.Now;
             student.PickUp = new CheckedInOutModel() { ByWhom = PickerName, When = DateTime.Now.ToString(), IsByOther=IsByOther, CounslerContactId=StudentContactId };
             student.IsPickedUp = true;
-            DataAccess.StudentPickedUp(CounslerId, StudentContactId, PickerName, IsByOther);
         }
 
         internal static void StudentCheckIn(int CounslerId, int StudentContactId)
         {
-            StudentModel student = Students.Where(s => s.StudentContactID == StudentContactId).First();
-            student.LastUpdateTime = DateTime.Now;
-            student.CheckedIn = new CheckedInOutModel() { When = DateTime.Now.ToString(), CounslerContactId=StudentContactId};
             DataAccess.StudentCheckedIn(CounslerId, StudentContactId);
+            StudentModel student = Students.Where(s => s.StudentContactID == StudentContactId).FirstOrDefault();
+            if (student == null)
+            {
+                Logger.WriteToLog(LogLevel.error, "StudentCheckIn: Could not find student:" + StudentContactId);
+                //TODO handle
+                return;
+            }
+            student.LastUpdateTime = DateTime.Now;
+            student.CheckedIn = new CheckedInOutModel() { When = DateTime.Now.ToString(), CounslerContactId = CounslerId };
         }
 
 
@@ -130,9 +138,6 @@ namespace Server.Hndlers
             var a = Counslers;
             var b= Branches;
             var s = Students;
-
-
-
         }
 
         internal static CounslerModel GetUserIdFromCounslerUserName(string userName)
@@ -150,6 +155,9 @@ namespace Server.Hndlers
 
         }
 
-       
+        internal static contacts GetContactById(int? contactId)
+        {
+            return Contacts.Where(c => c.id == contactId).FirstOrDefault();
+        }
     }
 }
