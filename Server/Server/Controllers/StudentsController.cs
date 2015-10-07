@@ -21,14 +21,10 @@ namespace Server.Controllers
         public string PickedUp(RequestStudentPickedUp StudentPickedUpRequest)
         {
             System.Diagnostics.Trace.TraceInformation("PickedUp Request");
-
-            //if (InMemoryHandler.IsTokenValid(StudentPickedUpRequest.Token))
-            //{
-                InMemoryHandler.StudentPickedUp(StudentPickedUpRequest.StudentId, StudentPickedUpRequest.PickerName, StudentPickedUpRequest.BranchId);
-                return "Cool. bye bye";
-            //}
-            //else
-                //return "Illegal Token";
+            CounslerModel counsler = Utils.Utils.GetCounslerFromRequest(Request.GetOwinContext());
+            int studentContactId = Utils.Utils.GetContactIdOfStudentId(StudentPickedUpRequest.StudentId);
+            InMemoryHandler.StudentPickedUp(counsler.CounslerID, studentContactId , StudentPickedUpRequest.PickerName, StudentPickedUpRequest.IsByOther);
+            return "Cool. bye bye";
 
         }
 
@@ -37,18 +33,15 @@ namespace Server.Controllers
         public string CheckedIn(RequestStudentCheckedIn StudentCheckedInRequest)
         {
             System.Diagnostics.Trace.TraceWarning("CheckedIn Request");
+            CounslerModel counsler = Utils.Utils.GetCounslerFromRequest(Request.GetOwinContext());
+            int studentContactId = Utils.Utils.GetContactIdOfStudentId(StudentCheckedInRequest.StudentId);
+            InMemoryHandler.StudentCheckIn(counsler.CounslerID, studentContactId);
+           
 
-            //if (InMemoryHandler.IsTokenValid(StudentPickedUpRequest.Token))
-            //{
-            //    InMemoryHandler.StudentPickedUp(StudentPickedUpRequest.StudentId, StudentPickedUpRequest.PickerName, StudentPickedUpRequest.BranchId);
-            //    return "";
-            //}
-            //else
-            //    return "Illegal Token";
             return "Students checked in . thank you";
         }
 
-     
-        
+
+
     }
 }

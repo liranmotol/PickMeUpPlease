@@ -1,4 +1,5 @@
-﻿using Server.DAL;
+﻿using Server.AuthHelpers;
+using Server.DAL;
 using Server.Hndlers;
 using Server.Models;
 using System;
@@ -50,5 +51,20 @@ namespace Server.Utils
         //    }
         //    return temp;
         //}
+
+        internal static CounslerModel  GetCounslerFromRequest(Microsoft.Owin.IOwinContext owinContext)
+        {
+            string userName = SimpleAuthorizationServerProvider.GetUserNameFromContext(owinContext);
+            CounslerModel counsler = InMemoryHandler.GetUserIdFromCounslerUserName(userName);
+            return counsler;
+        }
+
+        internal static int GetContactIdOfStudentId(string studentId)
+        {
+            var tempContact = InMemoryHandler.Students.Where(s => s.StudentID== studentId).Select(s => s.StudentContactID).FirstOrDefault();
+            //if (tempContact == null)
+            //    return 0;
+            return tempContact;
+        }
     }
 }

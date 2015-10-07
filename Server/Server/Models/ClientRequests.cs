@@ -7,9 +7,9 @@ namespace Server.Models
 {
     public class RequestStudentPickedUp : ClientRequest
     {
-        public int BranchId { get; set; }
         public string StudentId { get; set; }
         public string PickerName { get; set; }
+        public bool IsByOther { get; set; }
     }
 
     public class RequestStudentCheckedIn : ClientRequest

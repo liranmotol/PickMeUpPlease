@@ -33,5 +33,7 @@ namespace Server.Models
         public virtual DbSet<contacts> contacts { get; set; }
         public virtual DbSet<students> students { get; set; }
         public virtual DbSet<counslers> counslers { get; set; }
+        public virtual DbSet<students_checkin> students_checkin { get; set; }
+        public virtual DbSet<students_pickup> students_pickup { get; set; }
     }
 }

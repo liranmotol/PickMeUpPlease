@@ -11,6 +11,9 @@ namespace Server.Hndlers
 {
     public class InMemoryHandler
     {
+        public static List<CheckedInOutModel> Today_CheckedIn { get; private set; }
+        public static List<CheckedInOutModel> Today_PickedUp { get; private set; }
+
 
         public static List<CounslerModel> Counslers {get; private set;}
         public static List<BranchModel> Branches { get; private set; }
@@ -73,6 +76,9 @@ namespace Server.Hndlers
 
         private static void Initialize()
         {
+            Today_PickedUp = DataAccess.GetTodayPickedUp();
+            Today_CheckedIn = DataAccess.GetTodayCheckedIn();
+
             Counslers = DataAccess.GetCounslersData();
             Branches = DataAccess.GetBranchesData();
             Students = DataAccess.GetStudentsData();
@@ -98,17 +104,26 @@ namespace Server.Hndlers
             return null;
         }
 
-   
 
-        internal static void StudentPickedUp(string StudentId, string PickerName, int BranchId)
+
+        internal static void StudentPickedUp(int CounslerId, int StudentContactId, string PickerName, bool IsByOther)
         {
-            BranchModel branch = Branches.Where(b => b.BranchId == BranchId).First();
-            StudentModel student = branch.StudentsList.Where(s => s.StudentID == StudentId).First();
+            //BranchModel branch = Branches.Where(b => b.BranchId == BranchId).First();
+            StudentModel student = Students.Where(s => s.StudentContactID == StudentContactId).First();
             student.LastUpdateTime = DateTime.Now;
-            student.PickUp = new CeckedInOutModel() { ByWhom = PickerName, When = DateTime.Now.ToString() };
+            student.PickUp = new CheckedInOutModel() { ByWhom = PickerName, When = DateTime.Now.ToString(), IsByOther=IsByOther, CounslerContactId=StudentContactId };
             student.IsPickedUp = true;
-
+            DataAccess.StudentPickedUp(CounslerId, StudentContactId, PickerName, IsByOther);
         }
+
+        internal static void StudentCheckIn(int CounslerId, int StudentContactId)
+        {
+            StudentModel student = Students.Where(s => s.StudentContactID == StudentContactId).First();
+            student.LastUpdateTime = DateTime.Now;
+            student.CheckedIn = new CheckedInOutModel() { When = DateTime.Now.ToString(), CounslerContactId=StudentContactId};
+            DataAccess.StudentCheckedIn(CounslerId, StudentContactId);
+        }
+
 
         internal static void GetAllCounslers()
         {
@@ -134,5 +149,7 @@ namespace Server.Hndlers
             return null;
 
         }
+
+       
     }
 }

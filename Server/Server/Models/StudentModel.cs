@@ -9,6 +9,7 @@ namespace Server.Models
     public class StudentModel
     {
         public string StudentID { get; set; }
+        public int StudentContactID { get; set; }
         public string Img { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -18,8 +19,8 @@ namespace Server.Models
         public List<string> HealthIssues { get; set; }
         public string HealthIssuesString { get; set; }
 
-        public CeckedInOutModel CheckedIn { get; set; }
-        public CeckedInOutModel PickUp { get; set; }
+        public CheckedInOutModel CheckedIn { get; set; }
+        public CheckedInOutModel PickUp { get; set; }
         public List<string> PickUpOptions { get; set; }
         public bool IsPickedUp { get; set; }
         public string Parent1Name { get; set; }
@@ -38,8 +39,8 @@ namespace Server.Models
         public StudentModel()
         {
             HealthIssues = new List<string>();
-            CheckedIn = new CeckedInOutModel();
-            PickUp = new CeckedInOutModel();
+            CheckedIn = new CheckedInOutModel();
+            PickUp = new CheckedInOutModel();
             PickUpOptions = new List<string>();
         }
 
@@ -48,10 +49,12 @@ namespace Server.Models
 
     }
 
-    public class CeckedInOutModel
+    public class CheckedInOutModel
     {
+        public int CounslerContactId { get; set; }
         public string ByWhom { get; set; }
         public string When { get; set; }
+        public bool IsByOther { get; set; }
     }
 
 }

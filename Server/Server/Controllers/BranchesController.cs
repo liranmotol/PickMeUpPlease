@@ -23,8 +23,8 @@ namespace Server.Controllers
             try
             {
                 //Request.GetOwinContext().
-                string userName = SimpleAuthorizationServerProvider.GetUserNameFromContext(Request.GetOwinContext());
-                CounslerModel counsler = InMemoryHandler.GetUserIdFromCounslerUserName(userName);
+                CounslerModel counsler = Utils.Utils.GetCounslerFromRequest(Request.GetOwinContext());
+                
                 if (counsler == null)
                 {
                     branch.Status = 3;

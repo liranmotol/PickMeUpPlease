@@ -9,7 +9,31 @@ namespace Server.DAL
 {
     public class DataAccess
     {
+        internal static void StudentCheckedIn(int CounslerId, int StudentId)
+        {
+            ApplicationContext.Instnace.contextInstance.students_checkin.Add
+                (new students_checkin()
+                {
+                    hour_date = DateTime.Now,
+                    set_coundler_id = CounslerId,
+                    student_concacts_id = StudentId
+                });
+            ApplicationContext.Instnace.contextInstance.SaveChanges();
+        }
 
+        internal static void StudentPickedUp(int CounslerId, int StudentId, string PickerName, bool IsByOther)
+        {
+            ApplicationContext.Instnace.contextInstance.students_pickup.Add
+                (new students_pickup()
+                {
+                    hour_date = DateTime.Now,
+                    set_coundler_id = CounslerId,
+                    student_concacts_id = StudentId,
+                    is_by_other = IsByOther,
+                    picker_name = PickerName
+                });
+            ApplicationContext.Instnace.contextInstance.SaveChanges();
+        }
 
         internal static List<CounslerModel> GetCounslersData()
         {
@@ -95,8 +119,8 @@ namespace Server.DAL
                         HomeNum = contact.phone_home,
                         Img = contact.image,
                         StudentID = contact.user_id,
-                        PickUpOptions = (s.pick_up_options!=null)? s.pick_up_options.Split(',').ToList():null,
-                        Gender = Utils.Utils.GetGender( s.gender)
+                        PickUpOptions = (s.pick_up_options != null) ? s.pick_up_options.Split(',').ToList() : null,
+                        Gender = Utils.Utils.GetGender(s.gender)
                     };
                     if (parentA != null)
                     {
@@ -112,12 +136,39 @@ namespace Server.DAL
                     }
                     students.Add(student);
                 });
-            return students ;
+            return students;
+        }
+
+        internal static List<CheckedInOutModel> GetTodayPickedUp()
+        {
+            List<CheckedInOutModel> temp = ApplicationContext.Instnace.contextInstance.students_checkin.
+                Where(s => s.hour_date > DateTime.Today).
+                Select(s => new CheckedInOutModel()
+                {
+                    CounslerContactId = s.set_coundler_id,
+                    When = s.hour_date.ToString()
+                }
+                ).ToList();
+            return temp;
+        }
+
+        internal static List<CheckedInOutModel> GetTodayCheckedIn()
+        {
+            List<CheckedInOutModel> temp = ApplicationContext.Instnace.contextInstance.students_pickup.
+              Where(s => s.hour_date > DateTime.Today).
+              Select(s => new CheckedInOutModel()
+              {
+                  ByWhom = s.picker_name,
+                  IsByOther = s.is_by_other,
+                  CounslerContactId = s.set_coundler_id,
+                  When = s.hour_date.ToString()
+              }
+              ).ToList();
+            return temp;
         }
 
 
-
-
+        #region tests
 
 
         //TESTING
@@ -137,7 +188,7 @@ namespace Server.DAL
                 {
                     BirthDay = DateTime.Now,
                     BirthDayString = DateTime.Now.ToShortDateString(),
-                    CheckedIn = new CeckedInOutModel(),
+                    CheckedIn = new CheckedInOutModel(),
                     FirstName = Boys[rand],
                     LastName = Girls[rand],
                     Gender = (rand > 20) ? "Male" : "Female",
@@ -155,7 +206,7 @@ namespace Server.DAL
                     Parent2Name = Girls[rand],
                     Parent1Num = "052-1234567",
                     Parent2Num = "052-7654321",
-                    PickUp = new CeckedInOutModel(),
+                    PickUp = new CheckedInOutModel(),
                     PickUpFrom = "nada",
                     PickUpOptions = pickUpOptions2
                 };
@@ -321,6 +372,8 @@ namespace Server.DAL
 "Claire	      ",
 "Alice     "};
 
+
+        #endregion tests
 
 
     }

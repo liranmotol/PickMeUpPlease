@@ -109,6 +109,26 @@
           <Property Name="parent_a_contacts_id" Type="int" />
           <Property Name="parent_b_contacts_id" Type="int" />
         </EntityType>
+        <EntityType Name="students_checkin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="student_concacts_id" Type="int" Nullable="false" />
+          <Property Name="set_coundler_id" Type="int" Nullable="false" />
+          <Property Name="hour_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="students_pickup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="student_concacts_id" Type="int" Nullable="false" />
+          <Property Name="is_by_other" Type="bit" Nullable="false" />
+          <Property Name="picker_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="set_coundler_id" Type="int" Nullable="false" />
+          <Property Name="hour_date" Type="datetime" Nullable="false" />
+        </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -175,6 +195,8 @@
           <EntitySet Name="contacts" EntityType="Self.contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="counslers" EntityType="Self.counslers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="students" EntityType="Self.students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="students_checkin" EntityType="Self.students_checkin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="students_pickup" EntityType="Self.students_pickup" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -217,6 +239,8 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="counslers" EntityType="pickmepleasedbModel.counslers" />
+          <EntitySet Name="students_checkin" EntityType="pickmepleasedbModel.students_checkin" />
+          <EntitySet Name="students_pickup" EntityType="pickmepleasedbModel.students_pickup" />
         </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -352,6 +376,26 @@
           <Property Name="allowed_branches" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="usernmae" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="students_checkin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="student_concacts_id" Type="Int32" Nullable="false" />
+          <Property Name="set_coundler_id" Type="Int32" Nullable="false" />
+          <Property Name="hour_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="students_pickup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="student_concacts_id" Type="Int32" Nullable="false" />
+          <Property Name="is_by_other" Type="Boolean" Nullable="false" />
+          <Property Name="picker_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="set_coundler_id" Type="Int32" Nullable="false" />
+          <Property Name="hour_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -465,6 +509,28 @@
                 <ScalarProperty Name="birthday" ColumnName="birthday" />
                 <ScalarProperty Name="gender" ColumnName="gender" />
                 <ScalarProperty Name="counsler_concacts_id" ColumnName="counsler_concacts_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="students_checkin">
+            <EntityTypeMapping TypeName="pickmepleasedbModel.students_checkin">
+              <MappingFragment StoreEntitySet="students_checkin">
+                <ScalarProperty Name="hour_date" ColumnName="hour_date" />
+                <ScalarProperty Name="set_coundler_id" ColumnName="set_coundler_id" />
+                <ScalarProperty Name="student_concacts_id" ColumnName="student_concacts_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="students_pickup">
+            <EntityTypeMapping TypeName="pickmepleasedbModel.students_pickup">
+              <MappingFragment StoreEntitySet="students_pickup">
+                <ScalarProperty Name="hour_date" ColumnName="hour_date" />
+                <ScalarProperty Name="set_coundler_id" ColumnName="set_coundler_id" />
+                <ScalarProperty Name="picker_name" ColumnName="picker_name" />
+                <ScalarProperty Name="is_by_other" ColumnName="is_by_other" />
+                <ScalarProperty Name="student_concacts_id" ColumnName="student_concacts_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
