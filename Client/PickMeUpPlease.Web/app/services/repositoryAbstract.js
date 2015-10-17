@@ -22,27 +22,28 @@
                       log('getting all data from server')
                       //service.data = response;
 
-                      service.data = [
-                        {
-                            "BranchId": 1,
-                            "BranchName": "First",
-                            "StudentsList": [],
-                            "OptionalGrades": ["B", "GAN", "C", "A"],
-                            "OptionalClasses": ["3", "1", "4", "2"],
-                            "OptionalHealthIssues": ["GLUTEN", "SUGAR"],
-                            "PrincipalName": "eran",
-                            "PrincipalNUmber": "0523245505"
-                        }, {
-                            "BranchId": 2,
-                            "BranchName": "Second",
-                            "StudentsList": [],
-                            "OptionalGrades": ["B", "GAN", "C", "A"],
-                            "OptionalClasses": ["3", "1", "4", "2"],
-                            "OptionalHealthIssues": ["GLUTEN", "SUGAR"],
-                            "PrincipalName": null,
-                            "PrincipalNUmber": null
-                        }
-                      ];
+                      service.data = response.Branches;
+                      //    [
+                      //  {
+                      //      "BranchId": 1,
+                      //      "BranchName": "First",
+                      //      "StudentsList": [],
+                      //      "OptionalGrades": ["B", "GAN", "C", "A"],
+                      //      "OptionalClasses": ["3", "1", "4", "2"],
+                      //      "OptionalHealthIssues": ["GLUTEN", "SUGAR"],
+                      //      "PrincipalName": "eran",
+                      //      "PrincipalNUmber": "0523245505"
+                      //  }, {
+                      //      "BranchId": 2,
+                      //      "BranchName": "Second",
+                      //      "StudentsList": [],
+                      //      "OptionalGrades": ["B", "GAN", "C", "A"],
+                      //      "OptionalClasses": ["3", "1", "4", "2"],
+                      //      "OptionalHealthIssues": ["GLUTEN", "SUGAR"],
+                      //      "PrincipalName": null,
+                      //      "PrincipalNUmber": null
+                      //  }
+                      //];
 
                       deferred.resolve(service.data)
                   })

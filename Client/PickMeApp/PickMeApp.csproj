@@ -77,6 +77,7 @@
     <Content Include="app\checkOut\checkOutController.js" />
     <Content Include="app\common\common.js" />
     <Content Include="app\common\logger.js" />
+    <Content Include="app\DummyRepository.js" />
     <Content Include="app\home\home.html" />
     <Content Include="app\home\homeController.js" />
     <Content Include="app\home\layout.html" />

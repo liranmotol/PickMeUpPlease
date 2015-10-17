@@ -4,13 +4,17 @@
 
     var app = angular.module("app");
 
-    app.controller(controllerId, ['common', checkInController]);
+
+    app.controller(controllerId, ['common', 'studentRepository', checkInController]);
 
     function checkInController(common) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
 
         var vm = this;
+        studentRepository.get().then(function (response) {
+            vm.students = response;
+        });
 
 
         return vm;

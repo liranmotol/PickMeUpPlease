@@ -8,41 +8,50 @@
 
     function repositoryAbstract($q, $http, localStorageService, common, ngAuthSettings) {
         var service = this;
+      
+
         service.data = null;
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(serviceId);
         var logErr = getLogFn(serviceId, 'Error');
+        console.log("repositoryAbstract");
 
+        console.log(service);
         function _getData(userToken) {
             var deferred = $q.defer();
 
             if (service.data == null) {
                 $http.post(ngAuthSettings.apiServiceBaseUri + '/Branches/Get', _getServerToken())
                     .success(function (response) {
-                      log('getting all data from server')
+                        log('getting all data from server')
+                        console.log(response);
                       //service.data = response;
 
-                      service.data = [
-                        {
-                            "BranchId": 1,
-                            "BranchName": "First",
-                            "StudentsList": [],
-                            "OptionalGrades": ["B", "GAN", "C", "A"],
-                            "OptionalClasses": ["3", "1", "4", "2"],
-                            "OptionalHealthIssues": ["GLUTEN", "SUGAR"],
-                            "PrincipalName": "eran",
-                            "PrincipalNUmber": "0523245505"
-                        }, {
-                            "BranchId": 2,
-                            "BranchName": "Second",
-                            "StudentsList": [],
-                            "OptionalGrades": ["B", "GAN", "C", "A"],
-                            "OptionalClasses": ["3", "1", "4", "2"],
-                            "OptionalHealthIssues": ["GLUTEN", "SUGAR"],
-                            "PrincipalName": null,
-                            "PrincipalNUmber": null
-                        }
-                      ];
+                        service.data = response.Branches;
+                        DummyRepository.Branches = response.Branches;
+                        console.log(DummyRepository.Branches);
+
+                      //      [
+                      //  {
+                      //      "BranchId": 1,
+                      //      "BranchName": "First",
+                      //      "StudentsList": [],
+                      //      "OptionalGrades": ["B", "GAN", "C", "A"],
+                      //      "OptionalClasses": ["3", "1", "4", "2"],
+                      //      "OptionalHealthIssues": ["GLUTEN", "SUGAR"],
+                      //      "PrincipalName": "eran",
+                      //      "PrincipalNUmber": "0523245505"
+                      //  }, {
+                      //      "BranchId": 2,
+                      //      "BranchName": "Second",
+                      //      "StudentsList": [],
+                      //      "OptionalGrades": ["B", "GAN", "C", "A"],
+                      //      "OptionalClasses": ["3", "1", "4", "2"],
+                      //      "OptionalHealthIssues": ["GLUTEN", "SUGAR"],
+                      //      "PrincipalName": null,
+                      //      "PrincipalNUmber": null
+                      //  }
+                      //];
 
                       deferred.resolve(service.data)
                   })

@@ -16,6 +16,8 @@
         vm.searchText = "";
 
         vm.students = studentRepository.GetAllStudensByBranchId(branchId);
+                                
+        console.log(vm.students);
 
 
         return vm;
