@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobileApplication.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,40 +7,25 @@ using System.Web.Mvc;
 
 namespace MobileApplication.Controllers
 {
-      [Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
             //1. check if multyple branches are allowed
             //2 set viewbag with defalt branch and go to home with default branch
-            ViewBag.DefaultBranchName = "Ramat Hasharom";
-            ViewBag.DefaultBranchId = 2;
-
-
+            CounslerModel counsler = Utils.Utils.GetCounslerFromRequest();
+            if (counsler.AllowedBranchedIds.Count > 0)
+            {
+                BranchModel defaultBranch = BranchModel.GetBranchById(counsler.AllowedBranchedIds[0]);
+                ViewBag.DefaultBranchName = defaultBranch.BranchName;
+                ViewBag.DefaultBranchId = defaultBranch.BranchId;
+            }
             return View();
         }
 
     
 
-        public ActionResult Lunch()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-        public ActionResult PickUp()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-        public ActionResult CheckIn()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-      
+       
     }
 }

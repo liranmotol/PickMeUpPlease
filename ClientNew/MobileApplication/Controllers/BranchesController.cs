@@ -8,13 +8,11 @@ using System.Web.Mvc;
 namespace MobileApplication.Controllers
 {
     [Authorize]
-    public class BrnachesController : Controller
+    public class BranchesController : Controller
     {
         public ActionResult BranchesInfo(int BranchId)
         {
-            BranchModel b = new BranchModel();
-            b.BranchId = BranchId;
-            b.BranchName = "a";
+            BranchModel b =BranchModel.GetBranchById(BranchId);
             return View(b);
         }
         public void ChangeBranch()

@@ -4,12 +4,14 @@
 
 <ul data-role="listview" data-inset="true">
     <li data-role="list-divider">@ViewBag.DefaultBranchName</li>
-    <li>@Html.ActionLink("Check In", "CheckIn", "Home")</li>
-    <li>@Html.ActionLink("Pick Up", "PickUp", "Home")</li>
-    <li>@Html.ActionLink("Lunch", "Lunch", "Home")</li>
-    <li>@Html.ActionLink("Branche Info", "BranchesInfo", "Brnaches", new { BranchId = ViewBag.DefaultBranchId }, null)</li>
-    <li>@Html.ActionLink("Change Branch", "ChangeBranch", "Brnaches")</li>
+    <li>@Html.ActionLink("Students Info", "StudentsInfoList", "Students", new { BranchId = ViewBag.DefaultBranchId }, null)</li>
 
-    <li>@Html.ActionLink("My Info", "MyInfo", "Counslers")</li>
+    <li>@Html.ActionLink("Check In", "CheckInList", "Students", new { BranchId = ViewBag.DefaultBranchId }, null)</li>
+    <li>@Html.ActionLink("Pick Up", "PickUpList", "Students", new { BranchId = ViewBag.DefaultBranchId }, null)</li>
+    <li>@Html.ActionLink("Lunch", "LunchList", "Students", new { BranchId = ViewBag.DefaultBranchId }, null)</li>
+    <li>@Html.ActionLink("Branch Info", "BranchesInfo", "Branches", new { BranchId = ViewBag.DefaultBranchId }, null)</li>
+    <li>@Html.ActionLink("Change Branch", "ChangeBranchList", "Branches")</li>
+
+    <li>@Html.ActionLink("Counslers Info", "CounslersInfoList", "Counslers")</li>
 
 </ul>

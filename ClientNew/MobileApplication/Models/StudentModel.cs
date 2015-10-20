@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobileApplication.Hndlers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -47,13 +48,19 @@ namespace MobileApplication.Models
         public DateTime LastUpdateTime { get; set; }
         public int BranchId { get; set; }
 
+
+        internal static StudentModel GetStudentById(int StudentId)
+        {
+            return InMemoryHandler.Students.Where(s => s.StudentID == StudentId.ToString()).FirstOrDefault();
+
+        }
     }
 
     public class CheckedInOutModel
     {
         public int CounslerContactId { get; set; }
         public string ByWhom { get; set; }
-        public string When { get; set; }
+        public DateTime When { get; set; }
         public bool IsByOther { get; set; }
     }
 

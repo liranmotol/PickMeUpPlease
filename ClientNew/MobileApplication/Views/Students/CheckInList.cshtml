@@ -1,0 +1,20 @@
+﻿@model IEnumerable<MobileApplication.Models.StudentModel>
+
+<h2>@ViewBag.Message</h2>
+
+@foreach (var item in Model)
+{
+    @Html.ActionLink("Show Info", "StudentsInfoList", "Students", new { StudentId = item.StudentID }, null)
+    <span>&nbsp;</span>
+
+    @Html.DisplayFor(modelItem => item.StudentID)
+    <span>&nbsp;</span>
+    @Html.DisplayFor(modelItem => item.FirstName)
+    <span>&nbsp;</span>
+
+    @Html.DisplayFor(modelItem => item.LastName)
+    <span>&nbsp;</span>
+
+    @Html.DisplayFor(modelItem => item.Grade)    @Html.DisplayFor(modelItem => item.SClass)
+    <br />
+}

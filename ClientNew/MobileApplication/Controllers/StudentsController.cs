@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobileApplication.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,6 +16,37 @@ namespace MobileApplication.Controllers
         {
             return View();
         }
+        public ActionResult CheckInList(int BranchId)
+        {
+            ViewBag.Message = "CheckInList.";
+            BranchModel b = BranchModel.GetBranchById(BranchId);
+            return View(b.StudentsList);
+        }
+        public ActionResult PickUpList(int BranchId)
+        {
+            
+            ViewBag.Message = "PickUpList.";
+            BranchModel b = BranchModel.GetBranchById(BranchId);
+
+            return View("CheckInList", b.StudentsList);
+        }
+        public ActionResult LunchList(int BranchId)
+        {
+            ViewBag.Message = "LunchList.";
+            BranchModel b = BranchModel.GetBranchById(BranchId);
+
+            return View("CheckInList", b.StudentsList);
+
+        }
+        public ActionResult StudentsInfoList(int StudentId)
+        {
+            ViewBag.Message = "StudentsInfoList.";
+            StudentModel student = StudentModel.GetStudentById(StudentId);
+
+            return View(student);
+
+        }
+      
 
     }
 }
