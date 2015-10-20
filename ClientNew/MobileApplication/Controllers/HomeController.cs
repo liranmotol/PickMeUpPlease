@@ -6,27 +6,40 @@ using System.Web.Mvc;
 
 namespace MobileApplication.Controllers
 {
+      [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            //1. check if multyple branches are allowed
+            //2 set viewbag with defalt branch and go to home with default branch
+            ViewBag.DefaultBranchName = "Ramat Hasharom";
+            ViewBag.DefaultBranchId = 2;
+
 
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your app description page.";
+    
 
-            return View();
-        }
-
-        public ActionResult Contact()
+        public ActionResult Lunch()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
         }
+        public ActionResult PickUp()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+        public ActionResult CheckIn()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+      
     }
 }
