@@ -1,20 +1,61 @@
 ﻿@model IEnumerable<MobileApplication.Models.StudentModel>
 
-<h2>@ViewBag.Message</h2>
+<div class="ui-field-contain">
+    @*<label for="select-custom-19">Grade:</label>*@
+    <select name="select-custom-19" id="select-grade" multiple="multiple" data-native-menu="false">
+        <option>Choose Grades</option>
+        @foreach (var grd in Model.Select(s => s.Grade).Distinct())
+        {
+            <option value="@grd" selected="selected">@grd</option>
+        }
+    </select>
+</div>
 
-@foreach (var item in Model)
-{
-    @Html.ActionLink("Show Info", "StudentsInfoList", "Students", new { StudentId = item.StudentID }, null)
-    <span>&nbsp;</span>
+<div class="ui-field-contain">
+  @*  <label for="select-custom-19">Class:</label>*@
+    <select name="select-custom-19" id="select-class" multiple="multiple" data-native-menu="false">
+        <option>Choose Classes</option>
+        @foreach (var cls in Model.Select(s => s.SClass).Distinct())
+        {
+            <option value="@cls" selected="selected">@cls</option>
+        }
+    </select>
+</div>
 
-    @Html.DisplayFor(modelItem => item.StudentID)
-    <span>&nbsp;</span>
-    @Html.DisplayFor(modelItem => item.FirstName)
-    <span>&nbsp;</span>
+@*selected values*@
+@*<script>
+    var selectedGrades = 
+    $("#multipleSelect :selected").map(function (i, el) {
+        return $(el).val();
+    });
+</script>*@
+<br />
 
-    @Html.DisplayFor(modelItem => item.LastName)
-    <span>&nbsp;</span>
+    <ul data-role="listview" data-filter="true" data-autodividers="true" id="studentsListView" data-inset="true">
+    @foreach (var item in Model.OrderBy(s => s.FirstName))
+    {
+        <li>
+            @*@Html.ActionLink("Show Info", "StudentsInfoList", "Students", new { StudentId = item.StudentID }, null)
+                <span>&nbsp;</span>*@
+            <a href="#">
+                @Html.DisplayFor(modelItem => item.FirstName)
+                <span>&nbsp;</span>
 
-    @Html.DisplayFor(modelItem => item.Grade)    @Html.DisplayFor(modelItem => item.SClass)
-    <br />
-}
+                @Html.DisplayFor(modelItem => item.LastName)
+                <span>&nbsp;</span>
+                @Html.DisplayFor(modelItem => item.StudentID)
+                <span>&nbsp;</span>
+
+                @Html.DisplayFor(modelItem => item.Grade)    @Html.DisplayFor(modelItem => item.SClass)
+            </a>
+        </li>
+        //<br />
+    }
+</ul>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#studentsListView').listview().listview("refresh");
+    });
+
+</script>

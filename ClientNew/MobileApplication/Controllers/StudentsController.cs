@@ -18,7 +18,7 @@ namespace MobileApplication.Controllers
         }
         public ActionResult CheckInList(int BranchId)
         {
-            ViewBag.Message = "CheckInList.";
+            ViewBag.Title = "Check In List";
             BranchModel b = BranchModel.GetBranchById(BranchId);
             return View(b.StudentsList);
         }
