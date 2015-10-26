@@ -2,9 +2,9 @@
 
 <div class="ui-field-contain">
     @*<label for="select-custom-19">Grade:</label>*@
-    <select name="select-custom-19" id="select-grade" multiple="multiple" data-native-menu="false">
+    <select name="select-custom-19" id="select-grade-class" multiple="multiple" data-native-menu="false">
         <option>Choose Grades</option>
-        @foreach (var grd in Model.Select(s => s.Grade).Distinct())
+        @foreach (var grd in Model.Select(s => s.Grade+ s.SClass).Distinct())
         {
             <option value="@grd" selected="selected">@grd</option>
         }
@@ -12,7 +12,7 @@
 </div>
 
 <div class="ui-field-contain">
-  @*  <label for="select-custom-19">Class:</label>*@
+    @*  <label for="select-custom-19">Class:</label>*@
     <select name="select-custom-19" id="select-class" multiple="multiple" data-native-menu="false">
         <option>Choose Classes</option>
         @foreach (var cls in Model.Select(s => s.SClass).Distinct())
@@ -24,17 +24,21 @@
 
 @*selected values*@
 @*<script>
-    var selectedGrades = 
-    $("#multipleSelect :selected").map(function (i, el) {
-        return $(el).val();
-    });
-</script>*@
+        var selectedGrades =
+        $("#multipleSelect :selected").map(function (i, el) {
+            return $(el).val();
+        });
+    </script>*@
 <br />
 
-    <ul data-role="listview" data-filter="true" data-autodividers="true" id="studentsListView" data-inset="true">
+<form class="ui-filterable">
+    <input id="filterBasic-input" data-type="search" />
+</form>
+
+<ul data-role="listview" data-filter="true" data-autodividers="true" id="studentsListView"   data-input="#filterBasic-input" data-inset="true">
     @foreach (var item in Model.OrderBy(s => s.FirstName))
     {
-        <li>
+        <li data-sclass="@item.SClass" data-grade="@item.Grade" data-firstname="@item.FirstName" data-lastname="@item.LastName">
             @*@Html.ActionLink("Show Info", "StudentsInfoList", "Students", new { StudentId = item.StudentID }, null)
                 <span>&nbsp;</span>*@
             <a href="#">
@@ -52,10 +56,80 @@
         //<br />
     }
 </ul>
-<script type="text/javascript">
-    $(document).ready(function () {
 
-        $('#studentsListView').listview().listview("refresh");
+<style>
+ #hide {
+    display:none;
+}
+</style>
+<script type="text/javascript">
+    $(function () {
+        function UpdateStudentsFilter() {
+
+            $("#studentsListView li").each(function (index) {
+                var SelectedClasses = GetSelectorsClassesValues();
+                var SelectedGrades = GetSelectorsGradesValues();
+                //var filterString = 
+
+                var item = $(this);
+                if (typeof $(item).data("role") == "undefined"
+                    && $(item).data("role") != "list-divider") {
+                    var sclass = $(item).data("sclass");
+                    var grade = $(item).data("grade");
+                    var fName = $(item).data("firstname");
+                    var lName = $(item).data("lastname");
+
+                    if (SelectedGrades.indexOf(grade) > -1
+               && SelectedClasses.indexOf(sclass.toString()) > -1
+                       // &&
+                        //($('#studentsListView li:contains(' + cat + ')'))
+                        )
+                    {
+                        $(item).removeClass("ui-screen-hidden");
+                    }
+                    else {
+                        $(item).addClass("ui-screen-hidden");
+                    }
+                }
+            });
+            if ($('#studentsListView').hasClass('ui-listview'))
+                $("#studentsListView").listview("refresh");
+        }
+
+        function GetSelectorsGradesValues() {
+            var SelectedGrades = [];
+            $("#select-grade option:selected").each(function () {
+                SelectedGrades.push($(this).val());
+            });
+
+            return SelectedGrades;
+        }
+        function GetSelectorsClassesValues() {
+            var SelectedClasses = [];
+            $("#select-class option:selected").each(function () {
+                SelectedClasses.push($(this).val());
+            });
+            return SelectedClasses;
+        }
+
+        $("select")
+  .change(function () {
+      //UpdateStudentsFilter();
+      runthis();
+  })
+  .trigger("change");
+
+      
+        function runthis()
+        {
+            var SelectedClasses = GetSelectorsClassesValues();
+            var SelectedGrades = GetSelectorsGradesValues();
+
+            $('#filterlist li:contains(' + cat + ')').show();
+            $('#filterlist li:not(:contains(' + cat + '))').hide();
+        }
+
     });
 
+    //http://jsfiddle.net/9ga9v8py/
 </script>
