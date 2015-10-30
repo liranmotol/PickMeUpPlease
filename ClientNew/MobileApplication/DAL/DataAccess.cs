@@ -128,7 +128,6 @@ namespace MobileApplication.DAL
                     Gender = Utils.Utils.GetGender(s.gender),
                     CheckedIn = checkedIn,
                     PickUp = pickedUp,
-                    IsPickedUp = pickedUp != null
                 };
                 if (parentA != null)
                 {
@@ -145,7 +144,7 @@ namespace MobileApplication.DAL
 
                 students.Add(student);
             });
-            return students;
+            return students.Distinct().ToList();
         }
 
         internal static List<StudentsCheckedInOutModel> GetTodayCheckedIn()
@@ -210,7 +209,6 @@ namespace MobileApplication.DAL
                     HealthIssuesString = string.Join(",", health),
                     HomeNum = "03-5555555",
                     Img = "",
-                    IsPickedUp = false,
                     LastUpdateTime = DateTime.Now,
                     Parent1Email = "liran@gmail.com",
                     Parent1Name = Boys[rand],

@@ -20,6 +20,12 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>12.0</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -284,6 +290,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Images\cat-sad.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -327,7 +334,7 @@
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\EnglilushRegister.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
@@ -336,6 +343,10 @@
     <Content Include="Views\Branches\BranchesInfo.cshtml" />
     <Content Include="Views\Students\CheckInList.cshtml" />
     <Content Include="Views\Students\StudentsInfoList.cshtml" />
+    <Content Include="Views\Home\SadFace.cshtml" />
+    <Content Include="Views\Students\PartialStudentList.cshtml" />
+    <Content Include="Views\Students\PickUpList.cshtml" />
+    <Content Include="Views\Students\StudentsInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -115,7 +115,6 @@ namespace MobileApplication.Hndlers
             }
             student.LastUpdateTime = DateTime.Now;
             student.PickUp = new CheckedInOutModel() { ByWhom = PickerName, When = DateTime.Now, IsByOther = IsByOther, CounslerContactId = StudentContactId };
-            student.IsPickedUp = true;
         }
 
         internal static void StudentCheckIn(int CounslerId, int StudentContactId)

@@ -1,0 +1,12 @@
+﻿@model IEnumerable<MobileApplication.Models.StudentModel>
+
+<script>
+    function StudentClickedEvent(studentId)
+    {
+        alert("world");
+    }
+
+</script>
+
+@Html.Partial("~/Views/Students/PartialStudentList.cshtml", Model);
+

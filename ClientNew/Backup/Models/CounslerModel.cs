@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace MobileApplication.Models
+{
+    public class CounslerModel
+    {
+        public string UserName { get; set; }
+        public int CounslerID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        //public DateTime CheckedIn { get; set; }
+        //public DateTime CheckedOut { get; set; }
+        public DateTime? Birthday { get; set; }
+        public List<int> AllowedBranchedIds { get; set; }
+
+
+    }
+}

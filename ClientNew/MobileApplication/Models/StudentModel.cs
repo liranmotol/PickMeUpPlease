@@ -1,4 +1,5 @@
-﻿using MobileApplication.Hndlers;
+﻿using MobileApplication.DAL;
+using MobileApplication.Hndlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,6 @@ namespace MobileApplication.Models
         public CheckedInOutModel CheckedIn { get; set; }
         public CheckedInOutModel PickUp { get; set; }
         public List<string> PickUpOptions { get; set; }
-        public bool IsPickedUp { get; set; }
         public string Parent1Name { get; set; }
         public string Parent1Num { get; set; }
         public string Parent1Email { get; set; }
@@ -37,6 +37,29 @@ namespace MobileApplication.Models
         public string Gender { get; set; }
         public DateTime BirthDay { get; set; }
         public string BirthDayString { get; set; }
+
+        public bool IsCheckedIn
+        {
+            get
+            {
+                if (CheckedIn != null)
+                    return CheckedIn.CounslerContactId != 0;
+                else
+                    return false;
+            }
+        }
+
+        public bool IsPickedUp
+        {
+            get
+            {
+                if (PickUp != null)
+                    return PickUp.CounslerContactId != 0;
+                else
+                    return false;
+            }
+        }
+
         public StudentModel()
         {
             HealthIssues = new List<string>();
@@ -53,6 +76,12 @@ namespace MobileApplication.Models
         {
             return InMemoryHandler.Students.Where(s => s.StudentID == StudentId.ToString()).FirstOrDefault();
 
+        }
+
+        internal void SetStudentCheckedIn(CounslerModel counsler)
+        {
+            this.CheckedIn = new CheckedInOutModel() { ByWhom = counsler.FirstName, CounslerContactId = counsler.CounslerID, When = DateTime.Now };
+            DataAccess.StudentCheckedIn(counsler.CounslerID, this.StudentContactID);
         }
     }
 

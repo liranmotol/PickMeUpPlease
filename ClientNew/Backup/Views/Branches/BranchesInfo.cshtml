@@ -1,0 +1,21 @@
+﻿@model MobileApplication.Models.BranchModel
+
+<fieldset>
+    <legend>Details of @Html.DisplayFor(model => model.BranchName)</legend>
+
+  
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PrincipalName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PrincipalName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PrincipalNUmber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PrincipalNUmber)
+    </div>
+
+</fieldset>

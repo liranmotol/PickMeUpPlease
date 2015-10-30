@@ -1,0 +1,165 @@
+﻿@model IEnumerable<MobileApplication.Models.StudentModel>
+
+<div class="ui-field-contain">
+    @*<label for="select-custom-19">Grade:</label>*@
+    <select name="select-custom-19" id="select-grade-class" multiple="multiple" data-native-menu="false">
+        <option>Choose Grades</option>
+        @*<option value="ALL">All</option>*@
+
+        @foreach (var grd in Model.Select(s => s.Grade+ s.SClass).Distinct().OrderBy(s=>s))
+        {
+            <option value="@grd" selected="selected">@grd</option>
+        }
+
+        
+        
+    </select>
+</div>
+<div style="display:none">
+    <ul id="avaiableClasses">
+@foreach (var grd in Model.Select(s => s.Grade + s.SClass).Distinct().OrderBy(s => s))
+{
+    <li >@grd</li>
+}
+    </ul>
+</div>
+
+<br />
+
+<ul data-role="listview" data-filter="true" data-autodividers="true" id="studentsListView"   data-input="#filterBasic-input" data-inset="true">
+    @foreach (var item in Model.OrderBy(s => s.FirstName))
+    {
+        <li data-sclass="@item.Grade@item.SClass" data-firstname="@item.FirstName" data-lastname="@item.LastName" data-studentid="@item.StudentID"
+            data-pickedup="@item.IsPickedUp.ToString().ToLower()" data-checkedin="@item.IsCheckedIn.ToString().ToLower()">
+            @*@Html.ActionLink("Show Info", "StudentsInfoList", "Students", new { StudentId = item.StudentID }, null)
+                <span>&nbsp;</span>*@
+            @*<a href="@ViewBag.RedirectMethodName?StudentId=@item.StudentID" data-rel="@ViewBag.DataRel" >*@
+            <a href="" class="clsStudentAHref" data-studentid="@item.StudentID" data-rel="popup" data-position-to="window">
+
+                @Html.DisplayFor(modelItem => item.FirstName)
+                <span>&nbsp;</span>
+
+                @Html.DisplayFor(modelItem => item.LastName)
+                <span>&nbsp;</span>
+                @Html.DisplayFor(modelItem => item.StudentID)
+                <span>&nbsp;</span>
+
+                @Html.DisplayFor(modelItem => item.Grade)@Html.DisplayFor(modelItem => item.SClass)
+            </a>
+        </li>
+        //<br />
+    }
+</ul>
+
+<style>
+ #hide {
+    display:none;
+}
+</style>
+<script type="text/javascript">
+    $(function () {
+
+        var avaiableGradeClasses = [];
+        function GetAllAvaiableValues()
+        {
+            $("#avaiableClasses li").each(function () {
+                avaiableGradeClasses.push($(this).text());
+            });
+            console.log(avaiableGradeClasses );
+        }
+        GetAllAvaiableValues();
+        function UpdateStudentsFilter() {
+
+            $("#studentsListView li").each(function (index) {
+                var SelectedClasses = GetSelectorsClassesValues();
+                var SelectedGrades = GetSelectorsGradesValues();
+                //var filterString = 
+
+                var item = $(this);
+                if (typeof $(item).data("role") == "undefined"
+                    && $(item).data("role") != "list-divider") {
+                    var sclass = $(item).data("sclass");
+                    var grade = $(item).data("grade");
+                    var fName = $(item).data("firstname");
+                    var lName = $(item).data("lastname");
+
+                    if (SelectedGrades.indexOf(grade) > -1
+               && SelectedClasses.indexOf(sclass.toString()) > -1
+                       // &&
+                        //($('#studentsListView li:contains(' + cat + ')'))
+                        )
+                    {
+                        $(item).removeClass("ui-screen-hidden");
+                    }
+                    else {
+                        $(item).addClass("ui-screen-hidden");
+                    }
+                }
+            });
+            if ($('#studentsListView').hasClass('ui-listview'))
+                $("#studentsListView").listview("refresh");
+        }
+
+        function GetSelectorsGradeClassesValues() {
+            var SelectedGrades = [];
+            $("#select-grade-class option:selected").each(function () {
+                SelectedGrades.push($(this).val());
+            });
+
+            return SelectedGrades;
+        }
+      
+
+        $("select")
+  .change(function () {
+      //UpdateStudentsFilter();
+      runthis();
+  })
+  .trigger("change");
+
+      
+        function runthis()
+        {
+            var SelectedGradeClasses = GetSelectorsGradeClassesValues();
+            var tempContaine = "";
+            var tempNotContaine = "";
+
+            $.each(SelectedGradeClasses, function (key, value) {
+                tempContaine = "[data-sclass=" + value + "]";
+                $('#studentsListView li' + tempContaine).show();
+            });
+
+            ;
+            //$('#studentsListView li' + tempContaine).show();
+
+            for (i = 0; i < avaiableGradeClasses.length; i++) {
+                if (SelectedGradeClasses.indexOf(avaiableGradeClasses[i.toString()]) < 0) {
+                    tempNotContaine = "[data-sclass=" + avaiableGradeClasses[i] + "]";
+                    $('#studentsListView li' + tempNotContaine).hide();
+                }
+
+            }
+            //avaiableGradeClasses.foreach(function (entry) {
+              
+            console.log(tempContaine);
+            console.log(tempNotContaine);
+
+        }
+
+       
+
+    });
+
+    var PartialStudentList={};
+    PartialStudentList.GetLiById = function (studentId)
+    {           
+        return $("#studentsListView li[data-studentid="+studentId+"]");
+    }
+
+    PartialStudentList.GetAllLi = function ()
+    {           
+        return $("#studentsListView li");
+    }
+
+    //http://jsfiddle.net/9ga9v8py/
+</script>
