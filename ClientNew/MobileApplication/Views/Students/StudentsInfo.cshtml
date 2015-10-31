@@ -10,10 +10,9 @@
 
             $(allLi).each(function (index, element)
             {
-                if ($(element).data("checkedin"))
-                {
-                    $(element).addClass("ui-disabled");
-                }
+                var studentId = $(element).find('a').data("studentid");
+                $(element).find('a').attr('href', 'StudentsInfoList?StudentId=' + studentId);
+
             });
 
         }
@@ -22,18 +21,6 @@
 
 </script>
 
-<div data-role="popup" id="popupMenu" data-theme="a">
-    <div data-role="popup" id="popupStudentCheckIn" data-theme="a" class="ui-corner-all">
-        <form>
-            <div style="padding:10px 20px;">
-                <p>Are you sure you want to check in</p>
-                <p id="checkedInDesc"></p>
-                <a href="" id="CheckInApprovedRef" data-role="button" data-rel="back" data-theme="b">Sounds good</a>
-                <a href="" data-role="button" data-rel="back" data-theme="c">Naaa.. Wrong Button</a>
-            </div>
-        </form>
-    </div>
-</div>
 
 @Html.Partial("~/Views/Students/PartialStudentList.cshtml", Model);
 
