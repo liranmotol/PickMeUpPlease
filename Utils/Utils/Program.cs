@@ -17,10 +17,27 @@ namespace Utils
         static void Main(string[] args)
         {
             List<StudentModel> students = LoadStudents();
+            //List<StudentModel> students = LoadStudentsJson();
             uploadStudentsToDb(students, 1);
             //AddBranches();
             //ReadCSV();
 
+        }
+
+        private static List<StudentModel> LoadStudentsJson()
+        {
+            string line;
+            string temp = "";
+            System.IO.StreamReader file =
+        new System.IO.StreamReader(@"D:\apps\Mobile\PmupApp\Utils\Utils\jsonStudents.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                temp += line;
+            }
+            file.Close();
+            var result = JsonUtils.ConvertJsonToObject<List<StudentModel>>(temp);
+            return result;
+         
         }
 
         private static void uploadStudentsToDb(List<StudentModel> studentsFullList, int branchId)
@@ -30,73 +47,38 @@ namespace Utils
             foreach (var s in studentsFullList)
             //studentsFullList.ForEach(s =>
             {
-                //int id= DbHelpers.CreateContacts();
-                contacts tmp_parentA = new contacts()
+                students newStudent = new students()
                 {
-                    address = s.Address,
-                    email_1 = s.Parent1Email,
-                    first_name = s.Parent1Name,
-                    image = "",
-                    last_name = s.LastName,
-                    phone_home = s.HomeNum,
-                    phone_mobile = s.Parent1Num
-                };
-                contacts tmp_parentB = new contacts()
-                {
-                    address = s.Address,
-                    email_1 = s.Parent2Email,
-                    first_name = s.Parent2Name,
-                    image = "",
-                    last_name = s.LastName,
-                    phone_home = s.HomeNum,
-                    phone_mobile = s.Parent2Num
 
-                };
-                contacts tmp_student = new contacts()
-                {
                     user_id = s.StudentID,
-                    address = s.Address,
+                 //   address = s.Address,
                     //email_1 = s.Parent2Email,
                     first_name = s.FirstName,
                     image = "",
                     last_name = s.LastName,
                     phone_home = s.HomeNum,
-                    //phone_mobile = s.Parent2Num
+
+                    parent_a_email = s.Parent1Email,
+                    parent_a_first_name = s.Parent1Name,
+                    parent_a_last_name = s.LastName,
+                    parent_a_phone_mobile = s.Parent1Num,
+
+                    parent_b_email = s.Parent2Email,
+                    parent_b_first_name = s.Parent2Name,
+                    parent_b_last_name = s.LastName,
+                    parent_b_phone_mobile = s.Parent2Num,
+
+                    birthday = s.BirthDay,
+                    branch_id = branchId,
+                    @class = s.SClass ?? "0",
+                    gender = s.Gender == "Male",
+                    grade = s.Grade ?? "0",
+                    health_issues = (s.HealthIssues != null) ? string.Join("*", s.HealthIssues) : null,
+                    is_active = true,
+                    pick_up_options = (s.PickUpOptions != null) ? string.Join("*", s.PickUpOptions) : null,
+
                 };
-                contacts parentA = null;
-                contacts parentB = null;
-                contacts student = null;
-                if (tmp_parentA.first_name != null && tmp_parentA.last_name != null)
-                {
-                    parentA = p.contacts.Add(tmp_parentA);
-                }
-                if (tmp_parentA.first_name != null && tmp_parentA.last_name != null)
-                {
-                    parentB = p.contacts.Add(tmp_parentB);
-                }
-                if (tmp_parentA.first_name != null && tmp_parentA.last_name != null)
-                {
-                    student = p.contacts.Add(tmp_student);
-                }
-                p.SaveChanges();
-                if (student != null)
-                {
-                    students newStudent = new students()
-                    {
-                        birthday = s.BirthDay,
-                        branch_id = branchId,
-                        @class = s.SClass ?? "0",
-                        gender = s.Gender == "Male",
-                        grade = s.Grade ?? "0",
-                        health_issues = (s.HealthIssues != null) ? string.Join("*", s.HealthIssues) : null,
-                        is_active = true,
-                        parent_a_contacts_id = (parentA != null) ? parentA.id : (int?)null,
-                        parent_b_contacts_id = (parentB != null) ? parentB.id : (int?)null,
-                        student_concacts_id = student.id,
-                        pick_up_options = (s.PickUpOptions != null) ? string.Join("*", s.PickUpOptions) : null
-                    };
-                    p.students.Add(newStudent);
-                }
+                p.students.Add(newStudent);
                 try
                 {
                     p.SaveChanges();
@@ -106,8 +88,17 @@ namespace Utils
 
                     //throw;
                 }
-                //});
             }
+            try
+            {
+                p.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                //throw;
+            }
+            //});
             p.SaveChanges();
         }
 

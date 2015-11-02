@@ -46,17 +46,12 @@ namespace MobileApplication.DAL
             List<CounslerModel> list = new List<CounslerModel>();
             ApplicationContext.Instnace.contextInstance.counslers.ToList().ForEach(c =>
             {
-                contacts counslerBase = InMemoryHandler.GetContactById(c.counsler_concacts_id);
-                if (c == null)
-                {
-                    return;
-                }
                 CounslerModel tempCounsler = new CounslerModel()
                 {
                     Birthday = c.birthday,
-                    CounslerID = counslerBase.id,
-                    FirstName = counslerBase.first_name,
-                    LastName = counslerBase.last_name,
+                    ID = c.id,
+                    FirstName = c.first_name,
+                    LastName = c.last_name,
                     UserName = c.usernmae
                 };
                 try
@@ -99,52 +94,41 @@ namespace MobileApplication.DAL
             List<StudentModel> students = new List<StudentModel>();
             ApplicationContext.Instnace.contextInstance.students.ToList().ForEach(s =>
             {
-                contacts contact = InMemoryHandler.GetContactById(s.student_concacts_id);
-                contacts parentA = InMemoryHandler.GetContactById(s.parent_a_contacts_id);
-                contacts parentB = InMemoryHandler.GetContactById(s.parent_b_contacts_id);
 
-                if (contact == null)
-                {
-                    return;
-                }
-
-                CheckedInOutModel checkedIn = InMemoryHandler.Today_CheckedIn.Where(stud => stud.StuedntContactId == contact.id).FirstOrDefault();
-                CheckedInOutModel pickedUp = InMemoryHandler.Today_PickedUp.Where(stud => stud.StuedntContactId == contact.id).FirstOrDefault();
+                CheckedInOutModel checkedIn = InMemoryHandler.Today_CheckedIn.Where(stud => stud.StuedntId == s.id).FirstOrDefault();
+                CheckedInOutModel pickedUp = InMemoryHandler.Today_PickedUp.Where(stud => stud.StuedntId == s.id).FirstOrDefault();
 
 
                 StudentModel student = new StudentModel
                 {
-                    StudentContactID = contact.id,
+                    StudentUserID = s.user_id,
                     BirthDay = s.birthday ?? DateTime.MinValue,
                     BranchId = s.branch_id ?? 0,
-                    FirstName = contact.first_name,
-                    LastName = contact.last_name,
+                    FirstName = s.first_name,
+                    LastName = s.last_name,
                     SClass = s.@class,
                     Grade = s.grade,
-                    HomeNum = contact.phone_home,
-                    Img = contact.image,
-                    StudentID = contact.user_id,
+                    HomeNum = s.phone_home,
+                    Img = s.image,
+                    ID = s.id,
                     PickUpOptions = (s.pick_up_options != null) ? s.pick_up_options.Split(',').ToList() : null,
                     Gender = Utils.Utils.GetGender(s.gender),
                     CheckedIn = checkedIn,
                     PickUp = pickedUp,
+                    Parent1Email = s.parent_a_email,
+                    Parent1Num = s.parent_a_phone_mobile,
+                    Parent1Name = s.parent_a_first_name + " " + s.parent_a_last_name,
+                    Parent2Name = s.parent_b_first_name + " " + s.parent_b_last_name,
+                    Parent2Email = s.parent_b_email,
+                    Parent2Num = s.parent_b_phone_mobile,
+                    HealthIssuesString =s.health_issues
+
                 };
-                if (parentA != null)
-                {
-                    student.Parent1Email = parentA.email_1;
-                    student.Parent1Name = parentA.first_name + " " + parentA.first_name;
-                    student.Parent1Num = parentA.phone_mobile;
-                }
-                if (parentB != null)
-                {
-                    student.Parent2Email = parentB.email_1;
-                    student.Parent2Name = parentB.first_name + " " + parentA.first_name;
-                    student.Parent2Num = parentB.phone_mobile;
-                }
+              
 
                 students.Add(student);
             });
-            return students.Distinct().ToList();
+            return students.ToList();
         }
 
         internal static List<StudentsCheckedInOutModel> GetTodayCheckedIn()
@@ -153,9 +137,9 @@ namespace MobileApplication.DAL
                 Where(s => s.hour_date > DateTime.Today).
                 Select(s => new StudentsCheckedInOutModel()
                 {
-                    CounslerContactId = s.set_coundler_id,
+                    CounslerId = s.set_coundler_id,
                     When = s.hour_date,
-                    StuedntContactId = s.student_concacts_id
+                    StuedntId = s.student_concacts_id
                 }
                 ).ToList();
             return temp;
@@ -169,9 +153,9 @@ namespace MobileApplication.DAL
               {
                   ByWhom = s.picker_name,
                   IsByOther = s.is_by_other,
-                  CounslerContactId = s.set_coundler_id,
+                  CounslerId = s.set_coundler_id,
                   When = s.hour_date,
-                  StuedntContactId = s.student_concacts_id
+                  StuedntId = s.student_concacts_id
               }
               ).ToList();
             return temp;
@@ -180,49 +164,6 @@ namespace MobileApplication.DAL
 
         #region tests
 
-
-        //TESTING
-        private static List<StudentModel> BuildList(int p)
-        {
-            List<StudentModel> li = new List<StudentModel>();
-
-            for (int i = 0; i < 100; i++)
-            {
-
-                int rand = new Random(i).Next(0, Boys.Count() - 1);
-                string grade = getGrade(rand);
-                int Sclass = getSclass(rand);
-                var health = getHealth(rand);
-                var pickUpOptions2 = getPickUp(rand);
-                StudentModel s = new StudentModel()
-                {
-                    BirthDay = DateTime.Now,
-                    BirthDayString = DateTime.Now.ToShortDateString(),
-                    CheckedIn = new CheckedInOutModel(),
-                    FirstName = Boys[rand],
-                    LastName = Girls[rand],
-                    Gender = (rand > 20) ? "Male" : "Female",
-                    Grade = grade,
-                    SClass = Sclass.ToString(),
-                    StudentID = i.ToString(),
-                    HealthIssues = health,
-                    HealthIssuesString = string.Join(",", health),
-                    HomeNum = "03-5555555",
-                    Img = "",
-                    LastUpdateTime = DateTime.Now,
-                    Parent1Email = "liran@gmail.com",
-                    Parent1Name = Boys[rand],
-                    Parent2Name = Girls[rand],
-                    Parent1Num = "052-1234567",
-                    Parent2Num = "052-7654321",
-                    PickUp = new CheckedInOutModel(),
-                    PickUpFrom = "nada",
-                    PickUpOptions = pickUpOptions2
-                };
-                li.Add(s);
-            }
-            return li;
-        }
 
         private static List<string> getPickUp(int rand)
         {

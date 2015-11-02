@@ -6,7 +6,7 @@
         <option>Choose Grades</option>
         @*<option value="ALL">All</option>*@
 
-        @foreach (var grd in Model.Select(s => s.Grade+ s.SClass).Distinct().OrderBy(s=>s))
+        @foreach (var grd in Model.Select(s => s.Grade+"-"+ s.SClass).Distinct().OrderBy(s=>s))
         {
             <option value="@grd" selected="selected">@grd</option>
         }
@@ -17,7 +17,7 @@
 </div>
 <div style="display:none">
     <ul id="avaiableClasses">
-@foreach (var grd in Model.Select(s => s.Grade + s.SClass).Distinct().OrderBy(s => s))
+@foreach (var grd in Model.Select(s => s.Grade + "-"+ s.SClass).Distinct().OrderBy(s => s))
 {
     <li >@grd</li>
 }
@@ -29,22 +29,21 @@
 <ul data-role="listview" data-filter="true" data-autodividers="true" id="studentsListView"   data-input="#filterBasic-input" data-inset="true">
     @foreach (var item in Model.OrderBy(s => s.FirstName))
     {
-        <li data-sclass="@item.Grade@item.SClass" data-firstname="@item.FirstName" data-lastname="@item.LastName" data-studentid="@item.StudentID"
+        <li data-sclass="@item.Grade-@item.SClass" data-firstname="@item.FirstName" data-lastname="@item.LastName" data-studentid="@item.ID"
             data-pickedup="@item.IsPickedUp.ToString().ToLower()" data-checkedin="@item.IsCheckedIn.ToString().ToLower()">
             @*@Html.ActionLink("Show Info", "StudentsInfoList", "Students", new { StudentId = item.StudentID }, null)
                 <span>&nbsp;</span>*@
             @*<a href="@ViewBag.RedirectMethodName?StudentId=@item.StudentID" data-rel="@ViewBag.DataRel" >*@
-            <a href="" class="clsStudentAHref" data-studentid="@item.StudentID" data-rel="popup" data-position-to="window">
+            <a href="" class="clsStudentAHref" data-studentid="@item.ID" data-rel="popup" data-position-to="window">
 
                 @Html.DisplayFor(modelItem => item.FirstName)
                 <span>&nbsp;</span>
 
                 @Html.DisplayFor(modelItem => item.LastName)
-                <span>&nbsp;</span>
-                @Html.DisplayFor(modelItem => item.StudentID)
+    
                 <span>&nbsp;</span>
 
-                @Html.DisplayFor(modelItem => item.Grade)@Html.DisplayFor(modelItem => item.SClass)
+                @Html.DisplayFor(modelItem => item.Grade)-@Html.DisplayFor(modelItem => item.SClass)
             </a>
         </li>
         //<br />
@@ -68,37 +67,37 @@
             console.log(avaiableGradeClasses );
         }
         GetAllAvaiableValues();
-        function UpdateStudentsFilter() {
+        //function UpdateStudentsFilter() {
 
-            $("#studentsListView li").each(function (index) {
-                var SelectedClasses = GetSelectorsClassesValues();
-                var SelectedGrades = GetSelectorsGradesValues();
-                //var filterString = 
+        //    $("#studentsListView li").each(function (index) {
+        //        var SelectedClasses = GetSelectorsClassesValues();
+        //        var SelectedGrades = GetSelectorsGradesValues();
+        //        //var filterString = 
 
-                var item = $(this);
-                if (typeof $(item).data("role") == "undefined"
-                    && $(item).data("role") != "list-divider") {
-                    var sclass = $(item).data("sclass");
-                    var grade = $(item).data("grade");
-                    var fName = $(item).data("firstname");
-                    var lName = $(item).data("lastname");
+        //        var item = $(this);
+        //        if (typeof $(item).data("role") == "undefined"
+        //            && $(item).data("role") != "list-divider") {
+        //            var sclass = $(item).data("sclass");
+        //            var grade = $(item).data("grade");
+        //            var fName = $(item).data("firstname");
+        //            var lName = $(item).data("lastname");
 
-                    if (SelectedGrades.indexOf(grade) > -1
-               && SelectedClasses.indexOf(sclass.toString()) > -1
-                       // &&
-                        //($('#studentsListView li:contains(' + cat + ')'))
-                        )
-                    {
-                        $(item).removeClass("ui-screen-hidden");
-                    }
-                    else {
-                        $(item).addClass("ui-screen-hidden");
-                    }
-                }
-            });
-            if ($('#studentsListView').hasClass('ui-listview'))
-                $("#studentsListView").listview("refresh");
-        }
+        //            if (SelectedGrades.indexOf(grade) > -1
+        //       && SelectedClasses.indexOf(sclass.toString()) > -1
+        //               // &&
+        //                //($('#studentsListView li:contains(' + cat + ')'))
+        //                )
+        //            {
+        //                $(item).removeClass("ui-screen-hidden");
+        //            }
+        //            else {
+        //                $(item).addClass("ui-screen-hidden");
+        //            }
+        //        }
+        //    });
+        //    if ($('#studentsListView').hasClass('ui-listview'))
+        //        $("#studentsListView").listview("refresh");
+        //}
 
         function GetSelectorsGradeClassesValues() {
             var SelectedGrades = [];

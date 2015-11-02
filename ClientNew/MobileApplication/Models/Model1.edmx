@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="pickmepleasedbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="pickmepleasedbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="branches">
           <Key>
             <PropertyRef Name="id" />
@@ -33,20 +33,32 @@
         </EntityType>
         <EntityType Name="counslers">
           <Key>
-            <PropertyRef Name="counsler_concacts_id" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="counsler_concacts_id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="gender" Type="bit" Nullable="false" />
           <Property Name="birthday" Type="date" />
           <Property Name="is_active" Type="bit" Nullable="false" />
           <Property Name="allowed_branches" Type="varchar" MaxLength="100" />
-          <Property Name="usernmae" Type="nvarchar" MaxLength="256" />
+          <Property Name="usernmae" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone_mobile" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="phone_home" Type="nvarchar" MaxLength="15" />
+          <Property Name="email_1" Type="nvarchar" MaxLength="100" />
+          <Property Name="email_2" Type="nvarchar" MaxLength="100" />
+          <Property Name="address" Type="nvarchar" MaxLength="100" />
+          <Property Name="image" Type="varchar" MaxLength="2560" />
         </EntityType>
         <EntityType Name="students">
           <Key>
-            <PropertyRef Name="student_concacts_id" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="student_concacts_id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="varchar" MaxLength="15" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="grade" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="branch_id" Type="int" />
           <Property Name="class" Type="varchar" MaxLength="10" Nullable="false" />
@@ -55,8 +67,18 @@
           <Property Name="gender" Type="bit" Nullable="false" />
           <Property Name="birthday" Type="date" />
           <Property Name="is_active" Type="bit" Nullable="false" />
-          <Property Name="parent_a_contacts_id" Type="int" />
-          <Property Name="parent_b_contacts_id" Type="int" />
+          <Property Name="phone_mobile" Type="nvarchar" MaxLength="15" />
+          <Property Name="phone_home" Type="nvarchar" MaxLength="15" />
+          <Property Name="address" Type="nvarchar" MaxLength="1000" />
+          <Property Name="parent_a_email" Type="nvarchar" MaxLength="100" />
+          <Property Name="parent_a_phone_mobile" Type="nvarchar" MaxLength="100" />
+          <Property Name="parent_a_first_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="parent_a_last_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="parent_b_email" Type="nvarchar" MaxLength="100" />
+          <Property Name="parent_b_phone_mobile" Type="nvarchar" MaxLength="100" />
+          <Property Name="parent_b_first_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="parent_b_last_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="image" Type="varchar" MaxLength="2560" />
         </EntityType>
         <EntityType Name="students_checkin">
           <Key>
@@ -86,64 +108,10 @@
           <EntitySet Name="students_checkin" EntityType="Self.students_checkin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="students_pickup" EntityType="Self.students_pickup" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="pickmepleasedbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="branches">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principle_contacts_id" Type="Int32" />
-          <Property Name="contact_a_contacts_id" Type="Int32" />
-          <Property Name="contact_b_contacts_id" Type="Int32" />
-        </EntityType>
-        <EntityType Name="contacts">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="phone_mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="phone_home" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="email_1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="email_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="image" Type="String" MaxLength="2560" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="counslers">
-          <Key>
-            <PropertyRef Name="counsler_concacts_id" />
-          </Key>
-          <Property Name="counsler_concacts_id" Type="Int32" Nullable="false" />
-          <Property Name="gender" Type="Boolean" Nullable="false" />
-          <Property Name="birthday" Type="DateTime" Precision="0" />
-          <Property Name="is_active" Type="Boolean" Nullable="false" />
-          <Property Name="allowed_branches" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="usernmae" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="students">
-          <Key>
-            <PropertyRef Name="student_concacts_id" />
-          </Key>
-          <Property Name="student_concacts_id" Type="Int32" Nullable="false" />
-          <Property Name="grade" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="branch_id" Type="Int32" />
-          <Property Name="class" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="health_issues" Type="String" MaxLength="2560" FixedLength="false" Unicode="true" />
-          <Property Name="pick_up_options" Type="String" MaxLength="2560" FixedLength="false" Unicode="true" />
-          <Property Name="gender" Type="Boolean" Nullable="false" />
-          <Property Name="birthday" Type="DateTime" Precision="0" />
-          <Property Name="is_active" Type="Boolean" Nullable="false" />
-          <Property Name="parent_a_contacts_id" Type="Int32" />
-          <Property Name="parent_b_contacts_id" Type="Int32" />
-        </EntityType>
         <EntityType Name="students_checkin">
           <Key>
             <PropertyRef Name="id" />
@@ -165,76 +133,94 @@
           <Property Name="hour_date" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityContainer Name="pickmepleasedbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="branches" EntityType="Self.branches" />
-          <EntitySet Name="contacts" EntityType="Self.contacts" />
-          <EntitySet Name="counslers" EntityType="Self.counslers" />
-          <EntitySet Name="students" EntityType="Self.students" />
           <EntitySet Name="students_checkin" EntityType="Self.students_checkin" />
           <EntitySet Name="students_pickup" EntityType="Self.students_pickup" />
+          <EntitySet Name="branches" EntityType="pickmepleasedbModel.branches" />
+          <EntitySet Name="contacts" EntityType="pickmepleasedbModel.contacts" />
+          <EntitySet Name="counslers" EntityType="pickmepleasedbModel.counslers" />
+          <EntitySet Name="students" EntityType="pickmepleasedbModel.students" />
         </EntityContainer>
+        <EntityType Name="branches">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="principle_contacts_id" Type="Int32" />
+          <Property Name="contact_a_contacts_id" Type="Int32" />
+          <Property Name="contact_b_contacts_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="contacts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="first_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="last_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone_mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="phone_home" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="email_1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="email_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="2560" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="counslers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="Boolean" Nullable="false" />
+          <Property Name="birthday" Type="DateTime" Precision="0" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="allowed_branches" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="usernmae" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="first_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="last_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone_mobile" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="phone_home" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="email_1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="email_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="2560" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="students">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="first_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="last_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="grade" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="branch_id" Type="Int32" />
+          <Property Name="class" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="health_issues" Type="String" MaxLength="2560" FixedLength="false" Unicode="true" />
+          <Property Name="pick_up_options" Type="String" MaxLength="2560" FixedLength="false" Unicode="true" />
+          <Property Name="gender" Type="Boolean" Nullable="false" />
+          <Property Name="birthday" Type="DateTime" Precision="0" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="phone_mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="phone_home" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="parent_a_email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="parent_a_phone_mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="parent_a_first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="parent_a_last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="parent_b_email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="parent_b_phone_mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="parent_b_first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="parent_b_last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="2560" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="pickmepleasedbModelStoreContainer" CdmEntityContainer="pickmepleasedbEntities">
-          <EntitySetMapping Name="branches">
-            <EntityTypeMapping TypeName="pickmepleasedbModel.branches">
-              <MappingFragment StoreEntitySet="branches">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="principle_contacts_id" ColumnName="principle_contacts_id" />
-                <ScalarProperty Name="contact_a_contacts_id" ColumnName="contact_a_contacts_id" />
-                <ScalarProperty Name="contact_b_contacts_id" ColumnName="contact_b_contacts_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="contacts">
-            <EntityTypeMapping TypeName="pickmepleasedbModel.contacts">
-              <MappingFragment StoreEntitySet="contacts">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="first_name" ColumnName="first_name" />
-                <ScalarProperty Name="last_name" ColumnName="last_name" />
-                <ScalarProperty Name="phone_mobile" ColumnName="phone_mobile" />
-                <ScalarProperty Name="phone_home" ColumnName="phone_home" />
-                <ScalarProperty Name="email_1" ColumnName="email_1" />
-                <ScalarProperty Name="email_2" ColumnName="email_2" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="image" ColumnName="image" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="counslers">
-            <EntityTypeMapping TypeName="pickmepleasedbModel.counslers">
-              <MappingFragment StoreEntitySet="counslers">
-                <ScalarProperty Name="counsler_concacts_id" ColumnName="counsler_concacts_id" />
-                <ScalarProperty Name="gender" ColumnName="gender" />
-                <ScalarProperty Name="birthday" ColumnName="birthday" />
-                <ScalarProperty Name="is_active" ColumnName="is_active" />
-                <ScalarProperty Name="allowed_branches" ColumnName="allowed_branches" />
-                <ScalarProperty Name="usernmae" ColumnName="usernmae" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="students">
-            <EntityTypeMapping TypeName="pickmepleasedbModel.students">
-              <MappingFragment StoreEntitySet="students">
-                <ScalarProperty Name="student_concacts_id" ColumnName="student_concacts_id" />
-                <ScalarProperty Name="grade" ColumnName="grade" />
-                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
-                <ScalarProperty Name="class" ColumnName="class" />
-                <ScalarProperty Name="health_issues" ColumnName="health_issues" />
-                <ScalarProperty Name="pick_up_options" ColumnName="pick_up_options" />
-                <ScalarProperty Name="gender" ColumnName="gender" />
-                <ScalarProperty Name="birthday" ColumnName="birthday" />
-                <ScalarProperty Name="is_active" ColumnName="is_active" />
-                <ScalarProperty Name="parent_a_contacts_id" ColumnName="parent_a_contacts_id" />
-                <ScalarProperty Name="parent_b_contacts_id" ColumnName="parent_b_contacts_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="students_checkin">
             <EntityTypeMapping TypeName="pickmepleasedbModel.students_checkin">
               <MappingFragment StoreEntitySet="students_checkin">
@@ -254,6 +240,85 @@
                 <ScalarProperty Name="picker_name" ColumnName="picker_name" />
                 <ScalarProperty Name="set_coundler_id" ColumnName="set_coundler_id" />
                 <ScalarProperty Name="hour_date" ColumnName="hour_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="branches">
+            <EntityTypeMapping TypeName="pickmepleasedbModel.branches">
+              <MappingFragment StoreEntitySet="branches">
+                <ScalarProperty Name="contact_b_contacts_id" ColumnName="contact_b_contacts_id" />
+                <ScalarProperty Name="contact_a_contacts_id" ColumnName="contact_a_contacts_id" />
+                <ScalarProperty Name="principle_contacts_id" ColumnName="principle_contacts_id" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contacts">
+            <EntityTypeMapping TypeName="pickmepleasedbModel.contacts">
+              <MappingFragment StoreEntitySet="contacts">
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="email_2" ColumnName="email_2" />
+                <ScalarProperty Name="email_1" ColumnName="email_1" />
+                <ScalarProperty Name="phone_home" ColumnName="phone_home" />
+                <ScalarProperty Name="phone_mobile" ColumnName="phone_mobile" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="counslers">
+            <EntityTypeMapping TypeName="pickmepleasedbModel.counslers">
+              <MappingFragment StoreEntitySet="counslers">
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="email_2" ColumnName="email_2" />
+                <ScalarProperty Name="email_1" ColumnName="email_1" />
+                <ScalarProperty Name="phone_home" ColumnName="phone_home" />
+                <ScalarProperty Name="phone_mobile" ColumnName="phone_mobile" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="usernmae" ColumnName="usernmae" />
+                <ScalarProperty Name="allowed_branches" ColumnName="allowed_branches" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="students">
+            <EntityTypeMapping TypeName="pickmepleasedbModel.students">
+              <MappingFragment StoreEntitySet="students">
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="parent_b_last_name" ColumnName="parent_b_last_name" />
+                <ScalarProperty Name="parent_b_first_name" ColumnName="parent_b_first_name" />
+                <ScalarProperty Name="parent_b_phone_mobile" ColumnName="parent_b_phone_mobile" />
+                <ScalarProperty Name="parent_b_email" ColumnName="parent_b_email" />
+                <ScalarProperty Name="parent_a_last_name" ColumnName="parent_a_last_name" />
+                <ScalarProperty Name="parent_a_first_name" ColumnName="parent_a_first_name" />
+                <ScalarProperty Name="parent_a_phone_mobile" ColumnName="parent_a_phone_mobile" />
+                <ScalarProperty Name="parent_a_email" ColumnName="parent_a_email" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone_home" ColumnName="phone_home" />
+                <ScalarProperty Name="phone_mobile" ColumnName="phone_mobile" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="pick_up_options" ColumnName="pick_up_options" />
+                <ScalarProperty Name="health_issues" ColumnName="health_issues" />
+                <ScalarProperty Name="class" ColumnName="class" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="grade" ColumnName="grade" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

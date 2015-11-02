@@ -1,11 +1,6 @@
 -- =========================================
 -- Create table template Windows Azure SQL Database 
 -- =========================================
-drop table branches;
-drop table students;
-drop table contacts;
-drop table counslers;
-
 
 CREATE TABLE contacts
 (
@@ -36,10 +31,10 @@ CREATE TABLE branches
 GO
 
 
-
 CREATE TABLE students
 (
-	student_concacts_id int not null default 0 PRIMARY KEY,
+	id int NOT NULL IDENTITY (1,1) PRIMARY KEY, 
+	[user_id] varchar(15) null, 
 	grade varchar(10) not null,
 	branch_id int NULL  , 
 	[class] varchar(10) not null,
@@ -48,17 +43,36 @@ CREATE TABLE students
 	gender bit not null,
 	birthday date null,
 	is_active bit default 1 not null,
-	parent_a_contacts_id int null , 
-	parent_b_contacts_id int null 
+	phone_mobile nvarchar(15) null, 
+	phone_home nvarchar(15) null, 
+	[address] nvarchar(100) null,
+	parent_a_email nvarchar(100) null, 
+	parent_a_phone_mobile nvarchar(100) null, 
+	parent_a_first_name nvarchar(50) null, 
+	parent_a_last_name nvarchar(50) null, 
+	parent_b_email nvarchar(100) null, 
+	parent_b_phone_mobile nvarchar(100) null, 
+	parent_b_first_name nvarchar(50) null, 
+	parent_b_last_name nvarchar(50) null, 
+
 )
 
 
 CREATE TABLE counslers
 (
-	counsler_concacts_id int not null default 0 PRIMARY KEY,
+	id  int NOT NULL IDENTITY (1,1) PRIMARY KEY, 
+	[user_id] varchar(15) not null, 
 	gender bit not null,
 	birthday date null,
 	is_active bit default 1 not null,
 	allowed_branches varchar(100),
-	usernmae nvarchar(256) null
+	usernmae nvarchar(256) not null,
+	first_name nvarchar(50) not null, 
+	last_name nvarchar(50) not null, 
+	phone_mobile nvarchar(15) not null, 
+	phone_home nvarchar(15) null, 
+	email_1 nvarchar(100) null, 
+	email_2 nvarchar(100) null, 
+	[address] nvarchar(100) null,
+	image varchar(2560) null
 )

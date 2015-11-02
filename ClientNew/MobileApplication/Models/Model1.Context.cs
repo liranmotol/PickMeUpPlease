@@ -25,11 +25,11 @@ namespace MobileApplication.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<students_checkin> students_checkin { get; set; }
+        public DbSet<students_pickup> students_pickup { get; set; }
         public DbSet<branches> branches { get; set; }
         public DbSet<contacts> contacts { get; set; }
         public DbSet<counslers> counslers { get; set; }
         public DbSet<students> students { get; set; }
-        public DbSet<students_checkin> students_checkin { get; set; }
-        public DbSet<students_pickup> students_pickup { get; set; }
     }
 }

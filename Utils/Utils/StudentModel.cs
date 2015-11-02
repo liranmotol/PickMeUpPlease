@@ -53,45 +53,6 @@ namespace Utils
                 return;
             foreach (string[] row in data)
             {
-                //contacts
-
-
-                contacts stu = new contacts()
-                {
-                    first_name = row[3],
-                    last_name = row[4],
-                    user_id = row[5],
-                    address = row[13],
-                    phone_home = row[14]
-                };
-                //parent a
-                contacts parent1 = new contacts()
-                {
-                    first_name = row[15],
-                    last_name = row[4],
-                    user_id = row[5] + "_p1",
-                    address = row[13],
-                    phone_home = row[14],
-                    phone_mobile = row[16],
-                    email_1 = row[17],
-
-                };
-                //parent b
-                contacts parent2 = new contacts()
-                {
-                    first_name = row[18],
-                    last_name = row[4],
-                    user_id = row[5] + "_p2",
-                    address = row[13],
-                    phone_home = row[14],
-                    phone_mobile = row[19],
-                    email_1 = row[20],
-                };
-                p.contacts.Add(stu);
-                p.contacts.Add(parent1);
-                p.contacts.Add(parent2);
-                p.SaveChanges();
-
                 //student
                 DateTime bDay = DateTime.MinValue;
                 try
@@ -106,11 +67,24 @@ namespace Utils
                 string gradeAndClass = row[9];
                 string Grade, sClass;
                 GetFormattedGrageAndClass(gradeAndClass, out  Grade, out  sClass);
+
+
                 students s = new students()
                 {
-                    student_concacts_id = stu.id,
-                    parent_a_contacts_id = parent1.id,
-                    parent_b_contacts_id = parent2.id,
+                    first_name = row[3],
+                    last_name = row[4],
+                    user_id = row[5],
+                    address = row[13],
+                    phone_home = row[14],
+                    parent_a_first_name = row[15],
+                    parent_a_last_name = row[4],
+                    parent_a_phone_mobile = row[16],
+                    parent_a_email = row[17],
+                    parent_b_first_name = row[18],
+                    parent_b_last_name = row[4],
+                    parent_b_phone_mobile = row[19],
+                    parent_b_email = row[20],
+
                     birthday = bDay,
                     branch_id = branchId,
                     @class = sClass,
@@ -405,7 +379,7 @@ namespace Utils
                     {
                         this.BirthDay = DateTime.MinValue;
                     }
-                    
+
                 }
 
             }

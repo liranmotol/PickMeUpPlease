@@ -4,21 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8caa84e4af1448149f7ac88f69f398a6" Name="Diagram1">
-        <EntityTypeShape EntityType="pickmepleasedbModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.AspNetUsers" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+      <Diagram DiagramId="8caa84e4af1448149f7ac88f69f398a6" Name="Diagram1" ZoomLevel="114">
         <EntityTypeShape EntityType="pickmepleasedbModel.branches" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="pickmepleasedbModel.contacts" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.counslers" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.myFirstTable" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="pickmepleasedbModel.students" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
-        <AssociationConnector Association="pickmepleasedbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="pickmepleasedbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="pickmepleasedbModel.AspNetUserRoles" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="pickmepleasedbModel.counslers" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.students" Width="1.5" PointX="2.75" PointY="0.75" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

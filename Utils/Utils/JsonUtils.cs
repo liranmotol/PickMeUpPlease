@@ -23,5 +23,20 @@ namespace Utils
             }
             return null;
         }
+
+        public static T ConvertJsonToObject<T>(string json)
+        {
+            try
+            {
+                JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+                T obj= javaScriptSerializer.Deserialize<T>(json);
+                return obj;
+            }
+            catch (Exception e)
+            {
+
+            }
+            return default(T);
+        }
     }
 }

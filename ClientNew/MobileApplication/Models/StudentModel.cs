@@ -10,8 +10,8 @@ namespace MobileApplication.Models
     [Serializable]
     public class StudentModel
     {
-        public string StudentID { get; set; }
-        public int StudentContactID { get; set; }
+        public int ID { get; set; }
+        public string StudentUserID { get; set; }
         public string Img { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -43,7 +43,7 @@ namespace MobileApplication.Models
             get
             {
                 if (CheckedIn != null)
-                    return CheckedIn.CounslerContactId != 0;
+                    return CheckedIn.CounslerId != 0;
                 else
                     return false;
             }
@@ -54,7 +54,7 @@ namespace MobileApplication.Models
             get
             {
                 if (PickUp != null)
-                    return PickUp.CounslerContactId != 0;
+                    return PickUp.CounslerId != 0;
                 else
                     return false;
             }
@@ -74,20 +74,20 @@ namespace MobileApplication.Models
 
         internal static StudentModel GetStudentById(int StudentId)
         {
-            return InMemoryHandler.Students.Where(s => s.StudentID == StudentId.ToString()).FirstOrDefault();
+            return InMemoryHandler.Students.Where(s => s.ID == StudentId).FirstOrDefault();
 
         }
 
         internal void SetStudentCheckedIn(CounslerModel counsler)
         {
-            this.CheckedIn = new CheckedInOutModel() { ByWhom = counsler.FirstName, CounslerContactId = counsler.CounslerID, When = DateTime.Now };
-            DataAccess.StudentCheckedIn(counsler.CounslerID, this.StudentContactID);
+            this.CheckedIn = new CheckedInOutModel() { ByWhom = counsler.FirstName, CounslerId = counsler.ID, When = DateTime.Now };
+            DataAccess.StudentCheckedIn(counsler.ID, this.ID);
         }
     }
 
     public class CheckedInOutModel
     {
-        public int CounslerContactId { get; set; }
+        public int CounslerId { get; set; }
         public string ByWhom { get; set; }
         public DateTime When { get; set; }
         public bool IsByOther { get; set; }
@@ -95,6 +95,6 @@ namespace MobileApplication.Models
 
     public class StudentsCheckedInOutModel : CheckedInOutModel
     {
-        public int StuedntContactId { get; set; }
+        public int StuedntId { get; set; }
     }
 }

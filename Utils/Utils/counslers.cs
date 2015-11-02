@@ -14,11 +14,20 @@ namespace Utils
     
     public partial class counslers
     {
-        public int counsler_concacts_id { get; set; }
+        public int id { get; set; }
+        public string user_id { get; set; }
         public bool gender { get; set; }
         public Nullable<System.DateTime> birthday { get; set; }
         public bool is_active { get; set; }
         public string allowed_branches { get; set; }
         public string usernmae { get; set; }
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public string phone_mobile { get; set; }
+        public string phone_home { get; set; }
+        public string email_1 { get; set; }
+        public string email_2 { get; set; }
+        public string address { get; set; }
+        public string image { get; set; }
     }
 }

@@ -24,9 +24,9 @@ namespace MobileApplication.Utils
             return counsler;
         }
 
-        internal static int GetContactIdOfStudentId(string studentId)
+        internal static int GetContactIdOfStudentId(int studentId)
         {
-            var tempContact = InMemoryHandler.Students.Where(s => s.StudentID == studentId).Select(s => s.StudentContactID).FirstOrDefault();
+            var tempContact = InMemoryHandler.Students.Where(s => s.ID == studentId).Select(s => s.ID).FirstOrDefault();
             //if (tempContact == null)
             //    return 0;
             return tempContact;

@@ -106,7 +106,7 @@ namespace MobileApplication.Hndlers
         {
             DataAccess.StudentPickedUp(CounslerId, StudentContactId, PickerName, IsByOther);
             //BranchModel branch = Branches.Where(b => b.BranchId == BranchId).First();
-            StudentModel student = Students.Where(s => s.StudentContactID == StudentContactId).FirstOrDefault();
+            StudentModel student = Students.Where(s => s.ID == StudentContactId).FirstOrDefault();
             if (student == null)
             {
                 Logger.WriteToLog(LogLevel.error, "StudentPickedUp: Could not find student:" + StudentContactId);
@@ -114,13 +114,13 @@ namespace MobileApplication.Hndlers
                 return;
             }
             student.LastUpdateTime = DateTime.Now;
-            student.PickUp = new CheckedInOutModel() { ByWhom = PickerName, When = DateTime.Now, IsByOther = IsByOther, CounslerContactId = StudentContactId };
+            student.PickUp = new CheckedInOutModel() { ByWhom = PickerName, When = DateTime.Now, IsByOther = IsByOther, CounslerId = StudentContactId };
         }
 
         internal static void StudentCheckIn(int CounslerId, int StudentContactId)
         {
             DataAccess.StudentCheckedIn(CounslerId, StudentContactId);
-            StudentModel student = Students.Where(s => s.StudentContactID == StudentContactId).FirstOrDefault();
+            StudentModel student = Students.Where(s => s.ID == StudentContactId).FirstOrDefault();
             if (student == null)
             {
                 Logger.WriteToLog(LogLevel.error, "StudentCheckIn: Could not find student:" + StudentContactId);
@@ -128,7 +128,7 @@ namespace MobileApplication.Hndlers
                 return;
             }
             student.LastUpdateTime = DateTime.Now;
-            student.CheckedIn = new CheckedInOutModel() { When = DateTime.Now, CounslerContactId = CounslerId };
+            student.CheckedIn = new CheckedInOutModel() { When = DateTime.Now, CounslerId = CounslerId };
         }
 
 

@@ -25,15 +25,9 @@ namespace Utils
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public DbSet<AspNetRoles> AspNetRoles { get; set; }
-        public DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
-        public DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public DbSet<AspNetUsers> AspNetUsers { get; set; }
         public DbSet<branches> branches { get; set; }
         public DbSet<contacts> contacts { get; set; }
         public DbSet<counslers> counslers { get; set; }
-        public DbSet<myFirstTable> myFirstTable { get; set; }
         public DbSet<students> students { get; set; }
     }
 }
