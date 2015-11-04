@@ -4,7 +4,7 @@
     <legend>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</legend>
 
     <div class="display-label">
-         Grade:
+        Grade:
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Grade)
@@ -12,89 +12,115 @@
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.PickUpFrom)
+        @Html.DisplayNameFor(model => model.PickUpFrom)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.PickUpFrom)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.HealthIssuesString)
+        @Html.DisplayNameFor(model => model.HealthIssuesString)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.HealthIssuesString)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.IsPickedUp)
+        @Html.DisplayNameFor(model => model.IsPickedUp)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.IsPickedUp)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Parent1Name)
+        @Html.DisplayNameFor(model => model.Parent1Name)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Parent1Name)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Parent1Num)
+        @Html.DisplayNameFor(model => model.Parent1Num)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Parent1Num)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Parent1Email)
+        @Html.DisplayNameFor(model => model.Parent1Email)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Parent1Email)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Parent2Email)
+        @Html.DisplayNameFor(model => model.Parent2Email)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Parent2Email)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Parent2Name)
+        @Html.DisplayNameFor(model => model.Parent2Name)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Parent2Name)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Parent2Num)
+        @Html.DisplayNameFor(model => model.Parent2Num)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Parent2Num)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.HomeNum)
+        @Html.DisplayNameFor(model => model.HomeNum)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.HomeNum)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Gender)
+        @Html.DisplayNameFor(model => model.Gender)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Gender)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.BirthDay)
+        @Html.DisplayNameFor(model => model.BirthDay)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.BirthDay)
     </div>
 
+    <div>
+        <b>Checked in:</b>
+        @if (Model.IsCheckedIn)
+        {
+            <p>On:@Model.CheckedIn.When</p>
+            <p>By Counsler: @Model.CheckedIn.CounslerId</p>
+        }
+        else
+        {
+            <label>Still not</label>
+        }
 
+    </div>
+    <div>
+        <b>Picked Up:</b>
+        @if (Model.IsPickedUp)
+        {
+            <p>On: @Model.PickUp.When</p>
+            <p>By Picker: @Model.PickUp.ByWhom</p>
+            <p>By Counsler: @Model.PickUp.CounslerId</p>
+        }
+        else
+        {
+            <label>Still not</label>
+        }
+
+    </div>
 </fieldset>
 
