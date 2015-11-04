@@ -35,15 +35,19 @@
                 <span>&nbsp;</span>*@
             @*<a href="@ViewBag.RedirectMethodName?StudentId=@item.StudentID" data-rel="@ViewBag.DataRel" >*@
             <a href="" class="clsStudentAHref" data-studentid="@item.ID" data-rel="popup" data-position-to="window">
-
+                
                 @Html.DisplayFor(modelItem => item.FirstName)
                 <span>&nbsp;</span>
 
                 @Html.DisplayFor(modelItem => item.LastName)
     
                 <span>&nbsp;</span>
-
+ 
                 @Html.DisplayFor(modelItem => item.Grade)-@Html.DisplayFor(modelItem => item.SClass)
+                @if (@item.BirthDay.Date == DateTime.Now.Date)
+                {
+                    <img src="~/Content/images/bdcake.png" class="ui-li-icon ui-li-thumb"  />
+                }
             </a>
         </li>
         //<br />

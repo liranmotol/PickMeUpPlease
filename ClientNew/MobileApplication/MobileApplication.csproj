@@ -220,6 +220,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\images\ajax-loader.gif" />
+    <Content Include="Content\images\bdcake.png" />
+    <Content Include="Content\images\favicon.ico" />
     <Content Include="Content\images\icons-18-black.png" />
     <Content Include="Content\images\icons-18-white.png" />
     <Content Include="Content\images\icons-36-black.png" />

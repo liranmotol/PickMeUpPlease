@@ -102,7 +102,7 @@ namespace MobileApplication.DAL
                 StudentModel student = new StudentModel
                 {
                     StudentUserID = s.user_id,
-                    BirthDay = s.birthday ?? DateTime.MinValue,
+                    BirthDay = s.birthday?? DateTime.MinValue,
                     BranchId = s.branch_id ?? 0,
                     FirstName = s.first_name,
                     LastName = s.last_name,
