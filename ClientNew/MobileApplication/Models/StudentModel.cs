@@ -16,6 +16,8 @@ namespace MobileApplication.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Grade { get; set; }
+        public string Address { get; set; }
+
         public string SClass { get; set; }
         public string PickUpFrom { get; set; }
         public List<string> HealthIssues { get; set; }
@@ -78,10 +80,24 @@ namespace MobileApplication.Models
 
         }
 
+        internal void SetStudentPickedUp(CounslerModel counsler, string pickerName)
+        {
+
+            this.PickUp = new CheckedInOutModel() { ByWhom = pickerName, CounslerId = counsler.ID, When = DateTime.Now, IsByOther = IsPickedByOther(pickerName) };
+            DataAccess.StudentPickedUp(counsler.ID, this.ID, pickerName, PickUp.IsByOther);
+        }
+
         internal void SetStudentCheckedIn(CounslerModel counsler)
         {
-            this.CheckedIn = new CheckedInOutModel() { ByWhom = counsler.FirstName, CounslerId = counsler.ID, When = DateTime.Now };
+            this.CheckedIn = new CheckedInOutModel() { CounslerId = counsler.ID, When = DateTime.Now };
             DataAccess.StudentCheckedIn(counsler.ID, this.ID);
+        }
+
+        public static bool IsPickedByOther(string picker)
+        {
+            if (picker != null)
+                return picker.ToLower() == "other";
+            return false;
         }
     }
 

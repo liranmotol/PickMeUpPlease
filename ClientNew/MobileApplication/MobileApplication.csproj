@@ -347,6 +347,7 @@
     <Content Include="Views\Students\PartialStudentList.cshtml" />
     <Content Include="Views\Students\PickUpList.cshtml" />
     <Content Include="Views\Students\StudentsInfo.cshtml" />
+    <Content Include="Views\Students\StudentPickUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

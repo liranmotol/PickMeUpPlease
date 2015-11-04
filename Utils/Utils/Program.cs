@@ -51,7 +51,7 @@ namespace Utils
                 {
 
                     user_id = s.StudentID,
-                 //   address = s.Address,
+                    address = s.Address,
                     //email_1 = s.Parent2Email,
                     first_name = s.FirstName,
                     image = "",

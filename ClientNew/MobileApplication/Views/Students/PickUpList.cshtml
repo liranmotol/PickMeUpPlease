@@ -1,12 +1,26 @@
 ﻿@model IEnumerable<MobileApplication.Models.StudentModel>
 
-<script>
-    function StudentClickedEvent(studentId)
-    {
-        alert("world");
-    }
+
+@Html.Partial("~/Views/Students/PartialStudentList.cshtml", Model)
+
+
+<script> 
+    $(function () {
+        function udpateListValues() {
+            console.log("Pickuplist in udpateListValues");
+            var allLi = PartialStudentList.GetAllLi();
+
+            $(allLi).each(function (index, element) {
+                var Studentid = $(element).data("studentid");
+                $(element).find('a').attr('href', 'PickUpStudent?Studentid=' + Studentid);
+                if ($(element).data("pickedup")) {
+                    $(element).addClass("ui-disabled");
+                }
+            });
+
+        }
+        udpateListValues();
+
+    });
 
 </script>
-
-@Html.Partial("~/Views/Students/PartialStudentList.cshtml", Model);
-

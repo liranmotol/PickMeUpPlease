@@ -36,7 +36,7 @@ namespace MobileApplication.DAL
                     set_coundler_id = CounslerId,
                     student_concacts_id = StudentId,
                     is_by_other = IsByOther,
-                    picker_name = PickerName
+                    picker_name = (PickerName.Length>48)?PickerName.Substring(0,47):PickerName
                 });
             ApplicationContext.Instnace.contextInstance.SaveChanges();
         }
@@ -111,7 +111,7 @@ namespace MobileApplication.DAL
                     HomeNum = s.phone_home,
                     Img = s.image,
                     ID = s.id,
-                    PickUpOptions = (s.pick_up_options != null) ? s.pick_up_options.Split(',').ToList() : null,
+                    PickUpOptions = (s.pick_up_options != null) ? s.pick_up_options.Split(',').ToList() : new List<string>(),
                     Gender = Utils.Utils.GetGender(s.gender),
                     CheckedIn = checkedIn,
                     PickUp = pickedUp,
@@ -121,7 +121,8 @@ namespace MobileApplication.DAL
                     Parent2Name = s.parent_b_first_name + " " + s.parent_b_last_name,
                     Parent2Email = s.parent_b_email,
                     Parent2Num = s.parent_b_phone_mobile,
-                    HealthIssuesString =s.health_issues
+                    HealthIssuesString =s.health_issues,
+                    Address = s.address
 
                 };
               

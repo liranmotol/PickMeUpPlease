@@ -1,0 +1,146 @@
+﻿@model MobileApplication.Models.StudentModel
+
+ <script type="text/javascript">
+     var StudentId = @Model.ID;
+ </script>
+<fieldset>
+    <legend>
+        <p><b>@Model.FirstName @Model.LastName</b></p>
+    </legend>
+    <p>
+        Grade:
+        @Model.Grade-
+        @Model.SClass
+    </p>
+
+    <p>
+        Parent Name:
+        @Model.Parent1Name
+    </p>
+
+    <p>
+        Parent Number:
+        <a href="tel:@Model.Parent1Num;">@Model.Parent1Num</a>
+            
+</p>
+
+    <p>
+        Parent Email:
+        <a href="mailto:@Model.Parent1Email">@Model.Parent1Email</a>
+        
+    </p>
+    <p>
+        Parent 2 Name:
+        @Model.Parent2Name
+    </p>
+
+    <p>
+        Parent 2 Number:
+        <a href="tel:@Model.Parent2Num;">@Model.Parent2Num</a>
+    </p>
+
+    <p>
+        Parent 2 Email:
+        <a href="mailto:@Model.Parent2Email">@Model.Parent2Email</a>
+
+    </p>
+
+    <p>
+        Gender:
+        @Model.Gender
+    </p>
+
+    <p>
+        Address:
+        @Model.Address
+    </p>
+
+    <p>
+        BirthDay:
+        @Model.BirthDay
+    </p>
+  
+    </fieldset>
+
+
+<fieldset data-role="controlgroup">
+
+    @if (Model.Parent1Name != null)
+    {
+        <input type="radio" name="PickerName" id="picker_parentA" value="@Model.Parent1Name" data-is_other="false" />
+        <label for="picker_parentA">@Model.Parent1Name</label>
+    }
+    @if (Model.Parent2Name != null)
+    {
+        <input type="radio" name="PickerName" id="picker_parentB" value="@Model.Parent2Name" data-is_other="false" />
+        <label for="picker_parentB">@Model.Parent2Name</label>
+    }
+
+    @for (int i = 0; i < Model.PickUpOptions.Count; i++)
+    {
+        <input type="radio" name="PickerName" id="picker_@i.ToString()" value="@Model.PickUpOptions[i]" data-is_other="false" />
+        <label for="picker_@i.ToString()">@Model.PickUpOptions[i]</label>
+    }
+
+    <input type="radio" name="PickerName" id="picker_other" value="other" data-is_other="true" />
+    <label for="picker_other">Other</label>
+
+</fieldset>
+
+<a href="#popupStudentPickedUp" id="pickerSubmitA" class="ui-disabled" data-rel="popup" data-role="button" data-position-to="window">
+    Submit Picked up
+</a>
+
+<div data-role="popup" id="popupMenu" data-theme="a" data-position-to="window">
+    <div data-role="popup" id="popupStudentPickedUp" data-theme="a" class="ui-corner-all">
+        <form>
+            <div style="padding:10px 20px;">
+                <center>
+                    <p>Are you sure you want to be picked by:</p>
+                    <p id="pickerNameDsiplay"></p>
+                    <a href="" id="PickUpApprovedRef" data-role="button" data-rel="back" data-theme="b">Sounds good</a>
+                <a href="" data-role="button" data-rel="back" data-theme="c">Naaa.. Wrong Picker</a>
+                </center>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    
+    $(function () {
+        $("#PickUpApprovedRef").click(function (event) {
+            console.log("pickedup for student:" + StudentId );
+            var picker = $('input[name=PickerName]:checked').val(); 
+            var json = { StudentId: StudentId,  Picker:picker };
+
+            $.ajax({
+                url: "PickUpStudent",
+                type: "POST",
+                data: json,
+                success: function (data, textStatus, jqXHR) {
+                    console.log("PickUpApprovedRef response:"+data);
+                    if (data == "OK") {
+                        window.history.back();
+                    }
+                    //data - response from server
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Failed to be picked up.. (maybe no id)');
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            });
+        });
+
+        $("[name='PickerName']").click(function(){ 
+            $("#pickerSubmitA").removeClass("ui-disabled");   
+            var picker = $('input[name=PickerName]:checked').val();
+            $("#pickerNameDsiplay").html(picker);
+        });
+        
+
+    });
+    
+</script>

@@ -40,12 +40,43 @@ namespace MobileApplication.Controllers
         }
 
 
+        [HttpPost]
+        public string PickUpStudent(int StudentId, string Picker)
+        {
+            StudentModel student = StudentModel.GetStudentById(StudentId);
+            if (student != null)
+            {
+                CounslerModel counsler = Utils.Utils.GetCounslerFromRequest();
+                if (Picker == null)
+                    Picker = "Auto Assigned default picker";
+                //student.PickUp = new CheckedInOutModel() { ByWhom = Picker, CounslerId = counsler.ID, IsByOther = StudentModel.IsPickedByOther(Picker), When = DateTime.Now };
+
+                student.SetStudentPickedUp(counsler, Picker);
+                return "OK";
+            }
+            else
+                return "Student was not found";
+        }
+
+        public ActionResult PickUpStudent(int StudentId)
+        {
+            ViewBag.Title = "Pick Up Student";
+
+            StudentModel student = StudentModel.GetStudentById(StudentId);
+            if (student != null)
+            {
+                CounslerModel counsler = Utils.Utils.GetCounslerFromRequest();
+
+                
+            }
+            return View("StudentPickUp", student);
+        }
         public ActionResult PickUpList(int BranchId)
         {
-            
-            ViewBag.Message = "PickUpList.";
-            ViewBag.RedirectMethodName = "StudentsInfoList";
-            ViewBag.DataRel = "";
+            ViewBag.Title = "Pick Up Student List";
+            //ViewBag.Message = "PickUpList.";
+            //ViewBag.RedirectMethodName = "StudentsInfoList";
+            //ViewBag.DataRel = "";
 
             BranchModel b = BranchModel.GetBranchById(BranchId);
 
@@ -70,7 +101,7 @@ namespace MobileApplication.Controllers
 
         public ActionResult StudentsInfo(int BranchId)
         {
-          
+
             ViewBag.Title = "Students Info";
 
             BranchModel b = BranchModel.GetBranchById(BranchId);
