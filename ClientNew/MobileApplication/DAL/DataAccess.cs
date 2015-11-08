@@ -52,7 +52,9 @@ namespace MobileApplication.DAL
                     ID = c.id,
                     FirstName = c.first_name,
                     LastName = c.last_name,
-                    UserName = c.usernmae
+                    UserName = c.usernmae,
+                    DefaultGrade = c.default_grade,
+                    DefaultClass = c.default_class
                 };
                 try
                 {

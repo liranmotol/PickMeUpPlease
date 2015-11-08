@@ -50,6 +50,8 @@
           <Property Name="email_2" Type="nvarchar" MaxLength="100" />
           <Property Name="address" Type="nvarchar" MaxLength="100" />
           <Property Name="image" Type="varchar" MaxLength="2560" />
+          <Property Name="default_grade" Type="varchar" MaxLength="10" />
+          <Property Name="default_class" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="students">
           <Key>
@@ -185,6 +187,8 @@
           <Property Name="email_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="image" Type="String" MaxLength="2560" FixedLength="false" Unicode="false" />
+          <Property Name="default_grade" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="default_class" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="students">
           <Key>
@@ -274,6 +278,8 @@
           <EntitySetMapping Name="counslers">
             <EntityTypeMapping TypeName="pickmepleasedbModel.counslers">
               <MappingFragment StoreEntitySet="counslers">
+                <ScalarProperty Name="default_class" ColumnName="default_class" />
+                <ScalarProperty Name="default_grade" ColumnName="default_grade" />
                 <ScalarProperty Name="image" ColumnName="image" />
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="email_2" ColumnName="email_2" />

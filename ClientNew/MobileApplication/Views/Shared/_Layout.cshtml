@@ -1,7 +1,14 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
     <head>
-        @Styles.Render("~/Content/mobileCss", "~/Content/css")
+
+        <link href="/Content/jquery.mobile-1.2.0.min.css" rel="stylesheet" />
+        <link href="/Content/jquery.mobile.structure-1.2.0.min.css" rel="stylesheet" />
+        <link href="/Content/jquery.mobile.theme-1.2.0.min.css" rel="stylesheet" />
+        <link href="/Content/site.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+
         <meta charset="utf-8" />
         <title>@ViewBag.Title</title>
         <meta name="viewport" content="width=device-width" />
@@ -9,23 +16,33 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         @Scripts.Render("~/bundles/modernizr")
     </head>
-    <body>
-        <div data-role="page" data-theme="b">
-            <div data-role="header">
-                @if (IsSectionDefined("Header")) {
-                    @RenderSection("Header")
-                } else {
-                    <h1>@ViewBag.Title</h1>
-                <a data-role="button" data-rel="back" data-icon="back">Back</a>
-                @Html.ActionLink("Home", "Index", "Home", null, new { data_icon = "home", data_rel = "home" })
-                    //@Html.Partial("_LoginPartial")
-                }
-            </div>
-            <div data-role="content">
-                @RenderBody()
+    <body >
+        <div class="loadingIcon" style="font-size: 52px;text-align: center;margin-top: 100px;">
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+        </div>
+        
+        <div id="wrapperBody" style="opacity:0;transition:all .6s ease;">
+
+
+            <div data-role="page" data-theme="b">
+                <div data-role="header">
+                    @if (IsSectionDefined("Header"))
+                    {
+                        @RenderSection("Header")
+                    }
+                    else
+                    {
+                        <h1>@ViewBag.Title</h1>
+                        <a data-role="button" data-rel="back" data-icon="back">Back</a>
+                        @Html.ActionLink("Home", "Index", "Home", null, new { data_icon = "home", data_rel = "home" })
+                        //@Html.Partial("_LoginPartial")
+                    }
+                </div>
+                <div data-role="content">
+                    @RenderBody()
+                </div>
             </div>
         </div>
-
         @Scripts.Render("~/bundles/jquery")
         <script>
             $(document).on("mobileinit", function () {
@@ -34,5 +51,13 @@
         </script>
         @Scripts.Render("~/bundles/jquerymobile")
         @RenderSection("scripts", required: false)
+
+        <script>
+            $(function () {
+                $('#wrapperBody').css('opacity', '1');
+                $('.loadingIcon').css('display', 'none');
+                
+            });
+        </script>
     </body>
 </html>

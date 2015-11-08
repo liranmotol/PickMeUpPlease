@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MobileApplication.Models.StudentModel>
+﻿@model MobileApplication.Models.StudentLightModelToView
 
 <div class="ui-field-contain">
     @*<label for="select-custom-19">Grade:</label>*@
@@ -6,28 +6,36 @@
         <option>Choose Grades</option>
         @*<option value="ALL">All</option>*@
 
-        @foreach (var grd in Model.Select(s => s.Grade+"-"+ s.SClass).Distinct().OrderBy(s=>s))
+        @foreach (var grd in Model.StudentsLight.Select(s => s.Grade + "-" + s.SClass).Distinct().OrderBy(s => s))
         {
-            <option value="@grd" selected="selected">@grd</option>
+            if (string.Format(Model.Counsler.DefaultGrade + "-" + Model.Counsler.DefaultClass) == grd)
+            {
+                <option value="@grd" selected="selected">@grd</option>
+            }
+            else
+            {
+                <option value="@grd">@grd</option>
+            }
+
         }
 
-        
-        
+
+
     </select>
 </div>
 <div style="display:none">
     <ul id="avaiableClasses">
-@foreach (var grd in Model.Select(s => s.Grade + "-"+ s.SClass).Distinct().OrderBy(s => s))
-{
-    <li >@grd</li>
-}
+        @foreach (var grd in Model.StudentsLight.Select(s => s.Grade + "-" + s.SClass).Distinct().OrderBy(s => s))
+        {
+            <li>@grd</li>
+        }
     </ul>
 </div>
 
 <br />
 
-<ul data-role="listview" data-filter="true" data-autodividers="true" id="studentsListView"   data-input="#filterBasic-input" data-inset="true">
-    @foreach (var item in Model.OrderBy(s => s.FirstName))
+<ul data-role="listview" data-filter="true" data-autodividers="true" id="studentsListView" data-input="#filterBasic-input" data-inset="true">
+    @foreach (var item in Model.StudentsLight.OrderBy(s => s.FirstName))
     {
         <li data-sclass="@item.Grade-@item.SClass" data-firstname="@item.FirstName" data-lastname="@item.LastName" data-studentid="@item.ID"
             data-pickedup="@item.IsPickedUp.ToString().ToLower()" data-checkedin="@item.IsCheckedIn.ToString().ToLower()">
@@ -35,18 +43,18 @@
                 <span>&nbsp;</span>*@
             @*<a href="@ViewBag.RedirectMethodName?StudentId=@item.StudentID" data-rel="@ViewBag.DataRel" >*@
             <a href="" class="clsStudentAHref" data-studentid="@item.ID" data-rel="popup" data-position-to="window">
-                
+
                 @Html.DisplayFor(modelItem => item.FirstName)
                 <span>&nbsp;</span>
 
                 @Html.DisplayFor(modelItem => item.LastName)
-    
+
                 <span>&nbsp;</span>
- 
+
                 @Html.DisplayFor(modelItem => item.Grade)-@Html.DisplayFor(modelItem => item.SClass)
-                @if (@item.BirthDay.Date == DateTime.Now.Date)
+                @if (@item.BirthDay.Date.DayOfYear == DateTime.Now.Date.DayOfYear)
                 {
-                    <img src="~/Content/images/bdcake.png" class="ui-li-icon ui-li-thumb"  />
+                    <img src="~/Content/images/bdcake.png" class="ui-li-icon ui-li-thumb" />
                 }
             </a>
         </li>
@@ -55,20 +63,19 @@
 </ul>
 
 <style>
- #hide {
-    display:none;
-}
+    #hide {
+        display: none;
+    }
 </style>
 <script type="text/javascript">
     $(function () {
 
         var avaiableGradeClasses = [];
-        function GetAllAvaiableValues()
-        {
+        function GetAllAvaiableValues() {
             $("#avaiableClasses li").each(function () {
                 avaiableGradeClasses.push($(this).text());
             });
-            console.log(avaiableGradeClasses );
+            console.log(avaiableGradeClasses);
         }
         GetAllAvaiableValues();
         //function UpdateStudentsFilter() {
@@ -76,7 +83,7 @@
         //    $("#studentsListView li").each(function (index) {
         //        var SelectedClasses = GetSelectorsClassesValues();
         //        var SelectedGrades = GetSelectorsGradesValues();
-        //        //var filterString = 
+        //        //var filterString =
 
         //        var item = $(this);
         //        if (typeof $(item).data("role") == "undefined"
@@ -111,7 +118,7 @@
 
             return SelectedGrades;
         }
-      
+
 
         $("select")
   .change(function () {
@@ -120,9 +127,8 @@
   })
   .trigger("change");
 
-      
-        function runthis()
-        {
+
+        function runthis() {
             var SelectedGradeClasses = GetSelectorsGradeClassesValues();
             var tempContaine = "";
             var tempNotContaine = "";
@@ -143,24 +149,22 @@
 
             }
             //avaiableGradeClasses.foreach(function (entry) {
-              
+
             console.log(tempContaine);
             console.log(tempNotContaine);
 
         }
 
-       
+
 
     });
 
-    var PartialStudentList={};
-    PartialStudentList.GetLiById = function (studentId)
-    {           
-        return $("#studentsListView li[data-studentid="+studentId+"]");
+    var PartialStudentList = {};
+    PartialStudentList.GetLiById = function (studentId) {
+        return $("#studentsListView li[data-studentid=" + studentId + "]");
     }
 
-    PartialStudentList.GetAllLi = function ()
-    {           
+    PartialStudentList.GetAllLi = function () {
         return $("#studentsListView li");
     }
 

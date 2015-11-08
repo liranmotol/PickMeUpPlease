@@ -29,5 +29,7 @@ namespace MobileApplication.Models
         public string email_2 { get; set; }
         public string address { get; set; }
         public string image { get; set; }
+        public string default_grade { get; set; }
+        public string default_class { get; set; }
     }
 }

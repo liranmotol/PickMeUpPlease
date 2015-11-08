@@ -23,5 +23,9 @@ namespace MobileApplication.Models
         public string PhoneNumber { get; set; }
         public string Email1 { get; set; }
         public string Email2 { get; set; }
+
+        public string DefaultClass { get; set; }
+        public string DefaultGrade { get; set; }
+
     }
 }

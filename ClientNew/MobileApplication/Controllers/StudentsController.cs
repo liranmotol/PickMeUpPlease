@@ -1,4 +1,5 @@
 ﻿using MobileApplication.Models;
+using MobileApplication.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MobileApplication.Controllers
 {
+    [CompressAttribute]
     public class StudentsController : Controller
     {
         //
@@ -22,7 +24,12 @@ namespace MobileApplication.Controllers
             //ViewBag.HrefAssignment = "popupStudentCheckIn";
             ViewBag.Title = "Check In List";
             BranchModel b = BranchModel.GetBranchById(BranchId);
-            return View(b.StudentsList);
+            CounslerModel counsler = Utils.Utils.GetCounslerFromRequest();
+
+            var studentLightList = StudentLight.BuildStudentLight(b.StudentsList);
+            StudentLightModelToView studentModelToView = new StudentLightModelToView(studentLightList, counsler);
+            return View(studentModelToView);
+            
         }
 
         [HttpPost]
@@ -79,15 +86,23 @@ namespace MobileApplication.Controllers
             //ViewBag.DataRel = "";
 
             BranchModel b = BranchModel.GetBranchById(BranchId);
+            CounslerModel counsler = Utils.Utils.GetCounslerFromRequest();
 
-            return View(b.StudentsList);
+            var studentLightList = StudentLight.BuildStudentLight(b.StudentsList);
+            StudentLightModelToView studentModelToView = new StudentLightModelToView(studentLightList, counsler);
+            return View(studentModelToView);
+            
         }
         public ActionResult LunchList(int BranchId)
         {
             ViewBag.Message = "LunchList.";
             BranchModel b = BranchModel.GetBranchById(BranchId);
+            CounslerModel counsler = Utils.Utils.GetCounslerFromRequest();
 
-            return View("CheckInList", b.StudentsList);
+            var studentLightList = StudentLight.BuildStudentLight(b.StudentsList);
+            StudentLightModelToView studentModelToView = new StudentLightModelToView(studentLightList, counsler);
+            return View(studentModelToView);
+            return View("CheckInList", studentModelToView);
 
         }
         public ActionResult StudentsInfoList(int StudentId)
@@ -98,14 +113,18 @@ namespace MobileApplication.Controllers
             return View(student);
 
         }
-
+        
         public ActionResult StudentsInfo(int BranchId)
         {
 
             ViewBag.Title = "Students Info";
 
             BranchModel b = BranchModel.GetBranchById(BranchId);
-            return View(b.StudentsList);
+            CounslerModel counsler = Utils.Utils.GetCounslerFromRequest();
+
+            var studentLightList = StudentLight.BuildStudentLight(b.StudentsList);
+            StudentLightModelToView studentModelToView = new StudentLightModelToView(studentLightList, counsler);
+            return View(studentLightList);
         }
 
     }

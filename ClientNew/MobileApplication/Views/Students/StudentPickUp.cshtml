@@ -1,66 +1,53 @@
 ﻿@model MobileApplication.Models.StudentModel
 
- <script type="text/javascript">
-     var StudentId = @Model.ID;
- </script>
+<script type="text/javascript">
+    var StudentId = @Model.ID;
+</script>
 <fieldset>
     <legend>
-        <p><b>@Model.FirstName @Model.LastName</b></p>
+        <p><b>@Model.FirstName @Model.LastName &nbsp&nbsp</b>@Model.Grade-@Model.SClass
+        </p> 
+    </legend>
+    <legend>
+        <p>
+            <div>
+                @Model.Parent1Name :
+                <a href="tel:@Model.Parent1Num;">@Model.Parent1Num</a>
+            </div>
+            <div>
+                <a href="mailto:@Model.Parent1Email">@Model.Parent1Email</a>
+
+            </div>
+        </p>
+    </legend>
+
+    <legend>
+        <p>
+            <div>
+                @Model.Parent2Name : <a href="tel:@Model.Parent2Num;">@Model.Parent2Num</a>
+            </div>
+            <div>
+                <a href="mailto:@Model.Parent2Email">@Model.Parent2Email</a>
+
+            </div>
+        </p>
     </legend>
     <p>
-        Grade:
-        @Model.Grade-
-        @Model.SClass
+        <div>
+            Gender:
+            @Model.Gender
+        </div>
+        <div>
+            Address:
+            @Model.Address
+        </div>
+        <div>
+            BirthDay:
+            @Model.BirthDay.ToString("d")
+        </div>
     </p>
 
-    <p>
-        Parent Name:
-        @Model.Parent1Name
-    </p>
-
-    <p>
-        Parent Number:
-        <a href="tel:@Model.Parent1Num;">@Model.Parent1Num</a>
-            
-</p>
-
-    <p>
-        Parent Email:
-        <a href="mailto:@Model.Parent1Email">@Model.Parent1Email</a>
-        
-    </p>
-    <p>
-        Parent 2 Name:
-        @Model.Parent2Name
-    </p>
-
-    <p>
-        Parent 2 Number:
-        <a href="tel:@Model.Parent2Num;">@Model.Parent2Num</a>
-    </p>
-
-    <p>
-        Parent 2 Email:
-        <a href="mailto:@Model.Parent2Email">@Model.Parent2Email</a>
-
-    </p>
-
-    <p>
-        Gender:
-        @Model.Gender
-    </p>
-
-    <p>
-        Address:
-        @Model.Address
-    </p>
-
-    <p>
-        BirthDay:
-        @Model.BirthDay
-    </p>
-  
-    </fieldset>
+</fieldset>
 
 
 <fieldset data-role="controlgroup">
@@ -99,7 +86,7 @@
                     <p>Are you sure you want to be picked by:</p>
                     <p id="pickerNameDsiplay"></p>
                     <a href="" id="PickUpApprovedRef" data-role="button" data-rel="back" data-theme="b">Sounds good</a>
-                <a href="" data-role="button" data-rel="back" data-theme="c">Naaa.. Wrong Picker</a>
+                    <a href="" data-role="button" data-rel="back" data-theme="c">Naaa.. Wrong Picker</a>
                 </center>
             </div>
         </form>
@@ -107,11 +94,11 @@
 </div>
 
 <script type="text/javascript">
-    
+
     $(function () {
         $("#PickUpApprovedRef").click(function (event) {
             console.log("pickedup for student:" + StudentId );
-            var picker = $('input[name=PickerName]:checked').val(); 
+            var picker = $('input[name=PickerName]:checked').val();
             var json = { StudentId: StudentId,  Picker:picker };
 
             $.ajax({
@@ -134,13 +121,13 @@
             });
         });
 
-        $("[name='PickerName']").click(function(){ 
-            $("#pickerSubmitA").removeClass("ui-disabled");   
+        $("[name='PickerName']").click(function(){
+            $("#pickerSubmitA").removeClass("ui-disabled");
             var picker = $('input[name=PickerName]:checked').val();
             $("#pickerNameDsiplay").html(picker);
         });
-        
+
 
     });
-    
+
 </script>
