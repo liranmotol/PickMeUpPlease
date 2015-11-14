@@ -27,5 +27,7 @@ namespace MobileApplication.Models
         public string DefaultClass { get; set; }
         public string DefaultGrade { get; set; }
 
+        public Dictionary<int,string> WhereAmIDic { get; set; }
+
     }
 }

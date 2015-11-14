@@ -1,13 +1,80 @@
-﻿@model MobileApplication.Models.CounslerModel
+﻿@model MobileApplication.Models.CounslerInfoModelToView
 
 <script type="text/javascript">
-    var Counsler = @Model.ID;
+    var Counsler = @Model.Counsler.ID;
 </script>
+
+<style>
+    th,td {
+        border-bottom: 1px solid #d6d6d6;
+        padding:0 5px 0 15px;
+    }
+    th {
+        text-align:left;
+    }
+
+    tr:nth-child(even) {
+        background: #e9e9e9;
+    }
+</style>
 
 <fieldset>
     <legend>
         <p>
-            <b>@Model.FirstName @Model.LastName &nbsp&nbsp</b>
+            <div>
+                @Model.Counsler.FirstName @Model.Counsler.LastName : <a href="tel:@Model.Counsler.PhoneNumber;">@Model.Counsler.PhoneNumber</a>
+            </div>
+            <div>
+                <a href="mailto:@Model.Counsler.Email1">@Model.Counsler.Email1</a>
+
+            </div>
         </p>
     </legend>
+    <p>
+        Default Grade: @Model.Counsler.DefaultGrade-@Model.Counsler.DefaultClass
+    </p>
+    Where Am I ?
+    <div data-role="main" class="ui-content">
+        <table data-role="table"  class="ui-responsive ui-shadow" id="myTable">
+            <thead>
+                <tr>
+                    <th>
+                        When
+                    </th>
+                    <th>
+                        Where
+                    </th>
+                </tr>
+            </thead>
+            @foreach (KeyValuePair<int, string> entry in Model.Counsler.WhereAmIDic.OrderBy(o => o.Key))
+            {
+                <tr>
+                    <td>
+                        @switch (entry.Key)
+                        {
+                            case 1:
+                                <text>12:30-13:45</text>
+                                break;
+                            case 2:
+                            <text>13:45-14:30</text>
+                                break;
+                            case 3:
+                            <text>14:30-15:15</text>
+                                break;
+                            case 4:
+                            <text>15:15-16:00</text>
+                                break;
+                            case 5:
+                            <text>16:00-16:30</text>
+                                break;
+                        }
+                    </td>
+                    <td>
+                        @entry.Value
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
 </fieldset>

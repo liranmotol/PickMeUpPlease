@@ -54,7 +54,11 @@ namespace MobileApplication.DAL
                     LastName = c.last_name,
                     UserName = c.usernmae,
                     DefaultGrade = c.default_grade,
-                    DefaultClass = c.default_class
+                    DefaultClass = c.default_class,
+                    WhereAmIDic = new Dictionary<int, string>() {
+                    {1,"some activity" },{2,"some cooler activity" },{3,"boring activity" },{4,"AWSOME activity" },{5,"Homework yay activity" }
+                    },
+                    PhoneNumber=c.phone_mobile
                 };
                 try
                 {

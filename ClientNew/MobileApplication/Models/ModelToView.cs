@@ -16,4 +16,17 @@ namespace MobileApplication.Models
             this.StudentsLight=StudentsLight;
         }
     }
+
+    public class CounslerInfoModelToView
+    {
+        public CounslerModel Counsler { get; set; }
+        //public List<string> OptionalGrades { get; set; }
+        //public List<string> OptionalClasses { get; set; }
+        public CounslerInfoModelToView(CounslerModel Counsler)
+        {
+            this.Counsler = Counsler;
+        }
+        
+    }
+
 }
