@@ -28,7 +28,7 @@
         {
             console.log("checking in:" + checkedInId);
             var tempCheckdIn = checkedInId;
-            var json = { StudentId: checkedInId };
+            var json = { StudentId: checkedInId, UserName:'@Model.Counsler.UserName' };
 
             $.ajax({
                 url: "CheckInApproved",

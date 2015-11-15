@@ -5,6 +5,7 @@ using System.Web;
 
 namespace MobileApplication.Models
 {
+     [Serializable]
     public class CounslerModel
     {
         public int ID { get; set; }

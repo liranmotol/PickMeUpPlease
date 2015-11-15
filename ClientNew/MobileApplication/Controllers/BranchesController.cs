@@ -1,4 +1,5 @@
 ﻿using MobileApplication.Models;
+using MobileApplication.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 namespace MobileApplication.Controllers
 {
     [Authorize]
+    [CompressAttribute]
     public class BranchesController : Controller
     {
         public ActionResult BranchesInfo(int BranchId)

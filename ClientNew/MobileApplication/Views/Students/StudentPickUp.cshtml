@@ -1,21 +1,21 @@
-﻿@model MobileApplication.Models.StudentModel
+﻿@model MobileApplication.Models.StudentCounslerModelToView
 
 <script type="text/javascript">
-    var StudentId = @Model.ID;
+    var StudentId = @Model.Student.ID;
 </script>
 <fieldset>
     <legend>
-        <p><b>@Model.FirstName @Model.LastName &nbsp&nbsp</b>@Model.Grade-@Model.SClass
+        <p><b>@Model.Student.FirstName @Model.Student.LastName &nbsp&nbsp</b>@Model.Student.Grade-@Model.Student.SClass
         </p> 
     </legend>
     <legend>
         <p>
             <div>
-                @Model.Parent1Name :
-                <a href="tel:@Model.Parent1Num;">@Model.Parent1Num</a>
+                @Model.Student.Parent1Name :
+                <a href="tel:@Model.Student.Parent1Num;">@Model.Student.Parent1Num</a>
             </div>
             <div>
-                <a href="mailto:@Model.Parent1Email">@Model.Parent1Email</a>
+                <a href="mailto:@Model.Student.Parent1Email">@Model.Student.Parent1Email</a>
 
             </div>
         </p>
@@ -24,10 +24,10 @@
     <legend>
         <p>
             <div>
-                @Model.Parent2Name : <a href="tel:@Model.Parent2Num;">@Model.Parent2Num</a>
+                @Model.Student.Parent2Name : <a href="tel:@Model.Student.Parent2Num;">@Model.Student.Parent2Num</a>
             </div>
             <div>
-                <a href="mailto:@Model.Parent2Email">@Model.Parent2Email</a>
+                <a href="mailto:@Model.Student.Parent2Email">@Model.Student.Parent2Email</a>
 
             </div>
         </p>
@@ -35,15 +35,15 @@
     <p>
         <div>
             Gender:
-            @Model.Gender
+            @Model.Student.Gender
         </div>
         <div>
             Address:
-            @Model.Address
+            @Model.Student.Address
         </div>
         <div>
             BirthDay:
-            @Model.BirthDay.ToString("d")
+            @Model.Student.BirthDay.ToString("d")
         </div>
     </p>
 
@@ -52,21 +52,21 @@
 
 <fieldset data-role="controlgroup">
 
-    @if (Model.Parent1Name != null)
+    @if (Model.Student.Parent1Name != null)
     {
-        <input type="radio" name="PickerName" id="picker_parentA" value="@Model.Parent1Name" data-is_other="false" />
-        <label for="picker_parentA">@Model.Parent1Name</label>
+        <input type="radio" name="PickerName" id="picker_parentA" value="@Model.Student.Parent1Name" data-is_other="false" />
+        <label for="picker_parentA">@Model.Student.Parent1Name</label>
     }
-    @if (Model.Parent2Name != null)
+    @if (Model.Student.Parent2Name != null)
     {
-        <input type="radio" name="PickerName" id="picker_parentB" value="@Model.Parent2Name" data-is_other="false" />
-        <label for="picker_parentB">@Model.Parent2Name</label>
+        <input type="radio" name="PickerName" id="picker_parentB" value="@Model.Student.Parent2Name" data-is_other="false" />
+        <label for="picker_parentB">@Model.Student.Parent2Name</label>
     }
 
-    @for (int i = 0; i < Model.PickUpOptions.Count; i++)
+    @for (int i = 0; i < Model.Student.PickUpOptions.Count; i++)
     {
-        <input type="radio" name="PickerName" id="picker_@i.ToString()" value="@Model.PickUpOptions[i]" data-is_other="false" />
-        <label for="picker_@i.ToString()">@Model.PickUpOptions[i]</label>
+        <input type="radio" name="PickerName" id="picker_@i.ToString()" value="@Model.Student.PickUpOptions[i]" data-is_other="false" />
+        <label for="picker_@i.ToString()">@Model.Student.PickUpOptions[i]</label>
     }
 
     <input type="radio" name="PickerName" id="picker_other" value="other" data-is_other="true" />
@@ -99,7 +99,7 @@
         $("#PickUpApprovedRef").click(function (event) {
             console.log("pickedup for student:" + StudentId );
             var picker = $('input[name=PickerName]:checked').val();
-            var json = { StudentId: StudentId,  Picker:picker };
+            var json = { StudentId: StudentId,  Picker:picker, UserName:'@Model.Counsler.UserName'};
 
             $.ajax({
                 url: "PickUpStudent",

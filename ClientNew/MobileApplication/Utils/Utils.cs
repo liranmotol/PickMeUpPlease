@@ -17,10 +17,11 @@ namespace MobileApplication.Utils
 
         }
 
-        internal static CounslerModel GetCounslerFromRequest()
+        internal static CounslerModel GetCounslerFromRequest(string UserName=null)
         {
-            string userName = System.Web.Security.Membership.GetUser().UserName;
-            CounslerModel counsler = InMemoryHandler.GetUserIdFromCounslerUserName(userName);
+            if (UserName==null)
+                UserName = System.Web.Security.Membership.GetUser().UserName;
+            CounslerModel counsler = InMemoryHandler.GetUserIdFromCounslerUserName(UserName);
             return counsler;
         }
 

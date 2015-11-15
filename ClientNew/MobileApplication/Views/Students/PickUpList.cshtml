@@ -12,7 +12,7 @@
 
             $(allLi).each(function (index, element) {
                 var Studentid = $(element).data("studentid");
-                $(element).find('a').attr('href', 'PickUpStudent?Studentid=' + Studentid);
+                $(element).find('a').attr('href', 'PickUpStudent?Studentid=' + Studentid+'&UserName=@Model.Counsler.UserName');
                 if ($(element).data("pickedup")) {
                     $(element).addClass("ui-disabled");
                 }

@@ -1,18 +1,20 @@
-﻿@{
+﻿@model MobileApplication.Models.CounslerBranchModelToView
+
+@{
     ViewBag.Title = "Englilush Home";
 }
 
 <ul data-role="listview" data-inset="true">
     <li data-role="list-divider">@ViewBag.DefaultBranchName</li>
-    <li>@Html.ActionLink("Students Info", "StudentsInfo", "Students", new { BranchId = ViewBag.DefaultBranchId }, null)</li>
+    <li>@Html.ActionLink("Students Info", "StudentsInfo", "Students", new { BranchId = Model.Branch.BranchId, UserName=Model.Counsler.UserName}, null)</li>
 
-    <li>@Html.ActionLink("Check In", "CheckInList", "Students", new { BranchId = ViewBag.DefaultBranchId }, null)</li>
-    <li>@Html.ActionLink("Pick Up", "PickUpList", "Students", new { BranchId = ViewBag.DefaultBranchId }, null)</li>
-    <li class="ui-disabled">@Html.ActionLink("Lunch", "LunchList", "Students", new { BranchId = ViewBag.DefaultBranchId }, null)</li>
-    <li>@Html.ActionLink("Branch Info", "BranchesInfo", "Branches", new { BranchId = ViewBag.DefaultBranchId }, null)</li>
+    <li>@Html.ActionLink("Check In", "CheckInList", "Students", new { BranchId = Model.Branch.BranchId, UserName = Model.Counsler.UserName }, null)</li>
+    <li>@Html.ActionLink("Pick Up", "PickUpList", "Students", new { BranchId = Model.Branch.BranchId, UserName = Model.Counsler.UserName }, null)</li>
+    <li class="ui-disabled">@Html.ActionLink("Lunch", "LunchList", "Students", new { BranchId = Model.Branch.BranchId, UserName = Model.Counsler.UserName }, null)</li>
+    <li>@Html.ActionLink("Branch Info", "BranchesInfo", "Branches", new { BranchId = Model.Branch.BranchId, UserName = Model.Counsler.UserName }, null)</li>
     <li class="ui-disabled">@Html.ActionLink("Change Branch", "ChangeBranchList", "Branches")</li>
 
-    <li class="ui-disabled">@Html.ActionLink("My Info", "MyInfo", "Counslers")</li>
+    <li >@Html.ActionLink("My Info", "MyInfo", "Counslers")</li>
     <li class="ui-disabled">@Html.ActionLink("Counslers Info", "CounslersInfoList", "Counslers")</li>
 
 </ul>
