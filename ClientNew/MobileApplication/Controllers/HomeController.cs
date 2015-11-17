@@ -41,6 +41,21 @@ namespace MobileApplication.Controllers
             return View(toView);
         }
 
+        [HttpPost]
+        public string WriteToUsSubmit(string UserName, string Msg)
+        {
+            CounslerModel counsler = Utils.Utils.GetCounslerFromRequest(UserName);
+            if (MobileApplication.DAL.DataAccess.AddComment(counsler.ID, Msg))
+                return "Cool Cool Cool";
+            return "Oops... something happend./nplease send it in email...";
+        }
+
+        public ActionResult WriteToUs(string UserName)
+        { 
+            CounslerModel counsler = Utils.Utils.GetCounslerFromRequest(UserName);
+            return View(counsler);
+        }
+
     
 
        

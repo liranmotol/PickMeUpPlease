@@ -1,0 +1,41 @@
+﻿@model MobileApplication.Models.CounslerModel
+
+<p>Hi @Model.FirstName,   </p>
+<p>
+    This is where you want to let Liran know how AWESOME he is (if you still havn't done so)
+</p>
+<text>and... you can also write reviews, feedbacks and wishlist!</text>
+
+<textarea style="height:150px" id="taComment" placeholder="Liran is amazing and..."></textarea>
+<button id="commentsSubmitBtn" >Lets do it!</button>
+<script>
+    $(function () {
+        $("#commentsSubmitBtn").click(function () {
+            var message = $("#taComment").val();
+            if (typeof message == 'undefined' || message == '') {
+
+                alert('I think you forgot something... maybe a COMMENT !\nTry again.');
+                return;
+            }
+
+            var json = { UserName: '@Model.UserName', Msg: message };
+
+            $.ajax({
+                url: "WriteToUsSubmit",
+                type: "POST",
+                data: json,
+                success: function (data, textStatus, jqXHR) {
+                    alert(data)
+                    window.history.back();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Yeah... Something went wrong. message was not recorded. let me know!');
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+
+                }
+            });
+        });
+    });
+</script>

@@ -16,6 +16,15 @@
           <Property Name="contact_a_contacts_id" Type="int" />
           <Property Name="contact_b_contacts_id" Type="int" />
         </EntityType>
+        <EntityType Name="comments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="recieved_date" Type="datetime" />
+          <Property Name="message" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ref_counsler_id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="contacts">
           <Key>
             <PropertyRef Name="id" />
@@ -61,9 +70,9 @@
           <Property Name="user_id" Type="varchar" MaxLength="15" />
           <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="grade" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="grade" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="branch_id" Type="int" />
-          <Property Name="class" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="class" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="health_issues" Type="nvarchar" MaxLength="2560" />
           <Property Name="pick_up_options" Type="nvarchar" MaxLength="2560" />
           <Property Name="gender" Type="bit" Nullable="false" />
@@ -104,6 +113,7 @@
         </EntityType>
         <EntityContainer Name="pickmepleasedbModelStoreContainer">
           <EntitySet Name="branches" EntityType="Self.branches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comments" EntityType="Self.comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="contacts" EntityType="Self.contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="counslers" EntityType="Self.counslers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="students" EntityType="Self.students" Schema="dbo" store:Type="Tables" />
@@ -141,6 +151,7 @@
           <EntitySet Name="contacts" EntityType="pickmepleasedbModel.contacts" />
           <EntitySet Name="counslers" EntityType="pickmepleasedbModel.counslers" />
           <EntitySet Name="students" EntityType="pickmepleasedbModel.students" />
+          <EntitySet Name="comments" EntityType="pickmepleasedbModel.comments" />
         </EntityContainer>
         <EntityType Name="branches">
           <Key>
@@ -198,9 +209,9 @@
           <Property Name="user_id" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="first_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="last_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="grade" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="grade" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="branch_id" Type="Int32" />
-          <Property Name="class" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="class" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="health_issues" Type="String" MaxLength="2560" FixedLength="false" Unicode="true" />
           <Property Name="pick_up_options" Type="String" MaxLength="2560" FixedLength="false" Unicode="true" />
           <Property Name="gender" Type="Boolean" Nullable="false" />
@@ -218,6 +229,15 @@
           <Property Name="parent_b_first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="parent_b_last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="image" Type="String" MaxLength="2560" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="comments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="recieved_date" Type="DateTime" Precision="3" />
+          <Property Name="message" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ref_counsler_id" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -324,6 +344,16 @@
                 <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comments">
+            <EntityTypeMapping TypeName="pickmepleasedbModel.comments">
+              <MappingFragment StoreEntitySet="comments">
+                <ScalarProperty Name="ref_counsler_id" ColumnName="ref_counsler_id" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="recieved_date" ColumnName="recieved_date" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

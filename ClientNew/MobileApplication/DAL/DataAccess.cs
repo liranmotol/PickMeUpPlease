@@ -351,5 +351,19 @@ namespace MobileApplication.DAL
             ApplicationContext.Instnace.contextInstance.SaveChanges();
             return true;
         }
+
+        internal static bool AddComment(int UserId, string Msg)
+        {
+            ApplicationContext.Instnace.contextInstance.comments.Add(
+                new comments()
+                {
+                    message =(Msg.Length>1999)? Msg.Substring(0, 1998):Msg,
+                    recieved_date = DateTime.Now,
+                    ref_counsler_id = UserId
+                }
+                );
+            ApplicationContext.Instnace.contextInstance.SaveChanges();
+            return true;
+        }
     }
 }
