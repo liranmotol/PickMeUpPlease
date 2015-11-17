@@ -119,7 +119,7 @@ namespace MobileApplication.DAL
                     HomeNum = s.phone_home,
                     Img = s.image,
                     ID = s.id,
-                    PickUpOptions = (s.pick_up_options != null) ? s.pick_up_options.Split(',').ToList() : new List<string>(),
+                    PickUpOptions = (s.pick_up_options != null) ? s.pick_up_options.Split('*').ToList() : new List<string>(),
                     Gender = Utils.Utils.GetGender(s.gender),
                     CheckedIn = checkedIn,
                     PickUp = pickedUp,

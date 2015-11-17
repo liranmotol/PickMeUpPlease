@@ -6,7 +6,7 @@
         <option>Choose Grades</option>
         @*<option value="ALL">All</option>*@
 
-        @foreach (var grd in Model.StudentsLight.Select(s => s.Grade + "-" + s.SClass).Distinct().OrderBy(s => s))
+        @foreach (var grd in Model.StudentsLight.Select(s => s.Grade + "-" + s.SClass).Distinct(StringComparer.CurrentCultureIgnoreCase).OrderBy(s => s))
         {
             if (string.Format(Model.Counsler.DefaultGrade + "-" + Model.Counsler.DefaultClass) == grd)
             {
@@ -25,7 +25,7 @@
 </div>
 <div style="display:none">
     <ul id="avaiableClasses">
-        @foreach (var grd in Model.StudentsLight.Select(s => s.Grade + "-" + s.SClass).Distinct().OrderBy(s => s))
+        @foreach (var grd in Model.StudentsLight.Select(s => s.Grade + "-" + s.SClass).Distinct(StringComparer.CurrentCultureIgnoreCase).OrderBy(s => s))
         {
             <li>@grd</li>
         }
@@ -134,7 +134,7 @@
             var tempNotContaine = "";
 
             $.each(SelectedGradeClasses, function (key, value) {
-                tempContaine = "[data-sclass=" + value + "]";
+                tempContaine = "[data-sclass='" + value + "']";
                 $('#studentsListView li' + tempContaine).show();
             });
 
@@ -143,7 +143,7 @@
 
             for (i = 0; i < avaiableGradeClasses.length; i++) {
                 if (SelectedGradeClasses.indexOf(avaiableGradeClasses[i.toString()]) < 0) {
-                    tempNotContaine = "[data-sclass=" + avaiableGradeClasses[i] + "]";
+                    tempNotContaine = "[data-sclass='" + avaiableGradeClasses[i] + "']";
                     $('#studentsListView li' + tempNotContaine).hide();
                 }
 

@@ -47,6 +47,20 @@ namespace Utils
             foreach (var s in studentsFullList)
             //studentsFullList.ForEach(s =>
             {
+                //remove permissions in the pickup
+                //Yes, we give permission for Englilush Ltd. to publish photos including our child/children on website and marketing materials.
+                //No, we do not give permission for Englilush Ltd. to publish photos including our child/children on website and marketing materials.
+                bool resetPicker = false;
+                foreach (var picker in s.PickUpOptions)
+                {
+                    if (picker.Contains("for Englilush Ltd"))
+                        resetPicker = true;
+                }
+
+                if (resetPicker)
+                    s.PickUpOptions = new List<string>();
+
+
                 students newStudent = new students()
                 {
 
