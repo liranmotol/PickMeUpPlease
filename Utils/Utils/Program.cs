@@ -37,13 +37,13 @@ namespace Utils
             file.Close();
             var result = JsonUtils.ConvertJsonToObject<List<StudentModel>>(temp);
             return result;
-         
+
         }
 
         private static void uploadStudentsToDb(List<StudentModel> studentsFullList, int branchId)
         {
             pickmepleasedbEntities1 p = new pickmepleasedbEntities1();
-
+            List<StudentModel> errorList = new List<StudentModel>();
             foreach (var s in studentsFullList)
             //studentsFullList.ForEach(s =>
             {
@@ -78,14 +78,23 @@ namespace Utils
                     pick_up_options = (s.PickUpOptions != null) ? string.Join("*", s.PickUpOptions) : null,
 
                 };
-                p.students.Add(newStudent);
                 try
                 {
-                    p.SaveChanges();
+                    if (s.Grade.Length > 19 || s.SClass.Length > 19)
+                    {
+                        errorList.Add(s);
+                    }
+                    else
+                    {
+                        p.students.Add(newStudent);
+                        //p.SaveChanges();
+                    }
                 }
                 catch (Exception ex)
                 {
-
+                    Console.WriteLine(newStudent.first_name + ", " + newStudent.last_name);
+                    errorList.Add(s);
+                    p.students.Remove(newStudent);
                     //throw;
                 }
             }
@@ -104,7 +113,9 @@ namespace Utils
 
         private static List<StudentModel> LoadStudents()
         {
-            string path = @"D:\apps\Mobile\PmupApp\Data\Students_antig.xlsx";
+            //string path = @"D:\apps\Mobile\PmupApp\Data\2015_16_RegForms  - Copy.xlsx";
+            string path = @"D:\apps\Mobile\PmupApp\Data\2015_16_RegForms .xlsx";
+
             return ReadXlsx(path);
 
         }

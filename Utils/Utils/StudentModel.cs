@@ -151,21 +151,34 @@ namespace Utils
                     Grade = "C";
                     sClass = "3";
                     break;
-                case "Gan Yareach (Sofi)":
-                    Grade = "GAN";
+                case "Gan Trom Hova":
+                    Grade = "Gan Trom Hova";
+                    sClass = "1";
+                    break;   
+                case "Gan Hova":
+                    Grade = "Gan Hova";
                     sClass = "1";
                     break;
-                case "Gan Shavit (Maayan)":
-                    Grade = "GAN";
-                    sClass = "2";
+                case "Gan Hova - Shabtay":
+                    Grade = "Gan Hova";
+                    sClass = "Shabtay";
                     break;
-                case "Gan Shavtay (Olga)":
-                    Grade = "GAN";
-                    sClass = "3";
+                case "Gan Hova - Yareach":
+                    Grade = "Gan Hova";
+                    sClass = "Yareach";
                     break;
-                case "Gan":
-                    Grade = "GAN";
-                    sClass = "5";
+                case "Gan Trom Hova - Kadur Haaretz":
+                    Grade = "Gan Trom Hova";
+                    sClass = "Kadur Haaretz";
+                    break; 
+                case "Gan Trom Hova - Shavit":
+                    Grade = "Gan Trom Hova";
+                    sClass = "Shavit";
+                    break;
+                case "Gan Trom Hova - Tzedek - Naamat":
+                case "Gan Trom Hova - Tzedek":
+                    Grade = "Gan Trom Hova";
+                    sClass = "Tzedek - Naamat";
                     break;
                 default:
                     Grade = "NA";
@@ -191,7 +204,7 @@ namespace Utils
                 isLastRowEmpty = true;
                 try
                 {
-                    if (rCnt > 300)
+                    if (rCnt > 499)
                         break;
                     StudentModel s = new StudentModel();
                     for (cCnt = 1; cCnt <= range.Columns.Count; cCnt++)

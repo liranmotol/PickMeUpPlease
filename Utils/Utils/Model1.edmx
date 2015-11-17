@@ -50,6 +50,8 @@
           <Property Name="email_2" Type="nvarchar" MaxLength="100" />
           <Property Name="address" Type="nvarchar" MaxLength="100" />
           <Property Name="image" Type="varchar" MaxLength="2560" />
+          <Property Name="default_grade" Type="varchar" MaxLength="10" />
+          <Property Name="default_class" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="students">
           <Key>
@@ -59,9 +61,9 @@
           <Property Name="user_id" Type="varchar" MaxLength="15" />
           <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="grade" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="grade" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="branch_id" Type="int" />
-          <Property Name="class" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="class" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="health_issues" Type="nvarchar" MaxLength="2560" />
           <Property Name="pick_up_options" Type="nvarchar" MaxLength="2560" />
           <Property Name="gender" Type="bit" Nullable="false" />
@@ -141,6 +143,8 @@
           <Property Name="email_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="image" Type="String" MaxLength="2560" FixedLength="false" Unicode="false" />
+          <Property Name="default_grade" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="default_class" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="students">
           <Key>
@@ -148,9 +152,9 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_id" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="grade" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="grade" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="branch_id" Type="Int32" />
-          <Property Name="class" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="class" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="health_issues" Type="String" MaxLength="2560" FixedLength="false" Unicode="true" />
           <Property Name="pick_up_options" Type="String" MaxLength="2560" FixedLength="false" Unicode="true" />
           <Property Name="gender" Type="Boolean" Nullable="false" />
@@ -208,6 +212,8 @@
           <EntitySetMapping Name="counslers">
             <EntityTypeMapping TypeName="pickmepleasedbModel.counslers">
               <MappingFragment StoreEntitySet="counslers">
+                <ScalarProperty Name="default_class" ColumnName="default_class" />
+                <ScalarProperty Name="default_grade" ColumnName="default_grade" />
                 <ScalarProperty Name="image" ColumnName="image" />
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="email_2" ColumnName="email_2" />

@@ -30,7 +30,9 @@ namespace Utils
         public  string Gan_Hova = "Gan Hova";
         public string Gan_Trom_Hova = "Gan Trom Hova";
 
-        public char[] pickupSeperators = new char[]{'\n',',','\r','/',';','&',':'};
+        //public char[] pickupSeperators = new char[]{'\n',',','\r','/',';','&',':'};
+        public char[] pickupSeperators = new char[]{','};
+
         public List<string> IgnorePicks = new List<string>{ "&", "", @"\"};
 
 
