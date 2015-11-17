@@ -20,5 +20,17 @@ namespace MobileApplication.Controllers
             return View("CounslerInfo",c);
         }
 
+        public string UpdateDefaultGradeAndClass(string UserName,string Grade,string SClass)
+        {
+            MobileApplication.Models.CounslerModel counsler = Utils.Utils.GetCounslerFromRequest(UserName);
+            if (counsler.SetDefaultGradeAndClass(counsler.ID, Grade, SClass)) 
+                return "OK";
+            else
+                return "failed";
+                
+        }
+
     }
+
+
 }

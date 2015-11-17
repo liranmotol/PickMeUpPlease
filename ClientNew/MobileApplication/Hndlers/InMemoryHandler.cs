@@ -158,5 +158,27 @@ namespace MobileApplication.Hndlers
         {
             return Contacts.Where(c => c.id == contactId).FirstOrDefault();
         }
+
+        internal static List<GradeAndClass> GetAvaiableGradeAndClass(int BranchId)
+        {
+            //get all the avaiable class and grades
+            if (BranchId == 0)
+            {
+                var GradeAndClassCollection =
+                    Students.Select(s =>
+                        {
+                            return new GradeAndClass() { Grade = s.Grade, SClass = s.SClass };
+                        }).GroupBy(s => new { s.Grade, s.SClass }).Select(s=>s.First());
+                return GradeAndClassCollection.ToList();
+            }
+            else
+            {
+                return
+                Students.Where(s => s.BranchId == BranchId).Select(s =>
+                {
+                    return new GradeAndClass() { Grade = s.Grade, SClass = s.SClass };
+                }).Distinct().ToList();
+            }
+        }
     }
 }

@@ -10,6 +10,8 @@ namespace MobileApplication.DAL
 {
     public class DataAccess
     {
+        //TODO - IMPORTANT - add try cactch to each one of the methods
+
         internal static List<contacts> GetContacts()
         {
             return ApplicationContext.Instnace.contextInstance.contacts.ToList();
@@ -335,5 +337,19 @@ namespace MobileApplication.DAL
 
 
 
+
+        internal static bool UpdateDefaultClassAndGrade(int CounslerId, string Grade, string SClass)
+        {
+            var counsler = ApplicationContext.Instnace.contextInstance.counslers.Where(c => c.id == CounslerId).FirstOrDefault();
+            if (counsler != null)
+            {
+                counsler.default_class = SClass;
+                counsler.default_grade = Grade;
+
+            }
+               
+            ApplicationContext.Instnace.contextInstance.SaveChanges();
+            return true;
+        }
     }
 }

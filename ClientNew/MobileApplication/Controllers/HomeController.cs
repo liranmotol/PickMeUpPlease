@@ -24,11 +24,11 @@ namespace MobileApplication.Controllers
                 //TODO add log
                 return View("SadFace");
             }
-            else
-            {
-                if (Session["UserName"] == null)
-                    Session["UserName"] = counsler.UserName;
-            }
+            //else
+            //{
+            //    if (Session["UserName"] == null)
+            //        Session["UserName"] = counsler.UserName;
+            //}
             BranchModel defaultBranch = null;
             if (counsler.AllowedBranchedIds.Count > 0)
             {

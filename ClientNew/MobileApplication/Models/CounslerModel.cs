@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobileApplication.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -30,5 +31,18 @@ namespace MobileApplication.Models
 
         public Dictionary<int,string> WhereAmIDic { get; set; }
 
+
+        internal bool SetDefaultGradeAndClass(int CounslerId,string Grade, string SClass)
+        {
+            bool result = false;
+            if (DataAccess.UpdateDefaultClassAndGrade(CounslerId, Grade, SClass))
+            {
+                this.DefaultClass = SClass;
+                this.DefaultGrade = Grade;
+                result =true;
+            }
+            return result;
+
+        }
     }
 }

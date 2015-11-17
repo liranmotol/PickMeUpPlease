@@ -35,7 +35,7 @@
 <br />
 
 <ul data-role="listview" data-filter="true" data-autodividers="true" id="studentsListView" data-input="#filterBasic-input" data-inset="true">
-    @foreach (var item in Model.StudentsLight.OrderBy(s => s.FirstName))
+    @foreach (var item in Model.StudentsLight.OrderBy(s => s.Grade).ThenBy(s => s.SClass).ThenBy(s => s.FirstName).ThenBy(s => s.LastName))
     {
         <li data-sclass="@item.Grade-@item.SClass" data-firstname="@item.FirstName" data-lastname="@item.LastName" data-studentid="@item.ID"
             data-pickedup="@item.IsPickedUp.ToString().ToLower()" data-checkedin="@item.IsCheckedIn.ToString().ToLower()">

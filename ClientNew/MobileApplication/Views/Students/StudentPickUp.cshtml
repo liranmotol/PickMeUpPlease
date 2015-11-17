@@ -3,10 +3,34 @@
 <script type="text/javascript">
     var StudentId = @Model.Student.ID;
 </script>
+
 <fieldset style="margin-top:25px">
     <legend>
         <p><b>@Model.Student.FirstName @Model.Student.LastName &nbsp&nbsp</b>@Model.Student.Grade-@Model.Student.SClass
         </p> 
+    </legend>
+    <legend data-role="controlgroup">
+
+        @if (Model.Student.Parent1Name != null)
+        {
+            <input type="radio" name="PickerName" id="picker_parentA" value="@Model.Student.Parent1Name" data-is_other="false" />
+            <label for="picker_parentA">@Model.Student.Parent1Name</label>
+        }
+        @if (Model.Student.Parent2Name != null)
+        {
+            <input type="radio" name="PickerName" id="picker_parentB" value="@Model.Student.Parent2Name" data-is_other="false" />
+            <label for="picker_parentB">@Model.Student.Parent2Name</label>
+        }
+
+        @for (int i = 0; i < Model.Student.PickUpOptions.Count; i++)
+        {
+            <input type="radio" name="PickerName" id="picker_@i.ToString()" value="@Model.Student.PickUpOptions[i]" data-is_other="false" />
+            <label for="picker_@i.ToString()">@Model.Student.PickUpOptions[i]</label>
+        }
+
+        <input type="radio" name="PickerName" id="picker_other" value="other" data-is_other="true" />
+        <label for="picker_other">Other</label>
+
     </legend>
     <legend>
         <p>
@@ -50,29 +74,7 @@
 </fieldset>
 
 
-<fieldset data-role="controlgroup">
 
-    @if (Model.Student.Parent1Name != null)
-    {
-        <input type="radio" name="PickerName" id="picker_parentA" value="@Model.Student.Parent1Name" data-is_other="false" />
-        <label for="picker_parentA">@Model.Student.Parent1Name</label>
-    }
-    @if (Model.Student.Parent2Name != null)
-    {
-        <input type="radio" name="PickerName" id="picker_parentB" value="@Model.Student.Parent2Name" data-is_other="false" />
-        <label for="picker_parentB">@Model.Student.Parent2Name</label>
-    }
-
-    @for (int i = 0; i < Model.Student.PickUpOptions.Count; i++)
-    {
-        <input type="radio" name="PickerName" id="picker_@i.ToString()" value="@Model.Student.PickUpOptions[i]" data-is_other="false" />
-        <label for="picker_@i.ToString()">@Model.Student.PickUpOptions[i]</label>
-    }
-
-    <input type="radio" name="PickerName" id="picker_other" value="other" data-is_other="true" />
-    <label for="picker_other">Other</label>
-
-</fieldset>
 
 <a href="#popupStudentPickedUp" id="pickerSubmitA" class="ui-disabled" data-rel="popup" data-role="button" data-position-to="window">
     Submit Picked up

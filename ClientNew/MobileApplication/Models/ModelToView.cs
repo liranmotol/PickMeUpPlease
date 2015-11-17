@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobileApplication.Hndlers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -36,14 +37,20 @@ namespace MobileApplication.Models
     public class CounslerInfoModelToView
     {
         public CounslerModel Counsler { get; set; }
+        public List<GradeAndClass> GradeAndClasses { get; set; }
         //public List<string> OptionalGrades { get; set; }
         //public List<string> OptionalClasses { get; set; }
-        public CounslerInfoModelToView(CounslerModel Counsler)
+        public CounslerInfoModelToView(CounslerModel Counsler,int BranchId=0)
         {
             this.Counsler = Counsler;
+            this.GradeAndClasses=InMemoryHandler.GetAvaiableGradeAndClass(BranchId);
         }
         
     }
+
+
+  
+
 
      [Serializable]
      public class CounslerBranchModelToView
