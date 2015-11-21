@@ -79,36 +79,25 @@
                     <th>
                         When
                     </th>
-                    <th>
-                        Where
+                    <th rowspan="4">
+                        What
                     </th>
                 </tr>
             </thead>
-            @foreach (KeyValuePair<int, string> entry in Model.Counsler.WhereAmIDic.OrderBy(o => o.Key))
-            {
+            @*@foreach (KeyValuePair<int, string> entry in Model.Counsler.WhereAmIDic.OrderBy(o => o.Key))*@
+              @foreach (var entry in Model.Counsler.WhereAmI.OrderBy(o => o.Hour))
+                {
                 <tr>
                     <td>
-                        @switch (entry.Key)
-                        {
-                            case 1:
-                                <text>12:30-13:45</text>
-                                break;
-                            case 2:
-                            <text>13:45-14:30</text>
-                                break;
-                            case 3:
-                            <text>14:30-15:15</text>
-                                break;
-                            case 4:
-                            <text>15:15-16:00</text>
-                                break;
-                            case 5:
-                            <text>16:00-16:30</text>
-                                break;
-                        }
+                        @entry.HourDescription
                     </td>
                     <td>
-                        @entry.Value
+                        <div>
+                            Activity: @entry.Acticity <br />
+                            Location: @entry.Location <br />
+                            Group: @entry.Group <br />
+                            Comment: @entry.Comment <br />
+                        </div>
                     </td>
                 </tr>
             }

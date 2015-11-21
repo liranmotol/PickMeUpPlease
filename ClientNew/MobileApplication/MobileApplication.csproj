@@ -193,6 +193,9 @@
     <Compile Include="Models\counslers.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\counslers_schedule.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -359,6 +362,7 @@
     <Content Include="Views\Students\StudentPickUp.cshtml" />
     <Content Include="Views\Counslers\CounslerInfo.cshtml" />
     <Content Include="Views\Home\WriteToUs.cshtml" />
+    <Content Include="Views\Counslers\CounslersInfoList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

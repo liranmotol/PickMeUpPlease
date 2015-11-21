@@ -33,8 +33,7 @@
                     {
                         <h1>@ViewBag.Title</h1>
                         <a data-role="button" data-rel="back" data-icon="back">Back</a>
-                        <a data-role="button" data-rel="back" data-icon="home">Home</a>
-                         @*@Html.ActionLink("Home", "Index", "Home", new { UserName = Session["UserName"] }, new { data_icon = "home", data_rel = "home" })*@
+                        @Html.ActionLink("Home", "Index", "Home", new { UserName = Session["UserName"] }, new { data_icon = "home", data_rel = "home" })
                         //@Html.Partial("_LoginPartial")
                     }
                 </div>

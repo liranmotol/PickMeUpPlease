@@ -1,0 +1,14 @@
+﻿@model List<MobileApplication.Models.CounslerModel>
+
+<div style="margin-top:35px">
+    <ul data-role="listview" data-filter="true" data-autodividers="true" id="counslersListView" data-input="#filterBasic-input" data-inset="true">
+        @foreach (var counsler in Model.OrderBy(c => c.FirstName))
+        {
+            <li>
+                <a href="MyInfo?UserName=@counsler.UserName">
+                    @counsler.FirstName @counsler.LastName (@counsler.DefaultGrade-@counsler.DefaultClass)
+                </a>
+            </li>
+        }
+    </ul>
+</div>

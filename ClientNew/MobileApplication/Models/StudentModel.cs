@@ -40,6 +40,30 @@ namespace MobileApplication.Models
         public DateTime BirthDay { get; set; }
         public string BirthDayString { get; set; }
 
+        public string CheckedInCounslerName { get 
+        {
+            if (IsCheckedIn)
+            {
+                var c=InMemoryHandler.GetCounslerById(CheckedIn.CounslerId);
+                return c.GetCounslerName();
+            }
+            return "";
+        }
+        }
+
+        public string PickUpCounslerName
+        {
+            get
+            {
+                if (IsPickedUp)
+                {
+                    var c = InMemoryHandler.GetCounslerById(PickUp.CounslerId);
+                    return c.GetCounslerName();
+                }
+                return "";
+            }
+        }
+
         public bool IsCheckedIn
         {
             get
@@ -89,7 +113,7 @@ namespace MobileApplication.Models
 
         internal void SetStudentCheckedIn(CounslerModel counsler)
         {
-            this.CheckedIn = new CheckedInOutModel() { CounslerId = counsler.ID, When = DateTime.Now };
+            this.CheckedIn = new CheckedInOutModel() { CounslerId = counsler.ID, When = DateTime.Now, ByWhom=counsler.FirstName+" "+counsler.LastName };
             DataAccess.StudentCheckedIn(counsler.ID, this.ID);
         }
 

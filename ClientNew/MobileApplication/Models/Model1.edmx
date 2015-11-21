@@ -62,6 +62,20 @@
           <Property Name="default_grade" Type="varchar" MaxLength="10" />
           <Property Name="default_class" Type="varchar" MaxLength="10" />
         </EntityType>
+        <EntityType Name="counslers_schedule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="counsler_id" Type="int" Nullable="false" />
+          <Property Name="day" Type="int" Nullable="false" />
+          <Property Name="hour_num" Type="int" Nullable="false" />
+          <Property Name="activity" Type="nvarchar" MaxLength="500" />
+          <Property Name="location" Type="nvarchar" MaxLength="500" />
+          <Property Name="group" Type="nvarchar" MaxLength="500" />
+          <Property Name="comment" Type="nvarchar" MaxLength="500" />
+          <Property Name="hour_desc " Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="students">
           <Key>
             <PropertyRef Name="id" />
@@ -116,6 +130,7 @@
           <EntitySet Name="comments" EntityType="Self.comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="contacts" EntityType="Self.contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="counslers" EntityType="Self.counslers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="counslers_schedule" EntityType="Self.counslers_schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="students" EntityType="Self.students" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="students_checkin" EntityType="Self.students_checkin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="students_pickup" EntityType="Self.students_pickup" Schema="dbo" store:Type="Tables" />
@@ -152,6 +167,7 @@
           <EntitySet Name="counslers" EntityType="pickmepleasedbModel.counslers" />
           <EntitySet Name="students" EntityType="pickmepleasedbModel.students" />
           <EntitySet Name="comments" EntityType="pickmepleasedbModel.comments" />
+          <EntitySet Name="counslers_schedule" EntityType="pickmepleasedbModel.counslers_schedule" />
         </EntityContainer>
         <EntityType Name="branches">
           <Key>
@@ -238,6 +254,20 @@
           <Property Name="recieved_date" Type="DateTime" Precision="3" />
           <Property Name="message" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="ref_counsler_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="counslers_schedule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="counsler_id" Type="Int32" Nullable="false" />
+          <Property Name="day" Type="Int32" Nullable="false" />
+          <Property Name="hour_num" Type="Int32" Nullable="false" />
+          <Property Name="activity" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="location" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="group" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="hour_desc_" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -354,6 +384,21 @@
                 <ScalarProperty Name="ref_counsler_id" ColumnName="ref_counsler_id" />
                 <ScalarProperty Name="message" ColumnName="message" />
                 <ScalarProperty Name="recieved_date" ColumnName="recieved_date" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="counslers_schedule">
+            <EntityTypeMapping TypeName="pickmepleasedbModel.counslers_schedule">
+              <MappingFragment StoreEntitySet="counslers_schedule">
+                <ScalarProperty Name="hour_desc_" ColumnName="hour_desc " />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="group" ColumnName="group" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="activity" ColumnName="activity" />
+                <ScalarProperty Name="hour_num" ColumnName="hour_num" />
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="counsler_id" ColumnName="counsler_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -1,126 +1,73 @@
 ﻿@model MobileApplication.Models.StudentModel
 
 <fieldset style="margin-top:25px">
-    <legend>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</legend>
+    <p>
+        <b>@Model.FirstName @Model.LastName &nbsp&nbsp</b>@Model.Grade-@Model.SClass
+    </p>
+    <p>
+        <div>
+            @Model.Parent1Name :
+            <a href="tel:@Model.Parent1Num;">@Model.Parent1Num</a>
+        </div>
+        <div>
+            <a href="mailto:@Model.Parent1Email">@Model.Parent1Email</a>
 
-    <div class="display-label">
-        Grade:
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Grade)
-        @Html.DisplayFor(model => model.SClass)
-    </div>
+        </div>
+    </p>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.PickUpFrom)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.PickUpFrom)
-    </div>
+    <p>
+        <div>
+            Parent2Name : <a href="tel:@Model.Parent2Num;">@Model.Parent2Num</a>
+        </div>
+        <div>
+            <a href="mailto:@Model.Parent2Email">@Model.Parent2Email</a>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.HealthIssuesString)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.HealthIssuesString)
-    </div>
+        </div>
+    </p>
+    <p>
+        <div>
+            Gender:
+            @Model.Gender
+        </div>
+        <div>
+            Address:
+            @Model.Address
+        </div>
+        <div>
+            BirthDay:
+            @Model.BirthDay.ToString("d")
+        </div>
+    </p>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.IsPickedUp)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IsPickedUp)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Parent1Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Parent1Name)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Parent1Num)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Parent1Num)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Parent1Email)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Parent1Email)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Parent2Email)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Parent2Email)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Parent2Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Parent2Name)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Parent2Num)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Parent2Num)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.HomeNum)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.HomeNum)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Gender)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Gender)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.BirthDay)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.BirthDay)
-    </div>
-
+    <p>
+        <div>
+            <b>Checked in:</b>
+            @if (Model.IsCheckedIn)
+            {
+                <div>On:@Model.CheckedIn.When</div>
+                <div>By Counsler: @Model.CheckedInCounslerName</div>
+            }
+            else
+            {
+                <label>Still not</label>
+            }
+        </div>
+    </p>
     <div>
-        <b>Checked in:</b>
-        @if (Model.IsCheckedIn)
-        {
-            <p>On:@Model.CheckedIn.When</p>
-            <p>By Counsler: @Model.CheckedIn.CounslerId</p>
-        }
-        else
-        {
-            <label>Still not</label>
-        }
+        <div>
+            <b>Picked Up:</b>
+            @if (Model.IsPickedUp)
+            {
+                <div>At: @Model.PickUp.When</div>
+                <div>By: @Model.PickUp.ByWhom</div>
+                <div>With Counsler: @Model.PickUpCounslerName</div>
+            }
+            else
+            {
+                <label>Still not</label>
+            }
 
     </div>
-    <div>
-        <b>Picked Up:</b>
-        @if (Model.IsPickedUp)
-        {
-            <p>On: @Model.PickUp.When</p>
-            <p>By Picker: @Model.PickUp.ByWhom</p>
-            <p>By Counsler: @Model.PickUp.CounslerId</p>
-        }
-        else
-        {
-            <label>Still not</label>
-        }
+    </p>
 
-    </div>
-</fieldset>
-
+        </fieldset>

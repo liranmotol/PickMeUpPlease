@@ -1,4 +1,5 @@
-﻿using MobileApplication.Models;
+﻿using MobileApplication.Hndlers;
+using MobileApplication.Models;
 using MobileApplication.Utils;
 using System;
 using System.Collections.Generic;
@@ -51,13 +52,36 @@ namespace MobileApplication.Controllers
         }
 
         public ActionResult WriteToUs(string UserName)
-        { 
+        {
             CounslerModel counsler = Utils.Utils.GetCounslerFromRequest(UserName);
             return View(counsler);
         }
 
-    
+        public void regAll()
+        {
+            AccountController a = new AccountController();
+            var counslers = MobileApplication.DAL.ApplicationContext.Instnace.contextInstance.counslers.ToList();
+            foreach (var item in counslers)
+            {
+                RegisterModel reg = new RegisterModel()
+                {
+                    Email = item.email_1,
+                    UserName = item.usernmae,
+                    Password = "12345678",
+                    ConfirmPassword = "12345678"
+                };
+                a.EnglilushRegister(reg);
+            }
+        }
 
-       
+
+        public void EngInitialize()
+        {
+            InMemoryHandler.Initialize(true);
+        }
+
+
+
+
     }
 }

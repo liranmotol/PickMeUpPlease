@@ -102,6 +102,14 @@ namespace MobileApplication.Hndlers
             return null;
         }
 
+        internal static CounslerModel GetCounslerById(int counslerId)
+        {
+            var tempCoun = Counslers.Where(c => c.ID == counslerId);
+            if (tempCoun != null && tempCoun.Count() > 0)
+                return tempCoun.First();
+            return null;
+        }
+
         internal static void StudentPickedUp(int CounslerId, int StudentContactId, string PickerName, bool IsByOther)
         {
             DataAccess.StudentPickedUp(CounslerId, StudentContactId, PickerName, IsByOther);
@@ -144,7 +152,7 @@ namespace MobileApplication.Hndlers
             var counsler = Counslers.Where(c =>
             {
                 if (c.UserName != null)
-                    return c.UserName.ToLower().Equals(userName);
+                    return c.UserName.ToLower().Equals(userName.ToLower());
                 return false;
             }
                 ).FirstOrDefault();

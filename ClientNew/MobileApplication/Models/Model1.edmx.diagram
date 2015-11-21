@@ -12,6 +12,7 @@
         <EntityTypeShape EntityType="pickmepleasedbModel.counslers" Width="1.5" PointX="0.75" PointY="7.75" />
         <EntityTypeShape EntityType="pickmepleasedbModel.students" Width="1.5" PointX="2.75" PointY="7.75" />
         <EntityTypeShape EntityType="pickmepleasedbModel.comments" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="pickmepleasedbModel.counslers_schedule" Width="1.5" PointX="7.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

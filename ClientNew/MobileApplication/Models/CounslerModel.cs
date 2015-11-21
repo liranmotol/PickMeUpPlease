@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MobileApplication.Models
 {
-     [Serializable]
+    [Serializable]
     public class CounslerModel
     {
         public int ID { get; set; }
@@ -29,20 +29,42 @@ namespace MobileApplication.Models
         public string DefaultClass { get; set; }
         public string DefaultGrade { get; set; }
 
-        public Dictionary<int,string> WhereAmIDic { get; set; }
+      
+        public List<CCounslersScheduleModel> WhereAmI { get; set; }
 
 
-        internal bool SetDefaultGradeAndClass(int CounslerId,string Grade, string SClass)
+        internal bool SetDefaultGradeAndClass(int CounslerId, string Grade, string SClass)
         {
             bool result = false;
             if (DataAccess.UpdateDefaultClassAndGrade(CounslerId, Grade, SClass))
             {
                 this.DefaultClass = SClass;
                 this.DefaultGrade = Grade;
-                result =true;
+                result = true;
             }
             return result;
 
         }
+
+        internal string GetCounslerName()
+        {
+            return FirstName + " " + LastName;
+        }
+    }
+
+    [Serializable]
+
+    public class CCounslersScheduleModel
+    {
+        public int Day { get; set; }
+        public int Hour { get; set; }
+        public string Acticity{ get; set; }
+        public string Location{ get; set; }
+        public string Group{ get; set; }
+        public string Comment { get; set; }
+        public string HourDescription{ get; set; }
+
+
+
     }
 }

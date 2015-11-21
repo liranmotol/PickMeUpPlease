@@ -32,5 +32,6 @@ namespace MobileApplication.Models
         public DbSet<counslers> counslers { get; set; }
         public DbSet<students> students { get; set; }
         public DbSet<comments> comments { get; set; }
+        public DbSet<counslers_schedule> counslers_schedule { get; set; }
     }
 }

@@ -14,8 +14,8 @@
     <li>@Html.ActionLink("Branch Info", "BranchesInfo", "Branches", new { BranchId = Model.Branch.BranchId, UserName = Model.Counsler.UserName }, null)</li>
     <li class="ui-disabled">@Html.ActionLink("Change Branch", "ChangeBranchList", "Branches")</li>
 
-    <li >@Html.ActionLink("My Info", "MyInfo", "Counslers")</li>
-    <li class="ui-disabled">@Html.ActionLink("Counslers Info", "CounslersInfoList", "Counslers")</li>
+    <li>@Html.ActionLink("My Info", "MyInfo", "Counslers" ,new { UserName = Model.Counsler.UserName }, null)</li>
+    <li>@Html.ActionLink("Counslers Info", "CounslersInfoList", "Counslers")</li>
     <li>@Html.ActionLink("Let Us Know", "WriteToUs", "Home")</li>
 
 </ul>

@@ -1,4 +1,6 @@
-﻿using MobileApplication.Utils;
+﻿using MobileApplication.Hndlers;
+using MobileApplication.Models;
+using MobileApplication.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,13 @@ namespace MobileApplication.Controllers
             MobileApplication.Models.CounslerInfoModelToView c = new Models.CounslerInfoModelToView(counsler);
             return View("CounslerInfo",c);
         }
+
+        public ActionResult CounslersInfoList(string UserName)
+        {
+            List<CounslerModel> counslers = InMemoryHandler.Counslers;
+            return View(counslers);
+        }
+        
 
         public string UpdateDefaultGradeAndClass(string UserName,string Grade,string SClass)
         {

@@ -89,8 +89,8 @@ namespace MobileApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EnglilushRegister(RegisterModel model)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 // Attempt to register the user
                 MembershipCreateStatus createStatus;
                 Membership.CreateUser(model.UserName, model.Password, model.Email, passwordQuestion: null, passwordAnswer: null, isApproved: true, providerUserKey: null, status: out createStatus);
@@ -104,7 +104,7 @@ namespace MobileApplication.Controllers
                 {
                     ModelState.AddModelError("", ErrorCodeToString(createStatus));
                 }
-            }
+           // }
 
             // If we got this far, something failed, redisplay form
             return View(model);

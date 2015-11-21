@@ -38,7 +38,7 @@ namespace MobileApplication.DAL
                     set_coundler_id = CounslerId,
                     student_concacts_id = StudentId,
                     is_by_other = IsByOther,
-                    picker_name = (PickerName.Length>48)?PickerName.Substring(0,47):PickerName
+                    picker_name = (PickerName.Length > 48) ? PickerName.Substring(0, 47) : PickerName
                 });
             ApplicationContext.Instnace.contextInstance.SaveChanges();
         }
@@ -46,6 +46,8 @@ namespace MobileApplication.DAL
         internal static List<CounslerModel> GetCounslersData()
         {
             List<CounslerModel> list = new List<CounslerModel>();
+            var tempCounslerSchedule = ApplicationContext.Instnace.contextInstance.counslers_schedule.ToList();
+
             ApplicationContext.Instnace.contextInstance.counslers.ToList().ForEach(c =>
             {
                 CounslerModel tempCounsler = new CounslerModel()
@@ -57,14 +59,28 @@ namespace MobileApplication.DAL
                     UserName = c.usernmae,
                     DefaultGrade = c.default_grade,
                     DefaultClass = c.default_class,
-                    WhereAmIDic = new Dictionary<int, string>() {
-                    {1,"some activity" },{2,"some cooler activity" },{3,"boring activity" },{4,"AWSOME activity" },{5,"Homework yay activity" }
-                    },
-                    PhoneNumber=c.phone_mobile
+                    PhoneNumber = c.phone_mobile
                 };
                 try
                 {
                     tempCounsler.AllowedBranchedIds = c.allowed_branches.Split(',').Select(branch => Convert.ToInt32(branch)).ToList();
+                    int dayOfWeek =  (int)DateTime.Now.DayOfWeek;
+                    dayOfWeek = 1;
+                    tempCounsler.WhereAmI = tempCounslerSchedule.Where(counsler => (counsler.counsler_id == c.id && counsler.day == dayOfWeek)).Select(counsler =>
+                        {
+                            return new CCounslersScheduleModel()
+                            {
+                                Hour = counsler.hour_num,
+                                Acticity = counsler.activity,
+                                Comment = counsler.comment,
+                                Day = counsler.day,
+                                Group = counsler.group,
+                                Location = counsler.location,
+                                HourDescription = counsler.hour_desc_
+
+                            };
+
+                        }).ToList();
                 }
                 catch (Exception ex)
                 {
@@ -110,7 +126,7 @@ namespace MobileApplication.DAL
                 StudentModel student = new StudentModel
                 {
                     StudentUserID = s.user_id,
-                    BirthDay = s.birthday?? DateTime.MinValue,
+                    BirthDay = s.birthday ?? DateTime.MinValue,
                     BranchId = s.branch_id ?? 0,
                     FirstName = s.first_name,
                     LastName = s.last_name,
@@ -119,7 +135,7 @@ namespace MobileApplication.DAL
                     HomeNum = s.phone_home,
                     Img = s.image,
                     ID = s.id,
-                    PickUpOptions = (s.pick_up_options != null) ? s.pick_up_options.Split('*').ToList() : new List<string>(),
+                    PickUpOptions = (s.pick_up_options != null) ? s.pick_up_options.Split('*').Where(s2 => !string.IsNullOrEmpty(s2)).ToList() : new List<string>(),
                     Gender = Utils.Utils.GetGender(s.gender),
                     CheckedIn = checkedIn,
                     PickUp = pickedUp,
@@ -129,11 +145,11 @@ namespace MobileApplication.DAL
                     Parent2Name = s.parent_b_first_name + " " + s.parent_b_last_name,
                     Parent2Email = s.parent_b_email,
                     Parent2Num = s.parent_b_phone_mobile,
-                    HealthIssuesString =s.health_issues,
+                    HealthIssuesString = s.health_issues,
                     Address = s.address
 
                 };
-              
+
 
                 students.Add(student);
             });
@@ -347,7 +363,7 @@ namespace MobileApplication.DAL
                 counsler.default_grade = Grade;
 
             }
-               
+
             ApplicationContext.Instnace.contextInstance.SaveChanges();
             return true;
         }
@@ -357,7 +373,7 @@ namespace MobileApplication.DAL
             ApplicationContext.Instnace.contextInstance.comments.Add(
                 new comments()
                 {
-                    message =(Msg.Length>1999)? Msg.Substring(0, 1998):Msg,
+                    message = (Msg.Length > 1999) ? Msg.Substring(0, 1998) : Msg,
                     recieved_date = DateTime.Now,
                     ref_counsler_id = UserId
                 }
