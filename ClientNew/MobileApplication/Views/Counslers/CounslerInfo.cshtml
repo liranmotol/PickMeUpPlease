@@ -22,11 +22,14 @@
     <legend>
         <p>
             <div>
-                @Model.Counsler.FirstName @Model.Counsler.LastName : <a href="tel:@Model.Counsler.PhoneNumber;">@Model.Counsler.PhoneNumber</a>
+                <b>@Model.Counsler.FirstName @Model.Counsler.LastName</b> : <a href="tel:@Model.Counsler.PhoneNumber;">@Model.Counsler.PhoneNumber</a>
             </div>
             <div>
                 <a href="mailto:@Model.Counsler.Email1">@Model.Counsler.Email1</a>
 
+            </div>
+            <div>
+                System ID: @Model.Counsler.ID
             </div>
         </p>
     </legend>

@@ -60,18 +60,26 @@ namespace MobileApplication.Controllers
         public void regAll()
         {
             AccountController a = new AccountController();
-            var counslers = MobileApplication.DAL.ApplicationContext.Instnace.contextInstance.counslers.ToList();
-            foreach (var item in counslers)
+            //var counslers = MobileApplication.DAL.ApplicationContext.Instnace.contextInstance.counslers.ToList();
+            //foreach (var item in counslers)
+            //{
+            //    RegisterModel reg = new RegisterModel()
+            //    {
+            //        Email = item.email_1,
+            //        UserName = item.usernmae,
+            //        Password = "12345678",
+            //        ConfirmPassword = "12345678"
+            //    };
+            //    a.EnglilushRegister(reg);
+            //}
+            RegisterModel reg = new RegisterModel()
             {
-                RegisterModel reg = new RegisterModel()
-                {
-                    Email = item.email_1,
-                    UserName = item.usernmae,
-                    Password = "12345678",
-                    ConfirmPassword = "12345678"
-                };
-                a.EnglilushRegister(reg);
-            }
+                Email = "LiranMotola@gmail.com",
+                UserName = "Liran",
+                Password = "12345678",
+                ConfirmPassword = "12345678"
+            };
+            a.EnglilushRegister(reg);
         }
 
 

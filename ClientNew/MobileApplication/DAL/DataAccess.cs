@@ -59,7 +59,8 @@ namespace MobileApplication.DAL
                     UserName = c.usernmae,
                     DefaultGrade = c.default_grade,
                     DefaultClass = c.default_class,
-                    PhoneNumber = c.phone_mobile
+                    PhoneNumber = c.phone_mobile,
+                     Email1 = c.email_1,
                 };
                 try
                 {
