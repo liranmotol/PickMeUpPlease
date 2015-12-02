@@ -20,16 +20,12 @@
                     <label id="key_@item.Key">@item.Key</label>
                 </td>
                 <td>
-
                     <input id="val_@item.Key" value="@item.Value" style="width:500px" /><br />
                 </td>
                 <td>
-
                     <button type="button" onclick="UpdateValue('@item.Key')">Update</button>
                 </td>
                 <td>
-
-
                     <button type="button" onclick="RemoveValue('@item.Key')">Remove</button>
                 </td>
 
@@ -48,7 +44,11 @@
 </div>
     <script>
         function UpdateValue(key) {
-            var json = { Who: $("#key_" + key).val(), Where: $("#val_" + key).val() };
+            console.log(key);
+
+            var json = { Who: $("#key_" + key).text(), Where: $("#val_" + key).val() };
+            console.log(json);
+
             $.ajax({
                 url: "UpdateShowPickUps",
                 type: "POST",
