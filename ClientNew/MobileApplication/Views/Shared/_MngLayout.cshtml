@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width" />
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body >
+
+        <div data-role="page" data-theme="b">
+            <div data-role="header" style="position:fixed;top:0px;width:100%;z-index:5">
+                @if (IsSectionDefined("Header"))
+                {
+                    @RenderSection("Header")
+                }
+                else
+                {
+                    <h1>@ViewBag.Title</h1>
+                    @*<a data-role="button" data-rel="back" data-icon="back">Back</a>
+                    @Html.ActionLink("Home", "Index", "Home", new { UserName = Session["UserName"] }, new { data_icon = "home", data_rel = "home" })*@
+                    //@Html.Partial("_LoginPartial")
+                }
+            </div>
+            <div data-role="content" style="margin-top:15px">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

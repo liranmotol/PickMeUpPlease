@@ -1,0 +1,32 @@
+﻿@model Dictionary<string, string>
+@{
+    Layout = "~/Views/Shared/_MngLayout.cshtml";
+}
+
+<div class="container">
+    <h2>Where Are We ???</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Who</th>
+                <th>Where</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.Where(i => !string.IsNullOrEmpty(i.Key) && !string.IsNullOrEmpty(i.Value)))
+            {
+                <tr>
+                    <td>@item.Key</td>
+                    <td>@item.Value </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+    <script>
+        setTimeout(function () {
+            location.reload();
+        }, 3000);
+    </script>

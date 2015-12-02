@@ -169,6 +169,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\CounslersController.cs" />
+    <Compile Include="Controllers\GeneralController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="DAL\ApplicationContext.cs" />
@@ -183,6 +184,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BranchModel.cs" />
+    <Compile Include="Models\ClassPickUpModel.cs" />
     <Compile Include="Models\comments.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -304,6 +306,7 @@
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Images\cat-sad.jpg" />
+    <Content Include="Images\englislush.ico" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -363,6 +366,9 @@
     <Content Include="Views\Counslers\CounslerInfo.cshtml" />
     <Content Include="Views\Home\WriteToUs.cshtml" />
     <Content Include="Views\Counslers\CounslersInfoList.cshtml" />
+    <Content Include="Views\General\ShowPickUps.cshtml" />
+    <Content Include="Views\Shared\_MngLayout.cshtml" />
+    <Content Include="Views\General\ManagePickUps.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
