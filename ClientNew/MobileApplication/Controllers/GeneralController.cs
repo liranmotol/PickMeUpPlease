@@ -29,7 +29,7 @@ namespace MobileApplication.Controllers
             if (string.IsNullOrEmpty(Who))
                 return;
             if (ClassPickUpModel.PickUpDic.Any(c => c.Key.ToUpper() == Who.ToUpper()))
-                ClassPickUpModel.PickUpDic[Who] = Where;
+                ClassPickUpModel.PickUpDic[Who.ToUpper()] = Where;
             else
                 ClassPickUpModel.PickUpDic.Add(Who.ToUpper(), Where);
         }

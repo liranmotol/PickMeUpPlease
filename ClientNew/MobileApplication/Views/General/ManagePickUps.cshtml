@@ -1,4 +1,4 @@
-﻿@model Dictionary<string,string>
+﻿@model Dictionary<string, string>
 @{
     Layout = "~/Views/Shared/_MngLayout.cshtml";
 }
@@ -38,54 +38,58 @@
     <div>
         <input id="key_New" />
         <input id="val_New" />
-        <button onclick="UpdateValue('New')">Update</button>
+        <button onclick="NewValue('New')">New Value</button>
 
     </div>
 </div>
-    <script>
-        function UpdateValue(key) {
-            console.log(key);
+<script>
+    function NewValue(key) {
+        var json = { Who: $("#key_" + key).val(), Where: $("#val_" + key).val() };
+        SendAjax(json,key);
+    }
 
-            var json = { Who: $("#key_" + key).text(), Where: $("#val_" + key).val() };
-            console.log(json);
-
-            $.ajax({
-                url: "UpdateShowPickUps",
-                type: "POST",
-                data: json,
-                success: function (data, textStatus, jqXHR) {
-                    console.log(data);
-                    //
-                    if (key == "New") {
-                        location.reload();
-                    }
-
-                    //data - response from server
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR);
-
+    function UpdateValue(key) {
+        var json = { Who: $("#key_" + key).text(), Where: $("#val_" + key).val() };
+        SendAjax(json, key);
+    }
+    function SendAjax(json, key) {
+        $.ajax({
+            url: "UpdateShowPickUps",
+            type: "POST",
+            data: json,
+            success: function (data, textStatus, jqXHR) {
+                console.log(data);
+                //
+                if (key == "New") {
+                    location.reload();
                 }
-            });
-        }
 
-        function RemoveValue(key) {
-            console.log(key);
+                //data - response from server
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
 
-            var json = { Who: key };
-            console.log(json);
+            }
+        });
+    }
 
-            $.ajax({
-                url: "RemoveValue",
-                type: "POST",
-                data: json,
-                success: function (data, textStatus, jqXHR) {
-                    console.log(data);
-                    $('#li_' + key).remove();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR);
-                }
-            });
-        }
-    </script>
+    function RemoveValue(key) {
+        console.log(key);
+
+        var json = { Who: key };
+        console.log(json);
+
+        $.ajax({
+            url: "RemoveValue",
+            type: "POST",
+            data: json,
+            success: function (data, textStatus, jqXHR) {
+                console.log(data);
+                $('#li_' + key).remove();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+            }
+        });
+    }
+</script>
