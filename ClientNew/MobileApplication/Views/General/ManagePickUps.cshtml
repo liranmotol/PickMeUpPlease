@@ -13,7 +13,7 @@
             <td>Remove</td>
 
         </tr>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Where(i => !string.IsNullOrEmpty(i.Key) && !string.IsNullOrEmpty(i.Value)).OrderBy(o => o.Key))
         {
             <tr id="li_@item.Key">
                 <td>

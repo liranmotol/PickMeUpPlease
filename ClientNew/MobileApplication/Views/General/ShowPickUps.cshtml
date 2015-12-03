@@ -15,7 +15,7 @@
         </thead>
         <tbody>
 
-            @foreach (var item in Model.Where(i => !string.IsNullOrEmpty(i.Key) && !string.IsNullOrEmpty(i.Value)))
+            @foreach (var item in Model.Where(i => !string.IsNullOrEmpty(i.Key) && !string.IsNullOrEmpty(i.Value)).OrderBy(o=>o.Key))
             {
                 <tr>
                     <td>@item.Key</td>
