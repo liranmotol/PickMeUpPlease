@@ -5,7 +5,7 @@
 }
 
 
-<div class="container" style="margin-top:35px">
+<div class="container" style="margin-top:35px;overflow: scroll;">
     <table class=" table table-bordered" id="ClassesList">
         <tr>
             <td>Who</td>
@@ -30,13 +30,15 @@
                     {  <option selected="selected" value="@c.ID">@c.FirstName @c.LastName</option>}
                     else
                     {
-                        
                         <option  value="@c.ID">@c.FirstName @c.LastName</option>
                     }
                 }
             </select>
-            <button type="button" onclick="UpdateCounsler('@classGrouped.Key')">Update Counsler</button>
-
+   
+        <button type="button" onclick="UpdateCounsler('@classGrouped.Key')">Update Counsler</button>
+        <span id="updatedCounsler_@classGrouped.Key"></span><br />
+      
+ 
             foreach (ClassPickUpModel item in classGrouped)
             {
                 <tr id="cls_@item.Id">
@@ -73,9 +75,9 @@
 
     function UpdateValue(classId, newValueId, updatealways) {
         var json = { WhoId: classId, Where: $("#" + newValueId).val(), UpdateAlways: updatealways };
-        SendAjax(json, classId, "UpdateShowPickUps");
+        SendAjax(json, "#updated_" + classId, "UpdateShowPickUps");
     }
-    function SendAjax(json, classId, method) {
+    function SendAjax(json, spanId, method) {
         $.ajax({
             url: method,
             type: "POST",
@@ -83,24 +85,26 @@
             success: function (data, textStatus, jqXHR) {
                 console.log(data);
                 if (data == 'True') {
-                    console.log("#updated_" + classId);
-                    $("#updated_" + classId).text("Success !");
+                    console.log($(spanId));
+
+                    $(spanId).text("Success !");
                 }
                 else {
-                    console.log("#updated_" + classId);
-                    $("#updated_" + classId).text("Failed !");
+                
+                    $(spanId).text("Failed !");
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
-                $("#updated_" + classId).text("Failed !");
+                console.log("error");
+                $(spanId).text("Failed !");
             }
         });
     }
 
     function UpdateCounsler(groupId) {
         var json = { GroupId: groupId, CounslerId: $("#select_" + groupId).val() };
-        SendAjax(json, 0, "UpdateCounslerPickUps");
+        console.log("updatedCounsler_" + groupId);
+        SendAjax(json, "#updatedCounsler_"+groupId, "UpdateCounslerPickUps");
 
 
     }

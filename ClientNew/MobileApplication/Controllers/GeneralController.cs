@@ -52,10 +52,11 @@ namespace MobileApplication.Controllers
             return true;
         }
 
-        public void UpdateCounslerPickUps(int GroupId, int CounslerId)
+        public bool UpdateCounslerPickUps(int GroupId, int CounslerId)
         {
             ClassPickUpModel.UpdateCounslerGroup(GroupId, InMemoryHandler.GetCounslerById(CounslerId));
             DoRefresh = true;
+            return true;
         }
 
     }
