@@ -60,12 +60,12 @@ namespace MobileApplication.DAL
                     DefaultGrade = c.default_grade,
                     DefaultClass = c.default_class,
                     PhoneNumber = c.phone_mobile,
-                     Email1 = c.email_1,
+                    Email1 = c.email_1,
                 };
                 try
                 {
                     tempCounsler.AllowedBranchedIds = c.allowed_branches.Split(',').Select(branch => Convert.ToInt32(branch)).ToList();
-                    int dayOfWeek =  (int)DateTime.Now.DayOfWeek;
+                    int dayOfWeek = (int)DateTime.Now.DayOfWeek;
                     dayOfWeek = 1;
                     tempCounsler.WhereAmI = tempCounslerSchedule.Where(counsler => (counsler.counsler_id == c.id && counsler.day == dayOfWeek)).Select(counsler =>
                         {
@@ -381,6 +381,33 @@ namespace MobileApplication.DAL
                 );
             ApplicationContext.Instnace.contextInstance.SaveChanges();
             return true;
+        }
+
+        internal static List<ClassPickUpModel> GetClassPickUp()
+        {
+            List<ClassPickUpModel> temp = ApplicationContext.Instnace.contextInstance.class_pickup.
+            Select(s => new ClassPickUpModel()
+            {
+                EngName = s.eng_name,
+                HebName = s.heb_name,
+                Where = s.where,
+                GroupId = s.group_id,
+                 Id=s.id
+            }
+            ).ToList();
+
+            return temp;
+        }
+
+        internal static void UpdateWhereFord(int ClassId, string Where)
+        {
+            var cls = ApplicationContext.Instnace.contextInstance.class_pickup.Where(c => c.id == ClassId).FirstOrDefault();
+            if (cls != null)
+            {
+                cls.where=Where;
+            }
+
+            ApplicationContext.Instnace.contextInstance.SaveChanges();
         }
     }
 }

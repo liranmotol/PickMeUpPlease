@@ -16,7 +16,7 @@ namespace MobileApplication.Hndlers
         public static List<StudentsCheckedInOutModel> Today_PickedUp { get; private set; }
 
         public static List<contacts> Contacts { get; private set; }
-
+        public static List<ClassPickUpModel> ClassPicks { get; private set; }
 
         public static List<CounslerModel> Counslers { get; private set; }
         public static List<BranchModel> Branches { get; private set; }
@@ -87,7 +87,7 @@ namespace MobileApplication.Hndlers
             Counslers = DataAccess.GetCounslersData();
             Branches = DataAccess.GetBranchesData();
             Students = DataAccess.GetStudentsData();
-
+            ClassPicks = DataAccess.GetClassPickUp();
             Branches.ForEach(b =>
             {
                 b.BuildBranch(Students);

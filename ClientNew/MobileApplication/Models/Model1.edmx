@@ -16,6 +16,16 @@
           <Property Name="contact_a_contacts_id" Type="int" />
           <Property Name="contact_b_contacts_id" Type="int" />
         </EntityType>
+        <EntityType Name="class_pickup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eng_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="heb_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="where" Type="nvarchar" MaxLength="15" />
+          <Property Name="group_id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="comments">
           <Key>
             <PropertyRef Name="id" />
@@ -127,6 +137,7 @@
         </EntityType>
         <EntityContainer Name="pickmepleasedbModelStoreContainer">
           <EntitySet Name="branches" EntityType="Self.branches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="class_pickup" EntityType="Self.class_pickup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="comments" EntityType="Self.comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="contacts" EntityType="Self.contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="counslers" EntityType="Self.counslers" Schema="dbo" store:Type="Tables" />
@@ -168,6 +179,7 @@
           <EntitySet Name="students" EntityType="pickmepleasedbModel.students" />
           <EntitySet Name="comments" EntityType="pickmepleasedbModel.comments" />
           <EntitySet Name="counslers_schedule" EntityType="pickmepleasedbModel.counslers_schedule" />
+          <EntitySet Name="class_pickup" EntityType="pickmepleasedbModel.class_pickup" />
         </EntityContainer>
         <EntityType Name="branches">
           <Key>
@@ -268,6 +280,16 @@
           <Property Name="group" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="hour_desc_" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="class_pickup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eng_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="heb_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="where" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="group_id" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -399,6 +421,17 @@
                 <ScalarProperty Name="hour_num" ColumnName="hour_num" />
                 <ScalarProperty Name="day" ColumnName="day" />
                 <ScalarProperty Name="counsler_id" ColumnName="counsler_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="class_pickup">
+            <EntityTypeMapping TypeName="pickmepleasedbModel.class_pickup">
+              <MappingFragment StoreEntitySet="class_pickup">
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="where" ColumnName="where" />
+                <ScalarProperty Name="heb_name" ColumnName="heb_name" />
+                <ScalarProperty Name="eng_name" ColumnName="eng_name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

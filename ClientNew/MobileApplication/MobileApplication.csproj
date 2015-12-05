@@ -185,6 +185,9 @@
     </Compile>
     <Compile Include="Models\BranchModel.cs" />
     <Compile Include="Models\ClassPickUpModel.cs" />
+    <Compile Include="Models\class_pickup.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\comments.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -307,6 +310,7 @@
     </EntityDeploy>
     <Content Include="Images\cat-sad.jpg" />
     <Content Include="Images\englislush.ico" />
+    <Content Include="Images\englislush_logo.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

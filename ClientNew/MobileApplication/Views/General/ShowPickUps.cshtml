@@ -1,32 +1,182 @@
-﻿@model Dictionary<string, string>
+﻿@using MobileApplication.Models;
+@model List<ClassPickUpModel>
 @{
     Layout = "~/Views/Shared/_MngLayout.cshtml";
 }
 
+<style>
+    .divContent {
+        width: 900px;
+        height: 400px;
+        float: left;
+        font-size:40px
+    }
+
+    .bgc_1 {
+        background-color: red;
+    }
+
+    .bgc_2 {
+        background-color: lightgreen;
+    }
+
+    .bgc_3 {
+        background-color: lightblue;
+    }
+
+    .bgc_4 {
+        background-color: yellow;
+    }
+
+    .bgc_5 {
+        background-color: red;
+    }
+
+    .bgc_6 {
+        background-color: lightgreen;
+    }
+
+    .bgc_7 {
+        background-color: lightblue;
+    }
+
+    .bgc_8 {
+        background-color: yellow;
+    }
+
+    #engLogo {
+        width:200px;
+        height:100px;
+        margin-left:400px
+    }
+
+    #slide1_container {
+        width: 900px;
+        height: 800px;
+        overflow: hidden; /* So the sliding bit doesn't stick out. */
+        margin: 0 auto;
+    }
+
+    #slide1_images {
+        /* This is the bit that moves. It has 4 images, so 4 * 450 = 1800. You could use javascript
+    to work this out instead by counting images. */
+        width: 2700px;
+        -webkit-transition: all 1.0s ease-in-out;
+        -moz-transition: all 1.0s ease-in-out;
+        -o-transition: all 1.0s ease-in-out;
+        transition: all 1.0s ease-in-out;
+    }
+
+        #slide1_images img {
+            padding: 0;
+            margin: 0;
+            float: left; /* All the images are in a row next to each other. */
+        }
+
+    .hebrew {
+        text-align: right;
+    }
+  
+</style>
+
+<script>
+    function changePage(groupIndex) {
+        console.log(groupIndex);
+        $("#slide1_images").css("transform", "translateX(" + (groupIndex - 1) * -900 + "px)");
+        $("#slide1_controls span").removeClass("selected");
+        $('#group_' + groupIndex).addClass("selected");
+    }
+
+
+</script>
+
 <div class="container">
-    <h2>Where Are We ???</h2>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Who</th>
-                <th>Where</th>
-            </tr>
 
-        </thead>
-        <tbody>
-
-            @foreach (var item in Model.Where(i => !string.IsNullOrEmpty(i.Key) && !string.IsNullOrEmpty(i.Value)).OrderBy(o=>o.Key))
+    <div id="slide1_container" class="shadow">
+        <img id="engLogo" src="~/Images/englislush_logo.jpg" alt="Englilush Pick Up" >
+        <div id="slide1_images">
+            @foreach (IGrouping<int, ClassPickUpModel> classGrouped in Model.GroupBy(m => m.GroupId))
             {
-                <tr>
-                    <td>@item.Key</td>
-                    <td>@item.Value </td>
-                </tr>
+                <table class="table table-bordered divContent" id="group_@classGrouped.Key">
+                    <thead>
+                        <tr>
+                            <th>Who</th>
+                            <th>Where</th>
+                            <th  class="hebrew" >מי</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @{int i = 0;}
+                        @foreach (ClassPickUpModel cls in classGrouped)
+                        {
+                            i++;
+                            <tr class="bgc_@i">
+
+                                <td>@cls.EngName</td>
+                                <td>@cls.Where</td>
+                                <td class="hebrew">@cls.HebName</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <b>
+                                    @classGrouped.FirstOrDefault().GetGroupsCounslerDetails()
+                                </b>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
             }
-        </tbody>
-    </table>
+
+        </div>
+    </div>
+
+
+
 </div>
-    <script>
+<script>
+    var globalIndex = 2;
+    var reloadCounter = 0;
+    function rotateContent() {
         setTimeout(function () {
-            location.reload();
-        }, 3000);
-    </script>
+            if (globalIndex > 2)
+                globalIndex = 0;
+            reloadCounter++;
+
+            if (reloadCounter >= 7 )
+                location.reload();
+            else {
+                changePage(++globalIndex);
+                rotateContent();
+            }
+            //
+        }, 1 * 1000);
+    }
+    changePage(2);
+    rotateContent();
+
+    function checkRefresh() {
+        setTimeout(function () {
+            $.ajax({
+                url: "DoRefreshRequest",
+                type: "POST",
+                success: function (data) {
+                    console.log(data);
+                    if (data == 'True') {
+                        location.reload();
+                    }
+                    else
+                        checkRefresh();
+                }
+            });
+        }, 5000);
+        
+    }
+    checkRefresh();
+
+</script>
