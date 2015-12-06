@@ -312,6 +312,7 @@
     <Content Include="Images\englislush.ico" />
     <Content Include="Images\englislush_logo.jpg" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\PickUp.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
