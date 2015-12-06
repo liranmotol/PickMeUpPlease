@@ -5,50 +5,65 @@
 }
 
 <style>
+    tr {
+        vertical-align: bottom;
+        border-bottom-style: solid;
+        border-bottom-width:10px;
+    }
+
     .divContent {
         width: 900px;
         height: 450px;
         float: left;
+        font-family:futura;
         font-size: 40px;
         font-weight: bold;
     }
 
     .bgc_1 {
         color: #CC232A;
+        border-bottom-color: #CC232A;
     }
 
     .bgc_2 {
         color: #9DBC54;
+        border-bottom-color: #9DBC54;
     }
 
     .bgc_3 {
         color: #0382C7;
+        border-bottom-color: #0382C7;
     }
 
     .bgc_4 {
         color: #F0C430;
+        border-bottom-color: #F0C430;
     }
 
     .bgc_5 {
         color: #CC232A;
+        border-bottom-color: #CC232A;
     }
 
     .bgc_6 {
         color: #9DBC54;
+        border-bottom-color: #9DBC54;
     }
 
     .bgc_7 {
         color: #0382C7;
+        border-bottom-color: #0382C7;
     }
 
     .bgc_8 {
         color: #F0C430;
+        border-bottom-color: #F0C430;
     }
 
     #engLogo {
-        width: 272px;
-        height: 100px;
-        margin-left: 317px;
+        width: 576px;
+        height: 160px;
+        margin-left: 175px;
     }
 
     #slide1_container {
@@ -85,6 +100,10 @@
     .tdedge {
         width: 150px;
     }
+
+    tfoot tr{
+        height:100px;
+    }
 </style>
 
 <script>
@@ -101,19 +120,14 @@
 <div class="container">
 
     <div id="slide1_container" class="shadow">
-        <img id="engLogo" src="~/Images/logo.png" alt="Englilush Pick Up">
+        <a href="~/Home/Index">
+            <img id="engLogo" src="~/Images/PickUp.jpg" alt="Englilush Pick Up">
+        </a>
         <div id="slide1_images">
             @foreach (IGrouping<int, ClassPickUpModel> classGrouped in Model.GroupBy(m => m.GroupId))
             {
-                <table class="table table-bordered divContent" id="group_@classGrouped.Key">
-                    <thead>
-                        <tr>
-                            <th class="tdedge">Who</th>
-                            <th class="centerthis">Where</th>
-                            <th class="hebrew tdedge">מי</th>
-                        </tr>
+                <table class="divContent" id="group_@classGrouped.Key">
 
-                    </thead>
                     <tbody>
                         @{int i = 0;}
                         @foreach (ClassPickUpModel cls in classGrouped)
@@ -121,15 +135,15 @@
                             i++;
                             <tr class="bgc_@i">
 
-                                <td>@cls.EngName</td>
+                                <td class="tdedge centerthis">@cls.EngName</td>
                                 <td class="centerthis">@cls.Where</td>
-                                <td class="hebrew">@cls.HebName</td>
+                                <td class="hebrew tdedge centerthis">@cls.HebName</td>
 
                             </tr>
                         }
                     </tbody>
                     <tfoot>
-                        <tr>
+                        <tr class="tfCls">
                             <td class="centerthis" colspan="3">
 
                                 @classGrouped.FirstOrDefault().GetGroupsCounslerDetails()
@@ -163,7 +177,7 @@
                 rotateContent();
             }
             //
-        }, 7 * 1000);
+        }, 5 * 1000);
     }
     changePage(2);
     rotateContent();
