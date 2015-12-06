@@ -45,6 +45,9 @@ namespace MobileApplication.Models
                 ClassPickUpDic.Add(2, InMemoryHandler.GetCounslerById(12));
                 //jacklyn
                 ClassPickUpDic.Add(3, InMemoryHandler.GetCounslerById(13));
+                //Jen
+                ClassPickUpDic.Add(4, InMemoryHandler.GetCounslerById(8));
+
             }
         }
 
@@ -62,9 +65,31 @@ namespace MobileApplication.Models
             CounslerModel counsler = null;
             ClassPickUpDic.TryGetValue(GroupId, out counsler);
             if (counsler !=null)
-                return counsler.FirstName+ " " +counsler.LastName +":"+counsler.PhoneNumber;
+                return GetTeamLeaderFixedNameByGroupId(GroupId)+": "+ counsler.FirstName+ " " +counsler.PhoneNumber;
             return "";
         }
+        private string GetTeamLeaderFixedNameByGroupId(int id)
+        {
+            string res = null;
+            switch (id)
+            { 
+                case 1:
+                   res = "A Team Leader";
+                    break;
+                case 2:
+                    res = "B Team Leader";
+                    break;
+                case 3:
+                    res = "C & D Team Leader";
+                    break;
+                case 4:
+                    res = "Gan Team Leader";
+                    break;
+            }
+            return res;
+        }
+
+
         public int GetGroupsCounslerId()
         {
             CounslerModel counsler = null;

@@ -9,45 +9,46 @@
         width: 900px;
         height: 450px;
         float: left;
-        font-size:40px
+        font-size: 40px;
+        font-weight: bold;
     }
 
     .bgc_1 {
-        background-color: red;
+        color: #CC232A;
     }
 
     .bgc_2 {
-        background-color: lightgreen;
+        color: #9DBC54;
     }
 
     .bgc_3 {
-        background-color: lightblue;
+        color: #0382C7;
     }
 
     .bgc_4 {
-        background-color: yellow;
+        color: #F0C430;
     }
 
     .bgc_5 {
-        background-color: red;
+        color: #CC232A;
     }
 
     .bgc_6 {
-        background-color: lightgreen;
+        color: #9DBC54;
     }
 
     .bgc_7 {
-        background-color: lightblue;
+        color: #0382C7;
     }
 
     .bgc_8 {
-        background-color: yellow;
+        color: #F0C430;
     }
 
     #engLogo {
-        width:200px;
-        height:100px;
-        margin-left:400px
+        width: 272px;
+        height: 100px;
+        margin-left: 317px;
     }
 
     #slide1_container {
@@ -60,7 +61,7 @@
     #slide1_images {
         /* This is the bit that moves. It has 4 images, so 4 * 450 = 1800. You could use javascript
     to work this out instead by counting images. */
-        width: 2700px;
+        width: 3600px;
         -webkit-transition: all 1.0s ease-in-out;
         -moz-transition: all 1.0s ease-in-out;
         -o-transition: all 1.0s ease-in-out;
@@ -76,7 +77,14 @@
     .hebrew {
         text-align: right;
     }
-  
+
+    .centerthis {
+        text-align: center;
+    }
+
+    .tdedge {
+        width: 150px;
+    }
 </style>
 
 <script>
@@ -93,16 +101,16 @@
 <div class="container">
 
     <div id="slide1_container" class="shadow">
-        <img id="engLogo" src="~/Images/englislush_logo.jpg" alt="Englilush Pick Up" >
+        <img id="engLogo" src="~/Images/logo.png" alt="Englilush Pick Up">
         <div id="slide1_images">
             @foreach (IGrouping<int, ClassPickUpModel> classGrouped in Model.GroupBy(m => m.GroupId))
             {
                 <table class="table table-bordered divContent" id="group_@classGrouped.Key">
                     <thead>
                         <tr>
-                            <th>Who</th>
-                            <th>Where</th>
-                            <th  class="hebrew" >מי</th>
+                            <th class="tdedge">Who</th>
+                            <th class="centerthis">Where</th>
+                            <th class="hebrew tdedge">מי</th>
                         </tr>
 
                     </thead>
@@ -114,7 +122,7 @@
                             <tr class="bgc_@i">
 
                                 <td>@cls.EngName</td>
-                                <td>@cls.Where</td>
+                                <td class="centerthis">@cls.Where</td>
                                 <td class="hebrew">@cls.HebName</td>
 
                             </tr>
@@ -122,10 +130,9 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="3">
-                                <b>
-                                    @classGrouped.FirstOrDefault().GetGroupsCounslerDetails()
-                                </b>
+                            <td class="centerthis" colspan="3">
+
+                                @classGrouped.FirstOrDefault().GetGroupsCounslerDetails()
                             </td>
                         </tr>
                     </tfoot>
@@ -141,14 +148,15 @@
 </div>
 <script>
     var globalIndex = 2;
+    var numOfGroups = 4;
     var reloadCounter = 0;
     function rotateContent() {
         setTimeout(function () {
-            if (globalIndex > 2)
+            if (globalIndex > numOfGroups - 1)
                 globalIndex = 0;
             reloadCounter++;
 
-            if (reloadCounter >= 7 )
+            if (reloadCounter >= 7)
                 location.reload();
             else {
                 changePage(++globalIndex);
@@ -175,7 +183,7 @@
                 }
             });
         }, 5000);
-        
+
     }
     checkRefresh();
 
