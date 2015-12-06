@@ -67,18 +67,23 @@ namespace MobileApplication.Hndlers
         }
 
 
+        private static DateTime? LastRefreshed=null;
         private static void ReInitialize(object sender, System.Timers.ElapsedEventArgs eee)
         {
-            BackgroundInitialize();
+            if (LastRefreshed!=null
+                || LastRefreshed.Value.Day!=DateTime.Now.Day)
+                BackgroundInitialize();
         }
         private static void BackgroundInitialize()
         {
+
             Task.Run(() => Initialize());
         }
         #endregion initialization
 
         private static void Initialize()
         {
+            LastRefreshed= DateTime.Now;
             Contacts = DataAccess.GetContacts();
 
             Today_PickedUp = DataAccess.GetTodayPickedUp();

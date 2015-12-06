@@ -3,8 +3,11 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
+<style>
+    .btnSmall {
+        width:20px;
+    }
+</style>
 
 <div class="container" style="margin-top:35px;overflow: scroll;">
     <table class=" table table-bordered" id="ClassesList">
@@ -42,21 +45,21 @@
  
             foreach (ClassPickUpModel item in classGrouped)
             {
-                <tr   id="cls_@item.Id">
+                <tr id="cls_@item.Id">
                     <td>
                         @item.EngName
                     </td>
                     <td>
-                        <input id="val_@item.Id" value="@item.Where" style="width:500px" /><br />
+                        <input id="val_@item.Id" value="@item.Where" style="width:150px" /><br />
                     </td>
                     <td>
                         @item.HebName
                     </td>
                     <td>
-                        <button type="button" onclick="UpdateValue('@item.Id','val_@item.Id',false)">Update</button>
+                        <button class="btnSmall" type="button" onclick="UpdateValue('@item.Id','val_@item.Id',false)">Today</button>
                     </td>
                     <td>
-                        <button type="button" onclick="UpdateValue('@item.Id','val_@item.Id',true)">Update</button>
+                        <button class="btnSmall" type="button" onclick="UpdateValue('@item.Id','val_@item.Id',true)">Always</button>
                     </td>
                     <td>
                         &nbsp;
