@@ -1,0 +1,102 @@
+<html>
+<head>
+ <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="http://www.jsoneditoronline.org/app.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://www.jsoneditoronline.org/app.min.css">
+    
+
+</head>
+<body>
+    <style type="text/css">
+    /*body {
+            font: 11pt arial;
+        }*/
+
+    #jsoneditor {
+        width: 500px;
+    }
+</style>
+<div ng-app="myApp"  ng-controller="myCtrl">
+{{students}}
+
+
+    
+    <button type="button" ng-click='sendPost()'>Send</button>
+
+    
+    
+    <br />
+	<br /><br />
+	  Cors test:
+    <br />
+    <button onclick="corsQa()">QA</button><br />
+    <button onclick="corsProd()">Prod</button><br />
+
+</div>
+
+    <div id="jsoneditor"></div>
+
+
+
+    <script type="text/javascript">
+		var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope,$http) {
+//var url = "http://qapickeme.azurewebsites.net/students/GetStudentsInfoWs?callback=JSON_CALLBACK";
+var url = "http://localhost:38269/students/GetStudentsInfoWs?callback=JSON_CALLBACK";
+
+    $scope.students = '';
+	$scope.sendPost = function() {
+	console.log("sendPost");
+       $http.jsonp(url)
+		.success(function(data){
+			console.log(data);
+    }).
+    error(function(data, status, headers, config) {
+        console.log(status);
+		console.log(headers);
+		console.log(config);
+    });
+	};
+	});
+	 function JSON_CALLBACK(data)
+	 {
+	 console.log("JSON_CALLBACK");
+	 console.log(data);
+	 }
+
+
+  
+      
+		function sentCorsRequest(env)
+		{
+		
+		}
+		function corsProd()
+		{
+		sentCorsRequest("http://pickmepleaseclient.azurewebsites.net");
+		}
+		function corsQa()
+		{
+		sentCorsRequest("http://qapickeme.azurewebsites.net");
+		}
+		
+    </script>
+    <script type="text/javascript">
+        function displayJson(json) {
+            var container = document.getElementById('jsoneditor');
+
+            var options = {
+                mode: 'view'
+            };
+
+            container.innerHTML = "";
+            var editor = new JSONEditor(container, options, json);
+        }
+
+
+    displayJson();
+    </script>
+
+</body>
+</html>
+<!-- We are using Hadar’s account: hadar-shchori, htsol123 -->
