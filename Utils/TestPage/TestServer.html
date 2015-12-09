@@ -39,6 +39,13 @@
 
     <br />
 	<br /><br />
+	  Cors test:
+    <br />
+    <button onclick="corsQa()">QA</button><br />
+    <button onclick="corsProd()">Prod</button><br />
+
+    <br />
+	<br /><br />
     Test Method:
     <br />
     <button onclick="TestMethod()">Test Method</button><br />
@@ -167,6 +174,45 @@
 
 
         }
+		
+		function sentCorsRequest(env)
+		{
+		
+			//var request = {
+                //grant_type: "password",
+                //username: "liran1",
+                //password: "liran1"
+            //}
+            //var jsonAsString = JSON.stringify(request);
+			//jsonAsString="grant_type=password&username=liran1&password=liran1";
+			//var urlEnc = encodeURIComponent(temp);
+            $.ajax({
+                type: "POST",
+                url: env+"/students/GetStudentsInfoWs",
+                //data: jsonAsString,
+				Accept: "application/json",
+                contentType: "application/x-www-form-urlencoded",
+                dataType: "jsonp",
+                success: function (data) {
+                    //console.log(data);
+                    displayJson(data);
+					//token = data.access_token;
+                },
+                error: function (data) {
+                    //console.log(data);
+                    //displayJson(data);
+
+                }
+            });
+		}
+		function corsProd()
+		{
+		sentCorsRequest("http://pickmepleaseclient.azurewebsites.net");
+		}
+		function corsQa()
+		{
+		sentCorsRequest("http://qapickeme.azurewebsites.net");
+		}
 		
 		function TestMethod()
 		{
