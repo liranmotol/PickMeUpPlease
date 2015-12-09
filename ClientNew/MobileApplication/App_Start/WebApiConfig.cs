@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace MobileApplication
 {
@@ -15,7 +16,9 @@ namespace MobileApplication
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            EnableCrossSiteRequests(config);
 
+            config.EnableCors();
             JsonSerializerSettings jSettings = new Newtonsoft.Json.JsonSerializerSettings();
             config.Formatters.JsonFormatter.SerializerSettings = jSettings;
             config.Formatters.Remove(config.Formatters.XmlFormatter);
@@ -24,6 +27,15 @@ namespace MobileApplication
             // To avoid processing unexpected or malicious queries, use the validation settings on QueryableAttribute to validate incoming queries.
             // For more information, visit http://go.microsoft.com/fwlink/?LinkId=279712.
             //config.EnableQuerySupport();
+        }
+
+        private static void EnableCrossSiteRequests(HttpConfiguration config)
+        {
+            var cors = new EnableCorsAttribute(
+                origins: "*",
+                headers: "*",
+                methods: "*");
+            config.EnableCors(cors);
         }
     }
 }

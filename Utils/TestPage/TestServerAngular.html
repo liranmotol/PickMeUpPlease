@@ -41,8 +41,8 @@
     <script type="text/javascript">
 		var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope,$http) {
-//var url = "http://qapickeme.azurewebsites.net/students/GetStudentsInfoWs?callback=JSON_CALLBACK";
-var url = "http://localhost:38269/students/GetStudentsInfoWs?callback=JSON_CALLBACK";
+var url = "http://qapickeme.azurewebsites.net/students/GetStudentsInfoWs?callback=JSON_CALLBACK";
+//var url = "http://localhost:38269/students/GetStudentsInfoWs?callback=JSON_CALLBACK";
 
     $scope.students = '';
 	$scope.sendPost = function() {

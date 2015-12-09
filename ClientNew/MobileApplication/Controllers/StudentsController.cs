@@ -4,12 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
 
 namespace MobileApplication.Controllers
 {
-    [CompressAttribute]
     [Authorize]
+    [CompressAttribute]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class StudentsController : Controller
     {
         //
@@ -123,6 +125,15 @@ namespace MobileApplication.Controllers
             var studentLightList = StudentLight.BuildStudentLight(b.StudentsList);
             StudentLightModelToView studentModelToView = new StudentLightModelToView(studentLightList, counsler);
             return View(studentModelToView);
+        }
+
+        public string GetStudentsInfoWs()
+        {
+            var javaScriptSerializer = new
+            System.Web.Script.Serialization.JavaScriptSerializer();
+            JsonResult jr= Json(MobileApplication.Hndlers.InMemoryHandler.Students, JsonRequestBehavior.AllowGet);
+            string jsonString = javaScriptSerializer.Serialize(jr.Data);
+            return "JSON_CALLBACK([" + jsonString + "])"; ;
         }
 
     }
